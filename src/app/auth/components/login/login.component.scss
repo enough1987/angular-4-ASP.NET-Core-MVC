@@ -1,21 +1,27 @@
 
-$progbar1: blue;
 $progbar2: white;
 $progbar3: #27AE60;
+$progbar4: rgba(0, 0, 0, 0.4);
+$progbar5: $progbar2; //#ccc;
+$progbar6: #2C3E50;
+$progbar7: #667;
+$progbar1: $progbar6; //blue;
 
 .sign-in {
     
     &__form {
         width: 60%;
+        max-width: 600px;
+        min-width: 300px;
         margin: 200px auto;
 	    text-align: center;
 	    position: relative;
     }
     &__form fieldset {
-	    background: white;
+	    background: $progbar2;
 	    border: 0 none;
 	    border-radius: 3px;
-	    box-shadow: 0 0 15px 1px rgba(0, 0, 0, 0.4);
+	    box-shadow: 0 0 15px 1px $progbar4;
 	    padding: 20px 30px;
 	    box-sizing: border-box;
 	    width: 80%;
@@ -27,21 +33,44 @@ $progbar3: #27AE60;
     }
     &__form input, &__form textarea {
 	    padding: 15px;
-	    border: 1px solid #ccc;
+	    border: 1px solid $progbar5;
 	    border-radius: 3px;
 	    margin-bottom: 10px;
 	    width: 100%;
 	    box-sizing: border-box;
 	    font-family: montserrat;
-	    color: #2C3E50;
+	    color: $progbar6;
 	    font-size: 13px;
+        resize: none;
     }
- 
-    &-input {
-        width: 100%;
-        &__button {
-            width: 100%;    
-        }
+
+    /*buttons*/
+    &__form .action-button {
+        width: 100px;
+        background: $progbar3;
+        font-weight: bold;
+        color: $progbar5;
+        border: 0 none;
+        border-radius: 1px;
+        cursor: pointer;
+        padding: 10px 5px;
+        margin: 10px 5px;
+    }
+    &__form .action-button:hover, &__form .action-button:focus {
+        box-shadow: 0 0 0 2px $progbar5, 0 0 0 3px $progbar3;
+    }
+
+    .fs-title {
+        font-size: 15px;
+        text-transform: uppercase;
+        color: $progbar6;
+        margin-bottom: 10px;
+    }
+    .fs-subtitle {
+        font-weight: normal;
+        font-size: 13px;
+        color: $progbar7;
+        margin-bottom: 20px;
     }
 
     .progressbar {
@@ -55,7 +84,7 @@ $progbar3: #27AE60;
             color: $progbar1;
             text-transform: uppercase;
             font-size: 9px;
-            width: 33.33%;
+            width: 50%; //33.33%;
             float: left;
             position: relative;
         }
@@ -84,11 +113,11 @@ $progbar3: #27AE60;
         &-item:first-child:after {
             content: none; 
         }
-        &-item.active:before,  &-item.active:after{
+        &-item__active:before,  &-item__active:after{
             background: $progbar3;
-            color: $progbar1;
+            color: $progbar2;
         }
-
     }
+
 
 }

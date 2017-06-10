@@ -4,6 +4,12 @@ import { Router } from "@angular/router";
 
 import { AuthService } from "../../services/auth.service";
 
+// this enum is used for changing step of login
+enum LoginSteps {
+  One,
+  two
+}
+
 
 @Component({
   selector: 'app-login',
@@ -12,12 +18,19 @@ import { AuthService } from "../../services/auth.service";
 })
 export class LoginComponent {
 
-  constructor(private router: Router, private authService: AuthService) { 
+  loginSteps = LoginSteps; // Store a reference to the enum
+  loginStep:LoginSteps = LoginSteps.One; // page step on init
 
+  constructor(private router: Router, private authService: AuthService) { 
     console.log(" constructor of login ");
   }
 
   ngOnInit() {
+  }
+
+  // it changes step of login
+  changeStep(step: LoginSteps): void {
+    this.loginStep = step;
   }
 
   // it signed in user
