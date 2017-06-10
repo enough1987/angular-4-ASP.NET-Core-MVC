@@ -73,6 +73,10 @@ $progbar1: $progbar6; //blue;
         margin-top: 10px;
         text-align: left;
 
+        .redirect-btn {
+            cursor: pointer;
+        }
+
         .redirect-btn:active { 
             background-color: unset;
             border: unset;
