@@ -1,16 +1,94 @@
 
+$progbar1: blue;
+$progbar2: white;
+$progbar3: #27AE60;
+
 .sign-in {
     
     &__form {
         width: 60%;
         margin: 200px auto;
+	    text-align: center;
+	    position: relative;
     }
-    
+    &__form fieldset {
+	    background: white;
+	    border: 0 none;
+	    border-radius: 3px;
+	    box-shadow: 0 0 15px 1px rgba(0, 0, 0, 0.4);
+	    padding: 20px 30px;
+	    box-sizing: border-box;
+	    width: 80%;
+	    margin: 0 10%;
+	    position: relative;
+    }
+    &__form fieldset:not(:first-of-type) {
+	    display: none;
+    }
+    &__form input, &__form textarea {
+	    padding: 15px;
+	    border: 1px solid #ccc;
+	    border-radius: 3px;
+	    margin-bottom: 10px;
+	    width: 100%;
+	    box-sizing: border-box;
+	    font-family: montserrat;
+	    color: #2C3E50;
+	    font-size: 13px;
+    }
+ 
     &-input {
         width: 100%;
         &__button {
             width: 100%;    
         }
+    }
+
+    .progressbar {
+        margin-bottom: 30px;
+        overflow: hidden;
+        /*CSS counters to number the steps*/
+        counter-reset: step;
+
+        &-item {
+            list-style-type: none;
+            color: $progbar1;
+            text-transform: uppercase;
+            font-size: 9px;
+            width: 33.33%;
+            float: left;
+            position: relative;
+        }
+        &-item:before {
+            content: counter(step);
+            counter-increment: step;
+            width: 20px;
+            line-height: 20px;
+            display: block;
+            font-size: 10px;
+            color: $progbar2;
+            background: $progbar1;
+            border-radius: 3px;
+            margin: 0 auto 5px auto;
+        }
+        &-item:after {
+            content: '';
+            width: 100%;
+            height: 2px;
+            background: $progbar1;
+            position: absolute;
+            left: -50%;
+            top: 9px;
+            z-index: -1;
+        }
+        &-item:first-child:after {
+            content: none; 
+        }
+        &-item.active:before,  &-item.active:after{
+            background: $progbar3;
+            color: $progbar1;
+        }
+
     }
 
 }

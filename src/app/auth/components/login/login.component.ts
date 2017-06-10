@@ -13,6 +13,7 @@ import { AuthService } from "../../services/auth.service";
 export class LoginComponent {
 
   constructor(private router: Router, private authService: AuthService) { 
+
     console.log(" constructor of login ");
   }
 

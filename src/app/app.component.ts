@@ -7,6 +7,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AppComponent {
 
+
   constructor() { 
     console.log(" constructor of app ");
   }
