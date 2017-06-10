@@ -44,4 +44,12 @@ export class LoginComponent {
     });
   }
 
+  navToSignUp() {
+    console.log( " nav 1");
+  }
+
+  navToForgotPass() {
+    console.log( " nav 2");    
+  }
+
 }

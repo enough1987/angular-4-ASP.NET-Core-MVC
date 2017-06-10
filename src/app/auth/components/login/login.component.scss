@@ -17,9 +17,8 @@ $progbar1: $progbar6; //blue;
 	    text-align: center;
 	    position: relative;
     }
-    &__form fieldset {
+    &__form .fieldset-view {
 	    background: $progbar2;
-	    border: 0 none;
 	    border-radius: 3px;
 	    box-shadow: 0 0 15px 1px $progbar4;
 	    padding: 20px 30px;
@@ -28,10 +27,7 @@ $progbar1: $progbar6; //blue;
 	    margin: 0 10%;
 	    position: relative;
     }
-    &__form fieldset:not(:first-of-type) {
-	    display: none;
-    }
-    &__form input, &__form textarea {
+    &__form .login-input, &__form .login-textarea {
 	    padding: 15px;
 	    border: 1px solid $progbar5;
 	    border-radius: 3px;
@@ -71,6 +67,16 @@ $progbar1: $progbar6; //blue;
         font-size: 13px;
         color: $progbar7;
         margin-bottom: 20px;
+    }
+
+    .redirect-block {
+        margin-top: 10px;
+        text-align: left;
+
+        .redirect-btn:active { 
+            background-color: unset;
+            border: unset;
+        }
     }
 
     .progressbar {
@@ -117,6 +123,7 @@ $progbar1: $progbar6; //blue;
             background: $progbar3;
             color: $progbar2;
         }
+
     }
 
 
