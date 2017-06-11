@@ -40,6 +40,17 @@ $progbar1: $progbar6; //blue;
         resize: none;
     }
 
+    .relative {
+        position: relative;
+    }
+
+    &__form .label-required { 
+        color: red;
+        position: absolute;
+        top: 30%;
+        left: 95%;
+    } /*more styles for labels*/
+
     /*buttons*/
     &__form .action-button {
         width: 100px;
@@ -54,6 +65,11 @@ $progbar1: $progbar6; //blue;
     }
     &__form .action-button:hover, &__form .action-button:focus {
         box-shadow: 0 0 0 2px $progbar5, 0 0 0 3px $progbar3;
+    }
+
+    &__form .btn-error {
+        border: 1px solid red;
+        color: red;
     }
 
     .fs-title {

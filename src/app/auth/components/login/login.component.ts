@@ -3,7 +3,7 @@ import { Router } from "@angular/router";
 
 
 import { AuthService } from "../../services/auth.service";
-import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormControl, FormBuilder, Validators, AbstractControl } from '@angular/forms';
 
 // this enum is used for changing step of login
 enum LoginSteps {
@@ -19,6 +19,7 @@ enum LoginSteps {
 export class LoginComponent {
 
   formDataOne: FormGroup; // instance of FormGroup for first group
+  formDataTwo: FormGroup; // instance of FormGroup for first group
   loginSteps = LoginSteps; // Store a reference to the enum
   loginStep: LoginSteps = LoginSteps.One; // page step on init
   isShowenErrors: boolean = false; // if it has true we show errors 
@@ -28,23 +29,31 @@ export class LoginComponent {
   }
 
   ngOnInit() {
-    this.initReactiveForm();
+    this.initReactiveForms();
   }
 
   //set FormGroup
-  private initReactiveForm() {
+  private initReactiveForms() {
     this.formDataOne = this.fb.group({
       email: ['', [Validators.required, Validators.pattern("[a-zA-Z_]+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}")]],
       password: ['', [Validators.required, Validators.minLength(4)]],
       passwordConfirm: ['', [Validators.required, Validators.minLength(4)]]
     });
+    this.formDataTwo = this.fb.group({
+      firstName: ['', [Validators.required]],
+      lastName: ['', [Validators.required]],
+      phone: ['', []],
+      address: ['', []]
+    });
   }
 
   // check if password and passwordConfirm are equals 
-  passwordMatchValidator(g: FormGroup):boolean {
-    console.log( g.get('password').value , ' - ' , g.get('passwordConfirm').value );
+  matchPassword(g: AbstractControl) {
+    console.log(g);
+    console.log(g.get('password').value, ' - ', g.get('passwordConfirm').value);
     return g.get('password').value === g.get('passwordConfirm').value
-      ? true : false ;
+      //? { matchPassword: true } : null ;
+      ? true : false;
   }
 
   // it changes step of login
@@ -63,11 +72,15 @@ export class LoginComponent {
   signIn(): void {
     console.log(" signed In ");
     console.time("signIn");
-    this.authService.login().subscribe((data: boolean) => {
-      console.log(data);
-      console.timeEnd("signIn");
-      this.router.navigate([""]);
-    });
+    if ( this.formDataOne.valid && this.formDataTwo.valid ) {
+      this.authService.login().subscribe((data: boolean) => {
+        console.log(data);
+        console.timeEnd("signIn");
+        this.router.navigate([""]);
+      });
+    } else {
+      this.isShowenErrors = true;      
+    }
   }
 
   navToSignUp() {
