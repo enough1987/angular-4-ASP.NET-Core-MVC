@@ -16,27 +16,32 @@
 
       <h2 class="fs-title">Sign in</h2>
 
-      <div 
+      <form [formGroup]="formDataOne"
       *ngSwitchCase="loginSteps.One">
         <h3 class="fs-subtitle">Create your account</h3>
-        <input class="login-input" type="text" name="email" placeholder="Email" />
-        <input class="login-input" type="password" name="pass" placeholder="Password" />
-        <input class="login-input" type="password" name="cpass" placeholder="Confirm Password" />
+        <input class="login-input" type="text" name="email" placeholder="Email" 
+        formControlName="email" />
+        <app-error-msg 
+        *ngIf="formDataOne.controls['email'].invalid && isShowenErrors"
+        [msg]="'email is not valid'" ></app-error-msg>
+        <input class="login-input" type="password" name="pass" placeholder="Password" 
+        formControlName="password" />
+        <app-error-msg 
+        *ngIf="formDataOne.controls['password'].invalid && isShowenErrors"
+        [msg]="'password should contain 4 or more letters'" ></app-error-msg>
+        <input class="login-input" type="password" name="cpass" placeholder="Confirm Password" 
+        formControlName="passwordConfirm" />
+        <app-error-msg 
+        *ngIf="formDataOne.controls['passwordConfirm'].invalid && isShowenErrors"
+        [msg]="'confirm password should contain 4 or more letters'" ></app-error-msg>
+        <app-error-msg 
+        *ngIf="passwordMatchValidator(formDataOne) && isShowenErrors"
+        [msg]="'password and confirm password should be the same'" ></app-error-msg>
         <input type="button" name="next" class="login-input next action-button" value="Next" 
-        (click)="changeStep(loginSteps.Two)" />
-      </div>
-      <!--
-      <div>
-        <h2 class="fs-title">Social Profiles</h2>
-        <h3 class="fs-subtitle">Your presence on the social network</h3>
-        <input class="login-input" type="text" name="twitter" placeholder="Twitter" />
-        <input class="login-input" type="text" name="facebook" placeholder="Facebook" />
-        <input class="login-input" type="text" name="gplus" placeholder="Google Plus" />
-        <input type="button" name="previous" class="login-input previous action-button" value="Previous" />
-        <input type="button" name="next" class="login-input next action-button" value="Next" />
-      </div>
--->
-      <div
+        (click)="changeStep(loginSteps.Two, true, formDataOne)" />
+      </form>
+
+      <form
       *ngSwitchCase="loginSteps.Two">
         <h3 class="fs-subtitle">Personal Details</h3>
         <input class="login-input" type="text" name="fname" placeholder="First Name" />
@@ -48,7 +53,7 @@
         />
         <input type="button" name="button" class="submit action-button" value="Sign in" 
         (click)="signIn()" />
-      </div>
+      </form>
 
         <div class="redirect-block" >
           <input type="button" class="redirect-btn" value="Sign Up!"
