@@ -3,25 +3,28 @@ import { Component, Input } from '@angular/core';
 
 export class VideoOptions {
 
-  path: string;
-  width: number;
-  height: number;
+    path: string;
+    width: number;
+    height: number;
+    autoplay?: boolean
 
-  constructor(path:string, width: number, height:number) {
-    this.path = path;
-    this.width = width;
-    this.height = height;    
-  }
 }
 
 @Component({
-  selector: 'app-video-player',
-  templateUrl: './video-player.component.html',
-  styleUrls: ['./video-player.component.scss']
+    selector: 'app-video-player',
+    templateUrl: './video-player.component.html',
+    styleUrls: ['./video-player.component.scss']
 })
 export class VideoPlayerComponent {
 
-    @Input() options: VideoOptions;
+    @Input()
+    set options(options: VideoOptions) {
+        console.log('got video options: ', options);
+        this.videoOptions = options;
+    }
+
+    videoOptions: VideoOptions;
+
 
 
 }

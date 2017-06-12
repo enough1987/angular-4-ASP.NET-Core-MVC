@@ -1,20 +1,19 @@
 
 
- <!-- http://docs.videojs.com/tutorial-options.html#autoplay -->
-  <div 
-  *ngIf="options" >
     <video id="my-video" class="video-js" 
+    #video
     controls 
     preload="auto"
     controlsList="nodownload"
-    [width]="options.width"
-    [height]="options.height"
-    [poster]="options.path + '.jpg' " data-setup="{}">
-      <source [src]="options.path + '.mp4' " type='video/mp4'>
-      <source [src]="options.path + '.webm' " type='video/webm'>
+    [width]="videoOptions.width"
+    [height]="videoOptions.height"
+    [poster]="videoOptions.path + '.jpg' " 
+    [autoplay]="videoOptions.autoplay"
+    data-setup="{}">
+      <source [src]="videoOptions.path + '.mp4' " type='video/mp4'>
+      <source [src]="videoOptions.path + '.webm' " type='video/webm'>
       <p class="vjs-no-js">
         To view this video please enable JavaScript, and consider upgrading to a web browser that
         <a href="http://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a>
       </p>
     </video>
-  </div>
