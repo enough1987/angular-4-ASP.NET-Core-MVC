@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, ViewChild } from '@angular/core';
 
 
 export class VideoOptions {
@@ -17,6 +17,8 @@ export class VideoOptions {
 })
 export class VideoPlayerComponent {
 
+    @ViewChild("video") video;
+
     @Input()
     set options(options: VideoOptions) {
         console.log('got video options: ', options);
@@ -24,6 +26,16 @@ export class VideoPlayerComponent {
     }
 
     videoOptions: VideoOptions;
+
+    playPause() {
+        console.log(this.video);
+        if ( this.video.nativeElement.paused || this.video.nativeElement.ended ) {
+            this.video.nativeElement.play();
+        } else {
+            this.video.nativeElement.pause();
+        }
+    }
+
 
 
 
