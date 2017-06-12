@@ -4,10 +4,10 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
-import { SettingService, HttpService, WebSocketService } from "./index";
+import { SettingService, HelperService, HttpService, WebSocketService } from "./index";
 
 
-import { ErrorMsgComponent } from "./index";
+import { ErrorMsgComponent, VideoPlayerComponent } from "./index";
 
 
 @NgModule({
@@ -18,14 +18,17 @@ import { ErrorMsgComponent } from "./index";
   ],
   providers:    [ 
     SettingService,
+    HelperService,
     HttpService,
     WebSocketService 
   ],
   declarations: [ 
-    ErrorMsgComponent
+    ErrorMsgComponent,
+    VideoPlayerComponent
   ],
   exports:      [ 
-    ErrorMsgComponent
+    ErrorMsgComponent,
+    VideoPlayerComponent
   ]
 })
 export class SharedModule { }
