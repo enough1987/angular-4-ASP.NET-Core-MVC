@@ -17,7 +17,7 @@ export class MainComponent {
   }
 
   ngOnInit(){
-    this.httpService.get("app/test.json").subscribe(res=>{
+    this.httpService.get("assets/test.json").subscribe(res=>{
       console.log( " res ", res );
     });
   }

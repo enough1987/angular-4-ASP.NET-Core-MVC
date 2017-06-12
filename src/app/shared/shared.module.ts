@@ -4,7 +4,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
-import { SettingService, HttpService } from "./index";
+import { SettingService, HttpService, WebSocketService } from "./index";
 
 
 import { ErrorMsgComponent } from "./index";
@@ -18,7 +18,8 @@ import { ErrorMsgComponent } from "./index";
   ],
   providers:    [ 
     SettingService,
-    HttpService 
+    HttpService,
+    WebSocketService 
   ],
   declarations: [ 
     ErrorMsgComponent

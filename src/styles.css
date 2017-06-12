@@ -65,3 +65,11 @@ table {
       opacity: 1;
    }
 }
+
+
+/* ********************** */
+
+.video-js .vjs-big-play-button {
+    top: 35%;
+    left: 40%;
+}
