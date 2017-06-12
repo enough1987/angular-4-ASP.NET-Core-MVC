@@ -4,22 +4,24 @@ import { BrowserModule } from '@angular/platform-browser';
 import { CommonModule } from '@angular/common'
 //  to use FormGroup
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+// The module that includes http's providers
+import { HttpModule } from '@angular/http';
 
 
+import { AuthModule } from "app/auth/auth.module";
+import { SharedModule } from "app/shared/shared.module";
+import { RoutingModule } from "app/routing.module";
+import { MainModule } from "app/main/main.module";
 
-import { AuthModule } from "./auth/auth.module";
-import { SharedModule } from "./shared/shared.module";
-import { RoutingModule } from "./routing.module";
-import { MainModule } from "./main/main.module";
 
-
-import { AppComponent } from './app.component';
+import { AppComponent } from 'app/app.component';
 
 
 @NgModule({
   imports: [
     BrowserModule,
     CommonModule,
+    HttpModule,
     ReactiveFormsModule,
     FormsModule,
     

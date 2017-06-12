@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 
 
 import { AuthService } from "app/auth";
+import { HttpService } from "app/shared/index"
 
 
 @Component({
@@ -11,8 +12,14 @@ import { AuthService } from "app/auth";
 })
 export class MainComponent {
 
-  constructor(private authService: AuthService) { 
-    console.log(" constructor of main ");
+  constructor( private authService: AuthService, private httpService: HttpService) { 
+    console.log(" constructor of main " );
+  }
+
+  ngOnInit(){
+    this.httpService.get("app/test.json").subscribe(res=>{
+      console.log( " res ", res );
+    });
   }
 
   logout(){

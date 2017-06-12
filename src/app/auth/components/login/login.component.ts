@@ -1,15 +1,17 @@
 import { Component } from '@angular/core';
 import { Router } from "@angular/router";
-
-
-import { AuthService } from "../../services/auth.service";
 import { FormGroup, FormControl, FormBuilder, Validators, AbstractControl } from '@angular/forms';
+
+
+import { AuthService } from "app/auth/services/auth.service";
+
 
 // this enum is used for changing step of login
 enum LoginSteps {
   One,
   two
 }
+
 
 @Component({
   selector: 'app-login',
@@ -24,7 +26,7 @@ export class LoginComponent {
   loginStep: LoginSteps = LoginSteps.One; // page step on init
   isShowenErrors: boolean = false; // if it has true we show errors 
 
-  constructor(private router: Router, private fb: FormBuilder, private authService: AuthService) {
+  constructor(private router: Router, private formBuilder: FormBuilder, private authService: AuthService) {
     console.log(" constructor of login ");
   }
 
@@ -34,12 +36,12 @@ export class LoginComponent {
 
   //set FormGroup
   private initReactiveForms() {
-    this.formDataOne = this.fb.group({
+    this.formDataOne = this.formBuilder.group({
       email: ['', [Validators.required, Validators.pattern("[a-zA-Z_]+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}")]],
       password: ['', [Validators.required, Validators.minLength(4)]],
       passwordConfirm: ['', [Validators.required, Validators.minLength(4)]]
     });
-    this.formDataTwo = this.fb.group({
+    this.formDataTwo = this.formBuilder.group({
       firstName: ['', [Validators.required]],
       lastName: ['', [Validators.required]],
       phone: ['', []],
