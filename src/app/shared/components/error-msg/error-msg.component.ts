@@ -10,6 +10,5 @@ import { FormControl } from "@angular/forms";
 export class ErrorMsgComponent {
 
     @Input() msg: string = " invalid field ";
-    @Input() formControl: FormControl;
 
 }

@@ -5,8 +5,8 @@
   <div class="video-player__play-pause"
       (click)="playPause()">
       <button class="video-player__play-pause__btn"
-        *ngIf="video.nativeElement?.paused || video.nativeElement?.ended" >
-         Click to start 
+        *ngIf="isShowenPlayPauseBtn" >
+         Click to play
       </button>
   </div>
 
