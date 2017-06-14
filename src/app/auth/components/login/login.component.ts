@@ -14,7 +14,7 @@ enum LoginSteps {
 
 
 @Component({
-  selector: 'app-login',
+  selector: 'login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss']
 })
@@ -72,7 +72,7 @@ export class LoginComponent {
 
   // it signed in user
   signIn(): void {
-    console.log(" signed In ");
+    console.log("signIn");
     console.time("signIn");
     if ( this.formDataOne.valid && this.formDataTwo.valid ) {
       this.authService.login().subscribe((data: boolean) => {

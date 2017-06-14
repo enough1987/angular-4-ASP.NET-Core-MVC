@@ -24,7 +24,7 @@ import { AppComponent } from 'app/app.component';
     HttpModule,
     ReactiveFormsModule,
     FormsModule,
-    
+
     SharedModule,
     AuthModule,
     MainModule,

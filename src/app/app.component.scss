@@ -6,8 +6,18 @@ $main-border-active-color: #7caee2;
 $main-border-active-border: #dde5f3;
 $main-with:  70%;
 $cornflower-blue: #1976d2;
+$placeholder: #88a5b0;
+$error: #dfadbd; 
 
 /* ********************** */
+
+
+.auth-background {
+    background-image: url("/assets/img_background.jpg");
+    background-position: center top;
+    background-size: 100% auto;
+    background-repeat: no-repeat;
+}
 
 .main-container {
 	    width: $main-with;
@@ -19,9 +29,9 @@ $cornflower-blue: #1976d2;
 
 .ico_logo {
     width: 100%;
-    max-height: 20vh;
+    max-height: 15vh;
     margin-top: 15vh;
-    margin-bottom: 12vh;
+    margin-bottom: 10vh;
 }
 
 .text-center {
@@ -41,6 +51,46 @@ $cornflower-blue: #1976d2;
     cursor: pointer;
 }
 
+.opacity-none {
+    opacity: 0;
+}
+
+.input-contaner {
+    border-bottom: 1px solid $main-dark;
+}
+
+.input {
+    color: $main-dark;
+    font-size: 1.5em;
+    width: 80%;
+    background-color: unset;
+    border: unset;
+    margin: 10px 0;
+}
+
+.input-img {
+    width: 1.5em;
+}
+
+::-webkit-input-placeholder { /* WebKit, Blink, Edge */
+    color:    $placeholder;
+}
+:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+   color:    $placeholder;
+   opacity:  1;
+}
+::-moz-placeholder { /* Mozilla Firefox 19+ */
+   color:    $placeholder;
+   opacity:  1;
+}
+:-ms-input-placeholder { /* Internet Explorer 10-11 */
+   color:    $placeholder;
+}
+::-ms-input-placeholder { /* Microsoft Edge */
+   color:    $placeholder;
+}
+
+
 .btn-container {
 
     position: relative;
@@ -49,8 +99,10 @@ $cornflower-blue: #1976d2;
   	-webkit-justify-content: center; /* Safari */
   	justify-content:         center;
 
+}
+
     .btn {
-        background: $main-light;
+        background: unset;
         padding: 1.1em 2.4em;
         font-size: 1.4em;
         margin: 1em;
@@ -89,8 +141,13 @@ $cornflower-blue: #1976d2;
         margin-right: 0.5em;
     }
 
+.error-background {
+    background-color: $error;
+    color: $main-light;
 }
 
-
+.error-color {
+    color: $error;    
+}
 
 /* ********************** */

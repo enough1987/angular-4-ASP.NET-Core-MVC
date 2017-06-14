@@ -9,7 +9,7 @@ import { VideoOptions } from "app/shared/index";
 
 
 @Component({
-  selector: 'app-main',
+  selector: 'main',
   templateUrl: './main.component.html',
   styleUrls: ['./main.component.scss']
 })

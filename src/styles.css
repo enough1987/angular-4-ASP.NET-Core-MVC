@@ -60,6 +60,7 @@ input:focus, button:focus {
 
 /* ************************** */
 
+/*
  *{ 
    animation-duration: 1s;
    animation-name: fade;
@@ -73,7 +74,7 @@ input:focus, button:focus {
       opacity: 1;
    }
 }
-
+*/
 
 
 /* ********************** */

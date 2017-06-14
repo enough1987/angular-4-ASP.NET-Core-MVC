@@ -25,9 +25,9 @@
             formControlName="email" />
 <!--          <label class="label-required"
             *ngIf="!formDataOne.get('email').value" >*</label>   -->
-          <app-error-msg 
+          <error-msg 
             *ngIf=" formDataOne.controls.email.invalid && isShowenErrors "
-            [msg]="'email is not valid'" ></app-error-msg>       
+            [msg]="'email is not valid'" ></error-msg>       
         </div>
 
         <div class="relative" >
@@ -35,18 +35,18 @@
             formControlName="password" />
 <!--         <label class="label-required"
             *ngIf="!formDataOne.get('password').value" >*</label>   -->
-          <app-error-msg 
+          <error-msg 
             *ngIf=" formDataOne.controls.password.invalid && isShowenErrors "
-            [msg]="'password should contain 4 or more letters'" ></app-error-msg>
+            [msg]="'password should contain 4 or more letters'" ></error-msg>
         </div>
         <div class="relative" >
           <input class="login-input" type="password" name="cpass" placeholder="Confirm Password" 
             formControlName="passwordConfirm" />
 <!--          <label class="label-required"
             *ngIf="!formDataOne.get('passwordConfirm').value" >*</label>   -->
-          <app-error-msg 
+          <error-msg 
             *ngIf="( formDataOne.controls.passwordConfirm.invalid || !matchPassword(formDataOne) ) && isShowenErrors"
-            [msg]="'password and confirm password should be the same'" ></app-error-msg>
+            [msg]="'password and confirm password should be the same'" ></error-msg>
         </div>
         <input type="button" name="next" class="login-input next action-button" value="Next" 
           [class.btn-error]=" ( !formDataOne.valid || !matchPassword(formDataOne) ) && isShowenErrors "
@@ -61,18 +61,18 @@
             formControlName="firstName" />
 <!--          <label class="label-required"
             *ngIf="!formDataTwo.get('firstName').value" >*</label>  -->
-          <app-error-msg 
+          <error-msg 
             *ngIf=" formDataTwo.controls.firstName.invalid && isShowenErrors "
-            [msg]="'email is not required'" ></app-error-msg>
+            [msg]="'email is not required'" ></error-msg>
         </div>
         <div class="relative">
           <input class="login-input" type="text" name="lname" placeholder="Last Name" 
             formControlName="lastName" />
 <!--          <label class="label-required"
             *ngIf="!formDataTwo.get('lastName').value" >*</label>   -->
-          <app-error-msg 
+          <error-msg 
             *ngIf=" formDataTwo.controls.lastName.invalid && isShowenErrors "
-            [msg]="'email is not required'" ></app-error-msg>
+            [msg]="'email is not required'" ></error-msg>
         </div>
         <div class="relative">
           <input class="login-input" type="text" name="phone" placeholder="Phone" 

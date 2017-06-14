@@ -47,6 +47,7 @@ export class AuthService implements CanActivate {
 
   // it logins in user
   login(): Observable<boolean> {
+   console.log("auth signIn");
     return Observable.of(true).delay(1000).do(val => this.loggedIn = true);
   }
 
@@ -54,6 +55,12 @@ export class AuthService implements CanActivate {
   logout(): void {
     this.loggedIn = false;
     this.router.navigate([this.redirectUrl]);
+  }
+
+   // it signs up user
+  signUp(): Observable<boolean> {
+    console.log("auth signUp");
+    return Observable.of(true).delay(1000).do(val => { console.log(" DO SOMETHING"); } );
   }
 
 }

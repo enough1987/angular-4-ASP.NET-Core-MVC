@@ -2,16 +2,16 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { RouterModule } from "@angular/router";
 
 
 import { SharedModule } from "app/shared/shared.module";
 
 
-import { AuthComponent, LoginComponent } from './index';
+import { AuthComponent, SignUpComponent, LoginComponent } from './index';
 
 
 import { AuthService } from "./index";
-
 
 
 @NgModule({
@@ -19,6 +19,7 @@ import { AuthService } from "./index";
     CommonModule,
     ReactiveFormsModule,
     FormsModule,
+    RouterModule,
     
     SharedModule
   ],
@@ -27,10 +28,12 @@ import { AuthService } from "./index";
   ],
   declarations: [ 
     AuthComponent,
+    SignUpComponent,
     LoginComponent
  ],
   exports:      [ 
     AuthComponent,
+    SignUpComponent,
     LoginComponent 
   ]
 })

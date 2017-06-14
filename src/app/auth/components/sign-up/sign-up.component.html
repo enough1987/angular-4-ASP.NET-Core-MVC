@@ -1,0 +1,75 @@
+<div class="auth-background" >
+
+    <div class="main-container">
+
+        <img class="ico_logo" 
+            src="assets/ico_logo.svg" />
+
+        <div class="btn-container">
+            <button class="btn btn-one-centered btn-with-ico">
+                <img class="btn-ico" src="assets/ico_facebook.png" />
+                Sign Up With Facebook
+            </button>
+        </div>
+
+         <p class="text-center text-center__big" >
+            Or
+        </p>  
+
+        <form [formGroup]="formData" >
+
+            <div class="btn-container input-contaner " >
+                <input class="input" type="text" placeholder="Full Name" required 
+                formControlName="fullName" />
+                <img class="input-img opacity-none"  />
+            </div>
+          <error-msg 
+            *ngIf=" formData.controls.fullName.invalid && isShowenErrors "
+            [msg]="'Full Name must be 4 or more letters'" ></error-msg>    
+
+            <div class="btn-container input-contaner " >
+                <input class="input" type="text" placeholder="Email"  required 
+                formControlName="email" />
+                <img class="input-img opacity-none" />
+            </div>
+          <error-msg 
+            *ngIf=" formData.controls.email.invalid && isShowenErrors "
+            [msg]="'email is not valid'" ></error-msg>    
+
+            <div class="btn-container input-contaner " >
+                <input class="input" placeholder="Password"  required
+                [type]=" isShowenPass ? 'text' : 'password' " 
+                formControlName="password" />
+                <img class="input-img" 
+                [src]=" isShowenPass ? 'assets/ico_clear_sm.svg' : 'assets/ico_eye_close_sm.svg' "  
+                (click)=" toggleShowenPass() " />               
+            </div>
+          <error-msg 
+            *ngIf=" formData.controls.password.invalid && isShowenErrors "
+            [msg]="'Password must be 4 or more letters'" ></error-msg>    
+            
+        </form>      
+
+        <div class="btn-container">
+            <button class="btn btn-one-centered"
+            [class.error-background]=" formData.controls.password.invalid && isShowenErrors "
+            (click)=" signUp() " >
+                Sign Up With Email
+            </button>
+        </div>
+
+        <p class="text-center" >
+            By signing up you agree to
+            <a class="link" > Terms of Use </a>
+            and
+            <a class="link" > Privacy Policy </a> 
+        </p> 
+
+        <p class="text-center text-center__big" >
+            Already have an account? 
+            <a class="link" > Sign In </a>
+        </p>      
+
+    </div>
+
+</div>
