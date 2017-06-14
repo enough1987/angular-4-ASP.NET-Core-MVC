@@ -2,10 +2,10 @@ import { Component } from '@angular/core';
 
 
 import { AuthService } from "app/auth";
-import { HttpService } from "app/shared/index"
+import { HttpService } from "app/shared/index";
 
 
-import { VideoOptions } from "app/shared/index"
+import { VideoOptions } from "app/shared/index";
 
 
 @Component({

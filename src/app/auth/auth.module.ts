@@ -7,7 +7,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from "app/shared/shared.module";
 
 
-import { LoginComponent } from './index';
+import { AuthComponent, LoginComponent } from './index';
 
 
 import { AuthService } from "./index";
@@ -26,8 +26,12 @@ import { AuthService } from "./index";
     AuthService
   ],
   declarations: [ 
+    AuthComponent,
     LoginComponent
  ],
-  exports:      [ LoginComponent ]
+  exports:      [ 
+    AuthComponent,
+    LoginComponent 
+  ]
 })
 export class AuthModule { }

@@ -15,7 +15,7 @@ export class AuthService implements CanActivate {
 
 
   private isLoggedIn: boolean = false; // this field says if user logged in
-  private redirectUrl: string = "/login"; // if user is not Logged in , user will be redirected to this url
+  private redirectUrl: string = ""; // if user is not Logged in , user will be redirected to this url
 
 
   constructor(private router: Router) {
