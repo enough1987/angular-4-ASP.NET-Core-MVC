@@ -1,29 +1,92 @@
 
-
+$main-light: white;
+$main-dark: #003354;
+$main-border-color: #88a6b0;
+$main-border-active-color: #7caee2;
+$main-border-active-border: #dde5f3;
+$main-with:  70%;
+$cornflower-blue: #1976d2;
 
 /* ********************** */
 
 .main-container {
-	    width: 60%;
-        max-width: 600px;
-        min-width: 300px;
+	    width: $main-with;
+        max-width: 1000px;
+        min-width: 400px;
+        height: 100vh;
 		margin: 0px auto;
 }
 
+.ico_logo {
+    width: 100%;
+    max-height: 20vh;
+    margin-top: 15vh;
+    margin-bottom: 12vh;
+}
+
+.text-center {
+    margin-top: 2.5vh;
+    color: $main-dark;
+    text-align: center;
+}
+
+.text-center__big {
+    margin-top: 5vh;
+    font-size: 1.5em;
+}
+
+.link {
+    font-weight: bold;
+    color: $main-dark;
+    cursor: pointer;
+}
+
 .btn-container {
-    
+
+    position: relative;
 	display: -webkit-flex;
     display: flex;
   	-webkit-justify-content: center; /* Safari */
   	justify-content:         center;
 
     .btn {
+        background: $main-light;
+        padding: 1.1em 2.4em;
+        font-size: 1.4em;
+        margin: 1em;
+        color: $main-dark;
+        cursor: pointer;
+        text-decoration: none;
+        flex-grow: 1;
+        text-align: center;
+        border-radius: 60px;
+        border: 1px solid $main-border-color;
+    }
 
+    .btn:hover, .btn:focus {
+        border: 1px solid $main-border-active-color;
+    }
+
+    .btn:active{
+        background: $main-border-active-border;
     }
     
-    .btn.btn-one-centered {
+    .btn-one-centered {
         width: 50%;
         margin: 10px auto
+    }
+
+    .btn-with-ico {
+        color: $main-light;
+        background-color: $cornflower-blue; 
+        border: 1px solid $cornflower-blue; 
+        display: flex;
+        justify-content: center;       
+    }
+
+    .btn-ico {
+        height: 1.1em;
+        margin-right: 0.5em;
     }
 
 }

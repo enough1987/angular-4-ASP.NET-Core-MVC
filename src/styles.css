@@ -6,6 +6,8 @@
    License: none (public domain)
 */
 
+
+
 html, body, div, span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
 a, abbr, acronym, address, big, cite, code,
@@ -52,6 +54,12 @@ table {
 
 /* ************************** */
 
+input:focus, button:focus {
+	outline: none;
+}
+
+/* ************************** */
+
  *{ 
    animation-duration: 1s;
    animation-name: fade;
@@ -67,30 +75,6 @@ table {
 }
 
 
-/* ********************** */
-
-.main-container {
-	    width: 60%;
-        max-width: 600px;
-        min-width: 300px;
-		margin: 0px auto;
-}
-
-.btn-container {
-	display: -webkit-flex;
-    display: flex;
-  	-webkit-justify-content: center; /* Safari */
-  	justify-content:         center;
-}
-
-.btn {
-
-}
- 
-.btn-container .btn.btn-one-centered {
-	width: 50%;
-	margin: 10px auto
-}
 
 /* ********************** */
 
