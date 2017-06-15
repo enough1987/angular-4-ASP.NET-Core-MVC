@@ -3,11 +3,11 @@
     <div class="main-container">
 
         <img class="ico_logo" 
-            src="assets/ico_logo.svg" />
+            src="assets/images/ico_logo.svg" />
 
         <div class="btn-container">
             <button class="btn btn-one-centered btn-with-ico">
-                <img class="btn-ico" src="assets/ico_facebook.png" />
+                <img class="btn-ico" src="assets/images/ico_facebook.png" />
                 Sign Up With Facebook
             </button>
         </div>
@@ -41,7 +41,7 @@
                 [type]=" isShowenPass ? 'text' : 'password' " 
                 formControlName="password" />
                 <img class="input-img" 
-                [src]=" isShowenPass ? 'assets/ico_clear_sm.svg' : 'assets/ico_eye_close_sm.svg' "  
+                [src]=" isShowenPass ? 'assets/images/ico_clear_sm.svg' : 'assets/images/ico_eye_close_sm.svg' "  
                 (click)=" toggleShowenPass() " />               
             </div>
           <error-msg 
@@ -60,9 +60,11 @@
 
         <p class="text-center" >
             By signing up you agree to
-            <a class="link" > Terms of Use </a>
+            <a class="link" 
+            [routerLink]="['/info/terms']" > Terms of Use </a>
             and
-            <a class="link" > Privacy Policy </a> 
+            <a class="link" 
+            [routerLink]="['/info/policy']" > Privacy Policy </a> 
         </p> 
 
         <p class="text-center text-center__big" >

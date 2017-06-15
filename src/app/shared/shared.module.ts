@@ -8,7 +8,7 @@ import { RouterModule } from '@angular/router';
 import { SettingService, HelperService, HttpService, WebSocketService } from "./index";
 
 
-import { ErrorMsgComponent, VideoPlayerComponent } from "./index";
+import { ErrorMsgComponent, InfoComponent, VideoPlayerComponent } from "./index";
 
 
 @NgModule({
@@ -26,10 +26,12 @@ import { ErrorMsgComponent, VideoPlayerComponent } from "./index";
   ],
   declarations: [ 
     ErrorMsgComponent,
+    InfoComponent,
     VideoPlayerComponent
   ],
   exports:      [ 
     ErrorMsgComponent,
+    InfoComponent,
     VideoPlayerComponent
   ]
 })

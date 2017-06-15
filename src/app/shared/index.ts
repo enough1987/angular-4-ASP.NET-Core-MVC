@@ -6,6 +6,7 @@ export { WebSocketService } from "./services/ws.service";
 
 
 export { ErrorMsgComponent } from "./components/error-msg/error-msg.component";
+export { InfoComponent } from "./components/info/info.component";
 export { VideoPlayerComponent } from "./components/video-player/video-player.component";
 
 

@@ -3,27 +3,29 @@
     <div class="main-container">
 
         <img class="ico_logo" 
-            src="assets/ico_logo.svg" />
+            src="assets/images/ico_logo.svg" />
 
         <div class="btn-container">
             <button class="btn btn-one-centered btn-with-ico">
-                <img class="btn-ico" src="assets/ico_facebook.png" />
+                <img class="btn-ico" src="assets/images/ico_facebook.png" />
                 Sign Up With Facebook
             </button>
         </div>
 
         <div class="btn-container">
             <button class="btn btn-one-centered"
-             routerLink="/sign-up"  >
+             [routerLink]="['/sign-up']"  >
                 Sign Up With Email
             </button>
         </div>
 
         <p class="text-center" >
             By signing up you agree to
-            <a class="link" > Terms of Use </a>
+            <a class="link" 
+            [routerLink]="['/info/terms']" > Terms of Use </a>
             and
-            <a class="link" > Privacy Policy </a> 
+            <a class="link" 
+            [routerLink]="['/info/policy']" > Privacy Policy </a> 
         </p> 
 
         <p class="text-center text-center__big" >
