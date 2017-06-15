@@ -32,7 +32,7 @@ export class MainComponent {
   }
 
   logout(){
-    this.authService.logout();
+    this.authService.signOut();
   }
 
 

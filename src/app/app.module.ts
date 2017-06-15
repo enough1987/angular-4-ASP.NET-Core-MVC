@@ -8,6 +8,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 
 
+import { FacebookModule } from 'ngx-facebook';
+
+
 import { AuthModule } from "app/auth/auth.module";
 import { SharedModule } from "app/shared/shared.module";
 import { RoutingModule } from "app/routing.module";
@@ -24,6 +27,8 @@ import { AppComponent } from 'app/app.component';
     HttpModule,
     ReactiveFormsModule,
     FormsModule,
+
+    FacebookModule.forRoot(),
 
     SharedModule,
     AuthModule,

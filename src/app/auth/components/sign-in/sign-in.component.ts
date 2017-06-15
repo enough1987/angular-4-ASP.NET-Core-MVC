@@ -3,20 +3,21 @@ import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 
 
 import { AuthService } from "app/auth/services/auth.service";
+import { FbService } from "app/auth/services/fb.service";
 
 
 @Component({
-  selector: 'sign-up',
-  templateUrl: './sign-up.component.html',
-  styleUrls: ['./sign-up.component.scss']
+  selector: 'sign-in',
+  templateUrl: './sign-in.component.html',
+  styleUrls: ['./sign-in.component.scss']
 })
-export class SignUpComponent {
+export class SignInComponent {
 
   isShowenErrors: boolean = false; // if it has true we show errors 
   formData: FormGroup; // used for form scope and validation
   isShowenPass: boolean = false; // used for changing visability of password
 
-  constructor(private formBuilder: FormBuilder, private authService: AuthService) { 
+  constructor(private formBuilder: FormBuilder, private authService: AuthService, private fbService: FbService ) { 
     console.log(" constructor of sign-up " );
   }
 
@@ -27,21 +28,24 @@ export class SignUpComponent {
   //set FormGroup
   private initReactiveForm() {
     this.formData = this.formBuilder.group({
-      fullName: ['', [Validators.required, Validators.minLength(4)]],
       email: ['', [Validators.required, Validators.pattern("[a-zA-Z_]+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}")]],
       password: ['', [Validators.required, Validators.minLength(4)]]
     });
 
   }
 
+  signInWithFB(){
+    this.fbService.signInWithFacebook();
+  }
+
   // it signed up user
-  signUp(): void {
-    console.log("signUp");
-    console.time("signUp");
+  signIn(): void {
+    console.log("signIn");
+    console.time("signIn");
     if ( this.formData.valid ) {
-      this.authService.signUp().subscribe((data: boolean) => {
+      this.authService.signIn().subscribe((data: boolean) => {
         console.log(data);
-        console.timeEnd("signUp");
+        console.timeEnd("signIn");
       });
     } else {
       this.isShowenErrors = true;      

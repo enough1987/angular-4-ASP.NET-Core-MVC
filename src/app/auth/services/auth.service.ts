@@ -45,16 +45,16 @@ export class AuthService implements CanActivate {
     localStorage.setItem("isLoggedIn", this.isLoggedIn.toString());
   }
 
-  // it logins in user
-  login(): Observable<boolean> {
-   console.log("auth signIn");
-    return Observable.of(true).delay(1000).do(val => this.loggedIn = true);
-  }
-
   // it logins out user
-  logout(): void {
+  signOut(): void {
     this.loggedIn = false;
     this.router.navigate([this.redirectUrl]);
+  }
+
+  // it logins in user
+  signIn(): Observable<boolean> {
+   console.log("auth signIn");
+    return Observable.of(true).delay(1000).do(val => this.loggedIn = true);
   }
 
    // it signs up user

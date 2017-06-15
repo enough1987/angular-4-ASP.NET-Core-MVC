@@ -6,9 +6,10 @@
             src="assets/images/ico_logo.svg" />
 
         <div class="btn-container">
-            <button class="btn btn-one-centered btn-with-ico">
+            <button class="btn btn-one-centered btn-with-ico"
+            (click)="signInWithFB()" >
                 <img class="btn-ico" src="assets/images/ico_facebook.png" />
-                Sign Up With Facebook
+                Sign In With Facebook
             </button>
         </div>
 
@@ -16,16 +17,7 @@
             Or
         </p>  
 
-        <form [formGroup]="formData" >
-
-            <div class="btn-container input-contaner " >
-                <input class="input" type="text" placeholder="Full Name" required 
-                formControlName="fullName" />
-                <img class="input-img opacity-none"  />
-            </div>
-          <error-msg 
-            *ngIf=" formData.controls.fullName.invalid && isShowenErrors "
-            [msg]="'Full Name must be 4 or more letters'" ></error-msg>    
+        <form [formGroup]="formData" > 
 
             <div class="btn-container input-contaner " >
                 <input class="input" type="text" placeholder="Email"  required 
@@ -54,7 +46,7 @@
             <button class="btn btn-one-centered"
             [class.error-background]=" formData.controls.password.invalid && isShowenErrors "
             (click)=" signUp() " >
-                Sign Up
+                Sign In
             </button>
         </div>
 
@@ -68,10 +60,11 @@
         </p> 
 
         <p class="text-center text-center__big" >
-            Already have an account? 
+            
+            Return to 
             <a class="link" 
-            [routerLink]="['/sign-in']" > Sign In </a>
-        </p>      
+            [routerLink]="['/sign-up']" > Sign Up </a>
+        </p>           
 
     </div>
 

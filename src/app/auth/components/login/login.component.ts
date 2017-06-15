@@ -75,7 +75,7 @@ export class LoginComponent {
     console.log("signIn");
     console.time("signIn");
     if ( this.formDataOne.valid && this.formDataTwo.valid ) {
-      this.authService.login().subscribe((data: boolean) => {
+      this.authService.signIn().subscribe((data: boolean) => {
         console.log(data);
         console.timeEnd("signIn");
         this.router.navigate([""]);
