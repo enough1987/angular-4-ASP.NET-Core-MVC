@@ -22,8 +22,8 @@ export class AuthService {
 
 
   private isLoggedIn: boolean = false; // this field says if user logged in
-  private redirectToAuth: string = ""; // if user is not Logged in , user will be redirected to this url
-  private redirectFromAuth: string = "/welcome";
+  private redirectToAuth: string = ""; // it uses for redirection to auth
+  private redirectFromAuth: string = "/welcome"; // it uses for redirection from auth
 
   constructor( private router: Router, private authFbService: AuthFbService ) {
   }
@@ -40,6 +40,7 @@ export class AuthService {
     localStorage.setItem("isLoggedIn", this.isLoggedIn.toString());
   }
 
+  // navigation to/from auth page group
   nav( authNavType: AuthNavType ){
     console.log( " nav ", authNavType );
     if( authNavType === AuthNavType.redirectToAuth ) this.router.navigate([this.redirectToAuth]); 
@@ -70,10 +71,12 @@ export class AuthService {
     });
   }
 
+  // type of sign in ( with Facebook )
   signInWithFb():void {
     this.authFbService.signIn();
   }
 
+  // type of sign up ( with Facebook )
   signUpWithFb():void {
     this.authFbService.signUp();
   }

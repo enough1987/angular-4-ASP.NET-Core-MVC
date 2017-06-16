@@ -1,4 +1,17 @@
 
     <div class="main-container">
-        Welcome
+
+        <p class="text-center__big" >
+            Welcome to Fabulive
+        </p>
+
+       <div class="circle" >
+
+            <input type="file" class="hidden" #fileFoto />
+            <img class="circle circle-small circle-small-img" src="assets/images/ico_plus_white_mid.svg" 
+            (click)="clickFoto(fileFoto)" />
+
+       </div>
+
+
     </div>

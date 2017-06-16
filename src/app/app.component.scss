@@ -1,16 +1,22 @@
 
 $main-light: white;
 $main-dark: #003354;
+$main-gray: #d0dade;
 $main-border-color: #88a6b0;
 $main-border-active-color: #7caee2;
 $main-border-active-border: #dde5f3;
 $main-with:  70%;
 $cornflower-blue: #1976d2;
 $placeholder: #88a5b0;
-$error: #dfadbd; 
+$pink: #ed517e;
+$error: $pink; 
+
 
 /* ********************** */
 
+* {
+    color: $main-dark;
+}
 
 .auth-background {
     background-image: url("/assets/images/img_background.jpg");
@@ -20,11 +26,34 @@ $error: #dfadbd;
 }
 
 .main-container {
-	    width: $main-with;
-        max-width: 1000px;
-        min-width: 400px;
-        min-height: 100vh;
-		margin: 0px auto;
+	width: $main-with;
+    max-width: 1000px;
+    min-width: 400px;
+    min-height: 100vh;
+	margin: 0px auto;
+}
+
+.hidden {
+    display: none;
+}
+
+.circle {
+    width: 200px;
+    height: 200px;
+    margin: 20px auto;
+    background-color: $main-gray;
+    border-radius: 50%;
+    position: relative;
+}
+
+.circle-small {
+    width: 25px;
+    height: 25px;
+    background-color: #ed517e;
+    position: absolute;
+    bottom: -10px;
+    right: -10px;
+    padding: 20px;
 }
 
 .ico_logo {
@@ -61,6 +90,7 @@ $error: #dfadbd;
 .text-center__big {
     margin-top: 5vh;
     font-size: 1.5em;
+    text-align: center;
 }
 
 .link {
