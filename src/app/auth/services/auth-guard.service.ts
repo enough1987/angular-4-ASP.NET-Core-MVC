@@ -8,7 +8,7 @@ import 'rxjs/add/operator/do';
 import 'rxjs/add/operator/delay';
 
 
-import { AuthService } from "app/auth";
+import { AuthService, AuthNavType } from "app/auth/index";
 
 
 @Injectable()
@@ -24,7 +24,7 @@ export class AuthGuardService implements CanActivate {
     if (this.authService.loggedIn) {
       return true;
     } else {
-      this.authService.signOut();
+      this.authService.nav(AuthNavType.redirectToAuth);
       return false;
     }
   }

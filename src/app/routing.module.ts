@@ -20,7 +20,7 @@ const AppRoutes: Routes = [
   { path: 'login', component: LoginComponent },
 
   { path: 'info/:id',  component: InfoComponent },
-  { path: 'index',  component: MainComponent , canActivate: [AuthGuardService] },
+  { path: 'welcome',  component: MainComponent , canActivate: [AuthGuardService] },
   
   { path: '**', redirectTo: 'index' }
 ];

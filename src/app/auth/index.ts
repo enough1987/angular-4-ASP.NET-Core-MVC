@@ -9,3 +9,6 @@ export { SignInForgotComponent } from "./components/sign-in-forgot/sign-in-forgo
 export { AuthService } from "./services/auth.service";
 export { AuthGuardService } from "./services/auth-guard.service";
 export { AuthFbService } from "./services/auth-fb.service";
+
+
+export { AuthNavType } from "./services/auth.service";

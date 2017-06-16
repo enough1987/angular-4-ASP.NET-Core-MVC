@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 
-import { MainComponent } from './index';
+import { MainComponent, WelcomeComponent, VideoComponent } from './index';
 
 
 import { SharedModule } from "app/shared/shared.module";
@@ -16,7 +16,15 @@ import { SharedModule } from "app/shared/shared.module";
     SharedModule 
   ],
   providers:    [ ],
-  declarations: [ MainComponent ],
-  exports:      [ MainComponent ]
+  declarations: [ 
+    MainComponent,
+    WelcomeComponent,
+    VideoComponent
+  ],
+  exports:      [ 
+    MainComponent,
+    WelcomeComponent,
+    VideoComponent  
+  ]
 })
 export class MainModule { }
