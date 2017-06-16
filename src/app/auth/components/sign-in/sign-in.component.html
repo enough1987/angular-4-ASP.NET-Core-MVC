@@ -6,9 +6,9 @@
             src="assets/images/ico_logo.svg" />
 
         <div class="btn-container">
-            <button class="btn btn-one-centered btn-with-ico"
+            <button class="btn btn-one-centered btn-with-ico__clean"
             (click)="signInWithFB()" >
-                <img class="btn-ico" src="assets/images/ico_facebook.png" />
+                <img class="btn-ico" src="assets/images/ico_facebook_white_button_blue.svg" />
                 Sign In With Facebook
             </button>
         </div>
@@ -42,10 +42,15 @@
             
         </form>      
 
+         <p class="text-right link link-light" 
+            [routerLink]="['/sign-in-forgot']" >
+            FORGOT?
+        </p>  
+
         <div class="btn-container">
             <button class="btn btn-one-centered"
-            [class.error-background]=" formData.controls.password.invalid && isShowenErrors "
-            (click)=" signUp() " >
+            [class.error-background]=" !formData.valid && isShowenErrors "
+            (click)=" signIn() " >
                 Sign In
             </button>
         </div>
@@ -60,7 +65,8 @@
         </p> 
 
         <p class="text-center text-center__big" >
-            
+            <img class="input-img__small" 
+                src="assets/images/btn_arrow_back_sm.svg" />
             Return to 
             <a class="link" 
             [routerLink]="['/sign-up']" > Sign Up </a>

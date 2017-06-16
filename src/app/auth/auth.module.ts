@@ -8,10 +8,11 @@ import { RouterModule } from "@angular/router";
 import { SharedModule } from "app/shared/shared.module";
 
 
-import { AuthComponent, SignUpComponent, SignInComponent, LoginComponent } from './index';
+import { AuthComponent, SignUpComponent, SignInComponent, 
+  SignInForgotComponent, LoginComponent } from './index';
 
 
-import { AuthService, FbService } from "./index";
+import { AuthService, AuthGuardService, AuthFbService } from "./index";
 
 
 @NgModule({
@@ -25,18 +26,21 @@ import { AuthService, FbService } from "./index";
   ],
   providers:    [ 
     AuthService,
-    FbService
+    AuthGuardService,
+    AuthFbService
   ],
   declarations: [ 
     AuthComponent,
     SignUpComponent,
     SignInComponent,
+    SignInForgotComponent,
     LoginComponent
  ],
   exports:      [ 
     AuthComponent,
     SignUpComponent,
     SignInComponent,
+    SignInForgotComponent,
     LoginComponent 
   ]
 })

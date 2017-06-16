@@ -3,7 +3,6 @@ import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 
 
 import { AuthService } from "app/auth/services/auth.service";
-import { FbService } from "app/auth/services/fb.service";
 
 
 @Component({
@@ -17,7 +16,8 @@ export class SignInComponent {
   formData: FormGroup; // used for form scope and validation
   isShowenPass: boolean = false; // used for changing visability of password
 
-  constructor(private formBuilder: FormBuilder, private authService: AuthService, private fbService: FbService ) { 
+  constructor(private formBuilder: FormBuilder, 
+    private authService: AuthService ) { 
     console.log(" constructor of sign-up " );
   }
 
@@ -35,7 +35,7 @@ export class SignInComponent {
   }
 
   signInWithFB(){
-    this.fbService.signInWithFacebook();
+    this.authService.signInWithFb();
   }
 
   // it signed up user

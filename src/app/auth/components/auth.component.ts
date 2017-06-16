@@ -1,6 +1,9 @@
 import { Component } from '@angular/core';
 
 
+import { AuthService } from "app/auth/services/auth.service";
+
+
 @Component({
   selector: 'auth',
   templateUrl: './auth.component.html',
@@ -9,9 +12,12 @@ import { Component } from '@angular/core';
 export class AuthComponent {
 
 
-  constructor() { 
+  constructor(private authService: AuthService) { 
     console.log(" constructor of auth " );
   }
 
+  signUpWithFB(){
+    this.authService.signUpWithFb();
+  }
 
 }

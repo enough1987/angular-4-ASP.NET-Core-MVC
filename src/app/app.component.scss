@@ -15,7 +15,7 @@ $error: #dfadbd;
 .auth-background {
     background-image: url("/assets/images/img_background.jpg");
     background-position: center top;
-    background-size: 100% auto;
+    background-size: cover; 
     background-repeat: no-repeat;
 }
 
@@ -23,21 +23,39 @@ $error: #dfadbd;
 	    width: $main-with;
         max-width: 1000px;
         min-width: 400px;
-        height: 100vh;
+        min-height: 100vh;
 		margin: 0px auto;
 }
 
 .ico_logo {
     width: 100%;
     max-height: 15vh;
-    margin-top: 15vh;
-    margin-bottom: 10vh;
+    margin-top: 10vh;
+    margin-bottom: 8vh;
+}
+
+.text-bold {
+    font-weight: bold;
 }
 
 .text-center {
     margin-top: 2.5vh;
     color: $main-dark;
     text-align: center;
+}
+
+.text-left {
+    margin-top: 1em;
+    margin-bottom: 1em;
+    color: $main-dark;
+    font-size: 1.5em;
+    text-align: left;
+}
+
+.text-right {
+    margin-top: 1em;
+    color: $main-dark;
+    text-align: right;
 }
 
 .text-center__big {
@@ -49,6 +67,11 @@ $error: #dfadbd;
     font-weight: bold;
     color: $main-dark;
     cursor: pointer;
+    text-decoration: none;
+}
+
+.link-light {
+    font-weight: normal;   
 }
 
 .opacity-none {
@@ -69,7 +92,12 @@ $error: #dfadbd;
 }
 
 .input-img {
+    padding-left: 1em;
     width: 1.5em;
+}
+
+.input-img__small {
+    width: 0.75em;
 }
 
 ::-webkit-input-placeholder { /* WebKit, Blink, Edge */
@@ -96,8 +124,8 @@ $error: #dfadbd;
     position: relative;
 	display: -webkit-flex;
     display: flex;
-  	-webkit-justify-content: center; /* Safari */
-  	justify-content:         center;
+  	-webkit-justify-content: left; /* Safari */
+  	justify-content:         left;
 
 }
 
@@ -134,6 +162,13 @@ $error: #dfadbd;
         border: 1px solid $cornflower-blue; 
         display: flex;
         justify-content: center;       
+    }
+
+    .btn-with-ico__clean {
+        background-color: unset;
+        border: unset;
+        display: flex;
+        justify-content: center; 
     }
 
     .btn-ico {

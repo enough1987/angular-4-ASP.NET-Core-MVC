@@ -16,7 +16,8 @@ export class SignUpComponent {
   formData: FormGroup; // used for form scope and validation
   isShowenPass: boolean = false; // used for changing visability of password
 
-  constructor(private formBuilder: FormBuilder, private authService: AuthService) { 
+  constructor(private formBuilder: FormBuilder, 
+    private authService: AuthService ) { 
     console.log(" constructor of sign-up " );
   }
 
@@ -32,6 +33,10 @@ export class SignUpComponent {
       password: ['', [Validators.required, Validators.minLength(4)]]
     });
 
+  }
+
+  signUpWithFB(){
+    this.authService.signUpWithFb();
   }
 
   // it signed up user

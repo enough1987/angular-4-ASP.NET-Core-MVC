@@ -6,8 +6,9 @@
             src="assets/images/ico_logo.svg" />
 
         <div class="btn-container">
-            <button class="btn btn-one-centered btn-with-ico">
-                <img class="btn-ico" src="assets/images/ico_facebook.png" />
+            <button class="btn btn-one-centered btn-with-ico__clean"
+            (click)="signUpWithFB()" >
+                <img class="btn-ico" src="assets/images/ico_facebook_white_button_blue.svg" />
                 Sign Up With Facebook
             </button>
         </div>
@@ -52,7 +53,7 @@
 
         <div class="btn-container">
             <button class="btn btn-one-centered"
-            [class.error-background]=" formData.controls.password.invalid && isShowenErrors "
+            [class.error-background]=" !formData.valid && isShowenErrors "
             (click)=" signUp() " >
                 Sign Up
             </button>

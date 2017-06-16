@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { CanActivate, Router } from '@angular/router';
+import { Router } from '@angular/router';
 
 
 import { Observable } from 'rxjs/Observable';
@@ -8,39 +8,28 @@ import 'rxjs/add/operator/do';
 import 'rxjs/add/operator/delay';
 
 
-@Injectable()
-export class AuthService implements CanActivate {
+import { AuthFbService } from "app/auth/services/auth-fb.service";
 
-  private static instance: AuthService; // instance of Singleton 
+
+@Injectable()
+export class AuthService {
 
 
   private isLoggedIn: boolean = false; // this field says if user logged in
   private redirectUrl: string = ""; // if user is not Logged in , user will be redirected to this url
 
 
-  constructor(private router: Router) {
-    return AuthService.instance ? AuthService.instance : this;
-  }
-
-  // it useds in routing as guard
-  canActivate(): boolean {
-    console.log( "AuthGuard#canActivate called", this.loggedIn );
-    if (this.loggedIn) {
-      return true;
-    } else {
-      this.router.navigate([this.redirectUrl]);
-      return false;
-    }
+  constructor( private router: Router, private authFbService: AuthFbService ) {
   }
 
   // it is getter for isLoggedIn
-  private get loggedIn(): boolean {
+  get loggedIn(): boolean {
     this.isLoggedIn = localStorage.getItem("isLoggedIn") === "true" ? true : false;
     return this.isLoggedIn;
   }
 
   // it is setter for isLoggedIn
-  private set loggedIn(state: boolean) {
+  set loggedIn(state: boolean) {
     this.isLoggedIn = state;
     localStorage.setItem("isLoggedIn", this.isLoggedIn.toString());
   }
@@ -53,7 +42,7 @@ export class AuthService implements CanActivate {
 
   // it logins in user
   signIn(): Observable<boolean> {
-   console.log("auth signIn");
+    console.log("auth signIn");
     return Observable.of(true).delay(1000).do(val => this.loggedIn = true);
   }
 
@@ -61,6 +50,14 @@ export class AuthService implements CanActivate {
   signUp(): Observable<boolean> {
     console.log("auth signUp");
     return Observable.of(true).delay(1000).do(val => { console.log(" DO SOMETHING"); } );
+  }
+
+  signInWithFb():void {
+    this.authFbService.signIn();
+  }
+
+  signUpWithFb():void {
+    this.authFbService.signUp();
   }
 
 }

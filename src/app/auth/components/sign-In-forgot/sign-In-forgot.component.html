@@ -1,0 +1,49 @@
+<div class="auth-background" >
+
+    <div class="main-container">
+
+        <img class="ico_logo" 
+            src="assets/images/ico_logo.svg" />
+
+         <p class="text-left text-bold" >
+            Forgot your password?
+        </p> 
+
+        <p class="text-left" >
+            Please enter your email address and
+            we’ll get you back on track
+        </p>
+
+
+        <form [formGroup]="formData" > 
+
+            <div class="btn-container input-contaner " >
+                <input class="input" type="text" placeholder="Email"  required 
+                formControlName="email" />
+                <img class="input-img opacity-none" />
+            </div>
+          <error-msg 
+            *ngIf=" formData.controls.email.invalid && isShowenErrors "
+            [msg]="'email is not valid'" ></error-msg>    
+
+        </form>      
+
+        <div class="btn-container">
+            <button class="btn btn-one-centered"
+            [class.error-background]=" !formData.valid && isShowenErrors "
+            (click)=" resetPassword() " >
+                Reset Password
+            </button>
+        </div>
+
+        <p class="text-center text-center__big" >
+            <img class="input-img__small" 
+                src="assets/images/btn_arrow_back_sm.svg" />
+            Return to 
+            <a class="link" 
+            [routerLink]="['/sign-in']" > Login </a>
+        </p>           
+
+    </div>
+
+</div>
