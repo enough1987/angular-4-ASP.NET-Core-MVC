@@ -1,4 +1,11 @@
-import { Component, ViewChild, ElementRef } from '@angular/core';
+import { Component } from '@angular/core';
+
+
+import { Observable } from "rxjs/Rx";
+
+
+import { HttpService } from "app/shared";
+import { RequestOptions } from "@angular/http";
 
 
 @Component({
@@ -9,41 +16,29 @@ import { Component, ViewChild, ElementRef } from '@angular/core';
 export class WelcomeComponent {
 
 
-  @ViewChild("fileFoto") fileFoto: ElementRef;
-  
-
-  constructor() { 
+  constructor(private httpService: HttpService) { 
     console.log(" constructor of welcome " );
   }
 
-
-  clickFoto( fileFoto ): void{
-    fileFoto.click();
-    fileFoto.onChange = this.changeFotoEvent(fileFoto);
-  }
-
-  // http://blog.teamtreehouse.com/uploading-files-ajax
-  private changeFotoEvent = (fileFoto)=>{
-    console.log( " 1" , fileFoto );
-    // Get the selected files from the input.
-    let files = fileFoto.files;
-    console.log(" ", files );
-    // Create a new FormData object.
-    let formData = new FormData();
-    // Loop through each of the selected files.
-    for (var i = 0; i < files.length; i++) {
-      let file = files[i];
-      console.log( file.type );
-      // Check the file type.
-      if (!file.type.match('image.*')) {
-        continue;
-      }
-      console.log(file);
-      // Add the file to the request.
-      formData.append('photos[]', file, file.name);
+ // https://stackoverflow.com/questions/40214772/file-upload-in-angular-2
+ fileFotoChange(event) {
+    let fileList: FileList = event.target.files;
+    if(fileList.length > 0) {
+        let file: File = fileList[0];
+        let formData:FormData = new FormData();
+        formData.append('uploadFile', file, file.name);
+        let headers = new Headers();
+        headers.append('Content-Type', 'multipart/form-data');
+        headers.append('Accept', 'application/json');
+        this.httpService.post("assets/test.json", formData, headers)
+            .map(res => res.json())
+            .catch(error => Observable.throw(error))
+            .subscribe(
+                data => console.log('success'),
+                error => console.log(error)
+            )
     }
-    console.log(formData); 
-  };
+}
   
 
 

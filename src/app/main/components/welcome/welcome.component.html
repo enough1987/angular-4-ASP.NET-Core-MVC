@@ -7,9 +7,11 @@
 
        <div class="circle" >
 
-            <input type="file" class="hidden" #fileFoto />
+            <input type="file" class="hidden" 
+            #fileFoto 
+            (change)="fileFotoChange($event)" />
             <img class="circle circle-small circle-small-img" src="assets/images/ico_plus_white_mid.svg" 
-            (click)="clickFoto(fileFoto)" />
+            (click)="fileFoto.click()" />
 
        </div>
 
