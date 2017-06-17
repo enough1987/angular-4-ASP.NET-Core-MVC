@@ -1,2 +1,49 @@
 
-Info page
+
+    <div class="main-container">
+
+        <div *ngIf="templCase === templateCase.Terms" >
+            <div class="info-header" >
+                <img class="info-header__img" src="assets/images/btn_arrow_back_big.svg" 
+                (click)="navBack()" />
+                <p class="info-header__text" >
+                    Terms of Service
+                </p>
+            </div>
+            <p class="text-left text-big text-bold" >
+                Fabulive Terms of Service
+            </p>
+            <p class="text-left" >
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas sit amet ultrices massa, 
+                et imperdiet mi. Ut at pulvinar sapien. Praesent risus nunc, condimentum eget commodo non, 
+                luctus id neque. Morbi euismod fermentum ante non bibendum. Integer mauris eros, aliquam sit 
+                amet fringilla id, venenatis et lacus. Duis elementum nisi at felis pharetra tempus. Vivamus 
+                malesuada mauris eget nibh porta facilisis. Integer eu elit a sapien vestibulum luctus non in erat. 
+                Ut imperdiet sollicitudin urna, dapibus ornare metus dictum id. Mauris a fermentum diam.
+            </p>
+        </div> 
+
+
+        <div *ngIf="templCase === templateCase.Policy" >
+            <div class="info-header" >
+                <img class="info-header__img" src="assets/images/btn_arrow_back_big.svg" 
+                (click)="navBack()" />
+                <p class="info-header__text" >
+                    Privacy and Policy of Service
+                </p>
+            </div>
+            <p class="text-left text-big text-bold" >
+                Fabulive Privacy and Policy of Service
+            </p>
+            <p class="text-left" >
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas sit amet ultrices massa, 
+                et imperdiet mi. Ut at pulvinar sapien. Praesent risus nunc, condimentum eget commodo non, 
+                luctus id neque. Morbi euismod fermentum ante non bibendum. Integer mauris eros, aliquam sit 
+                amet fringilla id, venenatis et lacus. Duis elementum nisi at felis pharetra tempus. Vivamus 
+                malesuada mauris eget nibh porta facilisis. Integer eu elit a sapien vestibulum luctus non in erat. 
+                Ut imperdiet sollicitudin urna, dapibus ornare metus dictum id. Mauris a fermentum diam.
+            </p>
+        </div> 
+
+
+    </div>

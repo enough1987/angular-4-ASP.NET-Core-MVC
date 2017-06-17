@@ -5,15 +5,7 @@ import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 
 
 import { AuthService } from "app/auth/services/auth.service";
-import { AuthNavType } from "app/auth";
-
-
-enum TemplateCase {
-  Base,
-  SignUp,
-  SignIn,
-  SignInForgot
-}
+import { AuthNavType, AuthTemplateCase } from "app/auth/index";
 
 
 @Component({
@@ -29,8 +21,8 @@ export class AuthComponent {
 
   isShowenErrors: boolean = false; // if it has true we show errors 
   formData: FormGroup; // used for form scope and validation
-  tempCase: TemplateCase; // template case
-  templateCase = TemplateCase; // copy of enum for template 
+  tempCase: AuthTemplateCase; // template case
+  templateCase = AuthTemplateCase; // copy of enum for template 
   isShowenPass: boolean = false; // used for changing visability of password
 
 
@@ -58,13 +50,13 @@ export class AuthComponent {
     let id = this.activatedRoute.snapshot.params['id'];
     console.log( id );
     if ( id === undefined ) {
-      this.tempCase = TemplateCase.Base;
+      this.tempCase = AuthTemplateCase.Base;
     } else if ( id === "sign-in" ) {
-      this.tempCase = TemplateCase.SignIn;
+      this.tempCase = AuthTemplateCase.SignIn;
     } else if ( id === "sign-up" ) {
-      this.tempCase = TemplateCase.SignUp;
+      this.tempCase = AuthTemplateCase.SignUp;
     } else if ( id === "sign-in-forgot" ) {
-      this.tempCase = TemplateCase.SignInForgot;   
+      this.tempCase = AuthTemplateCase.SignInForgot;   
     } else {
       this.authService.nav(AuthNavType.redirectToAuth);
     }

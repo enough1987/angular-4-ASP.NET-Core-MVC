@@ -16,6 +16,13 @@ export enum AuthNavType {
   redirectFromAuth
 }
 
+export enum AuthTemplateCase {
+  Base,
+  SignUp,
+  SignIn,
+  SignInForgot
+}
+
 
 @Injectable()
 export class AuthService {

@@ -23,14 +23,7 @@
                 </button>
             </div>
 
-            <p class="text-center" >
-                By signing up you agree to
-                <a class="link" 
-                [routerLink]="['/info/terms']" > Terms of Use </a>
-                and
-                <a class="link" 
-                [routerLink]="['/info/policy']" > Privacy Policy </a> 
-            </p> 
+            <auth-info></auth-info>
 
             <p class="text-center text-center__big" >
                 Already have an account? 
@@ -55,16 +48,16 @@
                 Or
             </p>  
 
-            <form [formGroup]="formData" > 
+            <form autocomplete="off" novalidate
+                [formGroup]="formData" > 
 
                 <div class="btn-container input-contaner " >
                     <input class="input" type="text" placeholder="Email"  required 
                     formControlName="email" />
-                    <img class="input-img opacity-none" />
                 </div>
-            <error-msg 
-                *ngIf=" formData.controls.email.invalid && isShowenErrors "
-                [msg]="'email is not valid'" ></error-msg>    
+                <error-msg 
+                    *ngIf=" formData.controls.email.invalid && isShowenErrors "
+                    [msg]="'email is not valid'" ></error-msg>    
 
                 <div class="btn-container input-contaner " >
                     <input class="input" placeholder="Password"  required
@@ -74,9 +67,9 @@
                     [src]=" isShowenPass ? 'assets/images/ico_eye_close_sm.svg' : 'assets/images/ico_eye_open_sm.svg' "  
                     (click)=" toggleShowenPass() " />               
                 </div>
-            <error-msg 
-                *ngIf=" formData.controls.password.invalid && isShowenErrors "
-                [msg]="'Password must be 4 or more letters'" ></error-msg>    
+                <error-msg 
+                    *ngIf=" formData.controls.password.invalid && isShowenErrors "
+                    [msg]="'Password must be 4 or more letters'" ></error-msg>    
                 
             </form>      
 
@@ -93,14 +86,7 @@
                 </button>
             </div>
 
-            <p class="text-center" >
-                By signing up you agree to
-                <a class="link" 
-                [routerLink]="['/info/terms']" > Terms of Use </a>
-                and
-                <a class="link" 
-                [routerLink]="['/info/policy']" > Privacy Policy </a> 
-            </p> 
+            <auth-info></auth-info>
 
             <p class="text-center text-center__big" >
                 <img class="input-img__small" 
@@ -127,25 +113,24 @@
                 Or
             </p>  
 
-            <form [formGroup]="formData" >
+            <form autocomplete="off" novalidate
+                [formGroup]="formData" >
 
                 <div class="btn-container input-contaner " >
                     <input class="input" type="text" placeholder="Full Name" required 
                     formControlName="fullName" />
-                    <img class="input-img opacity-none"  />
                 </div>
-            <error-msg 
-                *ngIf=" formData.controls.fullName.invalid && isShowenErrors "
-                [msg]="'Full Name must be 4 or more letters'" ></error-msg>    
+                <error-msg 
+                    *ngIf=" formData.controls.fullName.invalid && isShowenErrors "
+                    [msg]="'Full Name must be 4 or more letters'" ></error-msg>    
 
                 <div class="btn-container input-contaner " >
                     <input class="input" type="text" placeholder="Email"  required 
                     formControlName="email" />
-                    <img class="input-img opacity-none" />
                 </div>
-            <error-msg 
-                *ngIf=" formData.controls.email.invalid && isShowenErrors "
-                [msg]="'email is not valid'" ></error-msg>    
+                <error-msg 
+                    *ngIf=" formData.controls.email.invalid && isShowenErrors "
+                    [msg]="'email is not valid'" ></error-msg>    
 
                 <div class="btn-container input-contaner " >
                     <input class="input" placeholder="Password"  required
@@ -155,9 +140,9 @@
                     [src]=" isShowenPass ? 'assets/images/ico_eye_close_sm.svg' : 'assets/images/ico_eye_open_sm.svg' "  
                     (click)=" toggleShowenPass() " />               
                 </div>
-            <error-msg 
-                *ngIf=" formData.controls.password.invalid && isShowenErrors "
-                [msg]="'Password must be 4 or more letters'" ></error-msg>    
+                <error-msg 
+                    *ngIf=" formData.controls.password.invalid && isShowenErrors "
+                    [msg]="'Password must be 4 or more letters'" ></error-msg>    
                 
             </form>      
 
@@ -169,14 +154,7 @@
                 </button>
             </div>
 
-            <p class="text-center" >
-                By signing up you agree to
-                <a class="link" 
-                [routerLink]="['/info/terms']" > Terms of Use </a>
-                and
-                <a class="link" 
-                [routerLink]="['/info/policy']" > Privacy Policy </a> 
-            </p> 
+            <auth-info></auth-info>
 
             <p class="text-center text-center__big" >
                 Already have an account? 
@@ -199,16 +177,16 @@
             </p>
 
 
-            <form [formGroup]="formData" > 
+            <form autocomplete="off" novalidate
+                [formGroup]="formData" > 
 
                 <div class="btn-container input-contaner " >
                     <input class="input" type="text" placeholder="Email"  required 
                     formControlName="email" />
-                    <img class="input-img opacity-none" />
                 </div>
-            <error-msg 
-                *ngIf=" formData.controls.email.invalid && isShowenErrors "
-                [msg]="'email is not valid'" ></error-msg>    
+                <error-msg 
+                    *ngIf=" formData.controls.email.invalid && isShowenErrors "
+                    [msg]="'email is not valid'" ></error-msg>    
 
             </form>      
 

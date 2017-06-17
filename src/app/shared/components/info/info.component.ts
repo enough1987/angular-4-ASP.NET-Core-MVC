@@ -1,5 +1,12 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute } from "@angular/router";
+import {Location} from '@angular/common';
+
+
+enum InfoTemplateCase {
+    Terms,
+    Policy
+}
 
 
 @Component({
@@ -9,13 +16,26 @@ import { ActivatedRoute } from "@angular/router";
 })
 export class InfoComponent {
 
-    constructor(private route: ActivatedRoute,){
+    templateCase = InfoTemplateCase;
+    templCase: InfoTemplateCase;
+
+    constructor(private route: ActivatedRoute, private location: Location){
     }
 
     ngOnInit(){
-        // it uses for showing template 
-        let id = this.route.snapshot.params['id'];
-        console.log( " id ", id );
+        this.setTemplCase();
+    }
+ 
+    // set template for showing
+    private setTemplCase(){
+       let id = this.route.snapshot.params['id'];
+       if (id === "terms") this.templCase = InfoTemplateCase.Terms;
+       if (id === "policy") this.templCase = InfoTemplateCase.Policy;
+    }
+  
+    // TODO : bug if we went to this page with link, redirect back, do we want redirect to spesial page?
+    navBack(){
+        this.location.back();
     }
 
 }

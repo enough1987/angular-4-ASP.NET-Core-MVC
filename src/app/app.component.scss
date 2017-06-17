@@ -6,6 +6,8 @@ $main-border-color: #88a6b0;
 $main-border-active-color: #7caee2;
 $main-border-active-border: #dde5f3;
 $main-with:  70%;
+$main-with__middle: 85%;
+$main-with__small: 95%;
 $cornflower-blue: #1976d2;
 $placeholder: #88a5b0;
 $pink: #ed517e;
@@ -28,7 +30,7 @@ $error: $pink;
 .main-container {
 	width: $main-with;
     max-width: 1000px;
-    min-width: 400px;
+    min-width: 300px;
     min-height: 100vh;
 	margin: 0px auto;
 }
@@ -49,7 +51,7 @@ $error: $pink;
 .circle-small {
     width: 25px;
     height: 25px;
-    background-color: #ed517e;
+    background-color: $pink;
     position: absolute;
     bottom: -10px;
     right: -10px;
@@ -87,6 +89,14 @@ $error: $pink;
     text-align: right;
 }
 
+.text-big {
+    font-size: 2.5em;
+}
+
+.text-middle {
+    font-size: 1.5em;    
+}
+
 .text-center__big {
     margin-top: 5vh;
     font-size: 1.5em;
@@ -115,15 +125,18 @@ $error: $pink;
 .input {
     color: $main-dark;
     font-size: 1.5em;
-    width: 80%;
+    width: 100%;
     background-color: unset;
     border: unset;
     margin: 10px 0;
+    padding-right : 20%;
 }
 
 .input-img {
-    padding-left: 1em;
     width: 1.5em;
+    position: absolute;
+    top: 30%;
+    right: 2%;
 }
 
 .input-img__small {
@@ -213,6 +226,40 @@ $error: $pink;
 
 .error-color {
     color: $error;    
+}
+
+
+.info-header {
+    display: -webkit-flex;
+    display: flex;
+    flex-flow: row wrap;
+    -webkit-align-content: stretch; /* Safari */
+    align-content:         stretch;
+    margin: 3em 0;
+}
+
+.info-header__img, .info-header__text {
+    font-size: 1.7em;
+}
+
+.info-header__img {
+    height: 1.2em;
+}
+
+.info-header__text {
+    padding-left: 10%;
+}
+
+@media (max-width: 960px) {
+    .main-container {
+	    width: $main-with__middle;
+    }
+}
+
+@media (max-width: 480px) {
+    .main-container {
+	    width: $main-with__small;
+    }
 }
 
 /* ********************** */

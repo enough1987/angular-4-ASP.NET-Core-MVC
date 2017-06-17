@@ -8,7 +8,7 @@ import { RouterModule } from "@angular/router";
 import { SharedModule } from "app/shared/shared.module";
 
 
-import { AuthComponent } from './index';
+import { AuthComponent, AuthInfoComponent } from './index';
 
 
 import { AuthService, AuthGuardService, AuthFbService } from "./index";
@@ -30,9 +30,11 @@ import { AuthService, AuthGuardService, AuthFbService } from "./index";
   ],
   declarations: [ 
     AuthComponent,
+    AuthInfoComponent
  ],
   exports:      [ 
     AuthComponent,
+    AuthInfoComponent
   ]
 })
 export class AuthModule { }
