@@ -8,8 +8,7 @@ import { RouterModule } from "@angular/router";
 import { SharedModule } from "app/shared/shared.module";
 
 
-import { AuthComponent, SignUpComponent, SignInComponent, 
-  SignInForgotComponent, LoginComponent } from './index';
+import { AuthComponent } from './index';
 
 
 import { AuthService, AuthGuardService, AuthFbService } from "./index";
@@ -31,17 +30,9 @@ import { AuthService, AuthGuardService, AuthFbService } from "./index";
   ],
   declarations: [ 
     AuthComponent,
-    SignUpComponent,
-    SignInComponent,
-    SignInForgotComponent,
-    LoginComponent
  ],
   exports:      [ 
     AuthComponent,
-    SignUpComponent,
-    SignInComponent,
-    SignInForgotComponent,
-    LoginComponent 
   ]
 })
 export class AuthModule { }
