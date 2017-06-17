@@ -7,7 +7,7 @@
 
         <div class="btn-container">
             <button class="btn btn-one-centered btn-with-ico__clean"
-            (click)="signInWithFB()" >
+            (click)="authService.signInWithFb()" >
                 <img class="btn-ico" src="assets/images/ico_facebook_white_button_blue.svg" />
                 Sign In With Facebook
             </button>
@@ -69,7 +69,7 @@
                 src="assets/images/btn_arrow_back_sm.svg" />
             Return to 
             <a class="link" 
-            [routerLink]="['/sign-up']" > Sign Up </a>
+            [routerLink]="['/authorization/sign-up']" > Sign Up </a>
         </p>           
 
     </div>

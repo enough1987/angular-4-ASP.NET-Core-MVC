@@ -22,7 +22,7 @@ export class AuthService {
 
 
   private isLoggedIn: boolean = false; // this field says if user logged in
-  private redirectToAuth: string = ""; // it uses for redirection to auth
+  private redirectToAuth: string = "/auth"; // it uses for redirection to auth
   private redirectFromAuth: string = "/welcome"; // it uses for redirection from auth
 
   constructor( private router: Router, private authFbService: AuthFbService ) {
@@ -30,7 +30,7 @@ export class AuthService {
 
   // it is getter for isLoggedIn
   get loggedIn(): boolean {
-    this.isLoggedIn = localStorage.getItem("isLoggedIn") === "true" ? true : false;
+    this.isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
     return this.isLoggedIn;
   }
 
@@ -41,10 +41,10 @@ export class AuthService {
   }
 
   // navigation to/from auth page group
-  nav( authNavType: AuthNavType ){
+  nav( authNavType: AuthNavType ): void {
     console.log( " nav ", authNavType );
-    if( authNavType === AuthNavType.redirectToAuth ) this.router.navigate([this.redirectToAuth]); 
-    if( authNavType === AuthNavType.redirectFromAuth ) this.router.navigate([this.redirectFromAuth]);      
+    if ( authNavType === AuthNavType.redirectToAuth ) this.router.navigate([this.redirectToAuth]);
+    if ( authNavType === AuthNavType.redirectFromAuth ) this.router.navigate([this.redirectFromAuth]);  
   }
 
   // it logins out user

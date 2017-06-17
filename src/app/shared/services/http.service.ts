@@ -13,26 +13,26 @@ export class HttpService {
 
     constructor(private http: Http) { }
 
-    get(url:string, options = this.headers ):Observable<Response> {
-        return this.http.get( url, options )
+    get(url:string, headers = this.headers ):Observable<Response> {
+        return this.http.get( url, headers )
             .map(this.extractData)
             .catch(this.handleError);
     }
 
-    post(url:string, body:any, options = this.headers ):Observable<Response> {
-        return this.http.post( url, body, options)
+    post(url:string, body:any, headers = this.headers ):Observable<Response> {
+        return this.http.post( url, body, headers)
             .map(this.extractData)
             .catch(this.handleError);
     }
 
-    put(url:string, body:any, options = this.headers ):Observable<Response> {
-        return this.http.put( url, body, options )
+    put(url:string, body:any, headers = this.headers ):Observable<Response> {
+        return this.http.put( url, body, headers )
             .map(this.extractData)
             .catch(this.handleError);
     }
 
-    delete(url:string, options = this.headers ):Observable<Response> {
-        return this.http.delete( url, options )
+    delete(url:string, headers = this.headers ):Observable<Response> {
+        return this.http.delete( url, headers )
             .map(this.extractData)
             .catch(this.handleError);
     }

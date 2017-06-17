@@ -36,7 +36,7 @@ export class WelcomeComponent {
             .subscribe(
                 data => console.log('success'),
                 error => console.log(error)
-            )
+            );
     }
 }
   

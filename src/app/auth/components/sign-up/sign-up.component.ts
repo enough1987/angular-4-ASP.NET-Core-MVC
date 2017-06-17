@@ -35,10 +35,6 @@ export class SignUpComponent {
 
   }
 
-  signUpWithFB(){
-    this.authService.signUpWithFb();
-  }
-
   // it signed up user
   signUp(): void {
     console.log("signUp");

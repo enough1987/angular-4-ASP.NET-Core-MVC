@@ -2,8 +2,7 @@ import { NgModule }             from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 
-import { AuthComponent, SignUpComponent, SignInComponent, 
-  SignInForgotComponent, LoginComponent } from "./auth";
+import { AuthComponent } from "./auth";
 import { MainComponent } from "./main";
 import { InfoComponent } from "app/shared";
 
@@ -13,16 +12,13 @@ import { AuthGuardService } from "./auth/index";
 
 
 const AppRoutes: Routes = [
-  { path: '', component: AuthComponent },
-  { path: 'sign-up', component: SignUpComponent },
-  { path: 'sign-in', component: SignInComponent },
-  { path: 'sign-in-forgot', component: SignInForgotComponent },
-  { path: 'login', component: LoginComponent },
+  { path: 'auth', component: AuthComponent },
+  { path: 'auth/:id', component: AuthComponent },
 
   { path: 'info/:id',  component: InfoComponent },
   { path: 'welcome',  component: MainComponent , canActivate: [AuthGuardService] },
   
-  { path: '**', redirectTo: 'index' }
+  { path: '**', redirectTo: 'auth' }
 ];
 
 @NgModule({
