@@ -5,7 +5,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 
 
-import { SettingService, HelperService, HttpService, WebSocketService } from "./index";
+import { SettingService, HelperService, HttpService, WebSocketService, UserService } from "./index";
 
 
 import { ErrorMsgComponent, InfoComponent, VideoPlayerComponent } from "./index";
@@ -20,6 +20,7 @@ import { ErrorMsgComponent, InfoComponent, VideoPlayerComponent } from "./index"
   ],
   providers:    [ 
     SettingService,
+    UserService,
     HelperService,
     HttpService,
     WebSocketService 
