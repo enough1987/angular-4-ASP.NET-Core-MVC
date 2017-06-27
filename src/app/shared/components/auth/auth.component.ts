@@ -11,7 +11,7 @@ import { AuthNavType, AuthTemplateCase } from "app/index";
 @Component({
   selector: 'auth',
   templateUrl: './auth.component.html',
-  styleUrls: ['./auth.component.scss']
+  styleUrls: ['./auth.component.scss'] 
 })
 export class AuthComponent {
 
