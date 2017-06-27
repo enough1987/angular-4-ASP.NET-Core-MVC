@@ -5,7 +5,7 @@ import { ActivatedRoute, Router, NavigationEnd } from "@angular/router";
 import { AuthNavType, AuthTemplateCase } from "app/index";
 
 
-import { TypeOfModal, ModalsService, AuthService } from "app/index";
+import { TypeOfModal, ModalsService, AuthService, UserService } from "app/index";
 
 
 class Btn { 
@@ -50,7 +50,7 @@ export class AppHeaderComponent {
     if(!isModalTarget) this.toggleUserModal(false);
   }
 
-  constructor( public authService: AuthService, private modalsService: ModalsService ){
+  constructor( public authService: AuthService, public userService: UserService, private modalsService: ModalsService ){
     console.log( " constructor of auth forms " ); 
   } 
 

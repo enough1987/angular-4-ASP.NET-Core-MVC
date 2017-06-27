@@ -7,7 +7,7 @@ import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { AuthNavType, AuthTemplateCase } from "app/index";
 
 
-import { TypeOfModal, ModalsService, AuthService } from "app/index";
+import { TypeOfModal, ModalsService, AuthService, UserService } from "app/index";
 
 
 @Component({
@@ -31,7 +31,7 @@ export class AuthFormsComponent {
 
 
   constructor( private activatedRoute: ActivatedRoute, private formBuilder: FormBuilder,
-    public authService: AuthService, private modalsService: ModalsService ){
+    public authService: AuthService, public modalsService: ModalsService, private userService: UserService ){
     console.log( " constructor of auth forms " ); 
   } 
 
@@ -88,7 +88,7 @@ export class AuthFormsComponent {
   }
 
 // it hendles signe up btn
-  signIn(): void {
+  signIn( ) : void {
     console.log( "signIn" );
     if ( this.formData.valid ) {
       this.isShowenErrors = false; 
@@ -97,6 +97,7 @@ export class AuthFormsComponent {
         password: this.formData.get('password').value
       }).subscribe((data: boolean) => {
         console.log(data);
+        this.authService.nav(AuthNavType.redirectFromAuth);
       });
     } else {
       this.isShowenErrors = true;      
@@ -104,7 +105,7 @@ export class AuthFormsComponent {
   }
 
   // it hendles signe up btn
-  signUp(): void {
+  signUp( ) : void {
     console.log( "signUp" );
     if ( this.formData.valid ) {
       this.isShowenErrors = false; 
@@ -115,6 +116,11 @@ export class AuthFormsComponent {
         subscribeOnUpdates: this.subscribeOnUpdates        
       }).subscribe((data: boolean) => {
         console.log(data);
+        this.userService.info = {
+          fullName: this.formData.get('fullName').value,
+          email: this.formData.get('email').value,
+          subscribeOnUpdates: this.subscribeOnUpdates        
+        };
         this.modalsService.senderOfOpen(TypeOfModal.ConfirmSignUp);
       });
     } else {
@@ -127,6 +133,7 @@ export class AuthFormsComponent {
     console.log(" reset password ");
     if (this.formData.valid) {
       this.isShowenErrors = false; 
+      this.modalsService.senderOfOpen(TypeOfModal.Success);
     } else {
       this.isShowenErrors = true;
     }

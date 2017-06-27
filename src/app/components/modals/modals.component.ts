@@ -1,8 +1,8 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 
 
-import { TypeOfModal } from "app/index";
-import { ModalsService, AuthService } from "app/index";
+import { TypeOfModal, AuthNavType } from "app/index";
+import { ModalsService, AuthService, UserService } from "app/index";
 
 
 
@@ -20,10 +20,12 @@ export class ModalsComponent {
     @Output() closeModal: EventEmitter<any> = new EventEmitter();
 
     typeOfModal = TypeOfModal;
-    key;
+    key: string = "";
+    isShowenErrors: boolean;
+    wasResendCode: boolean;
 
 
-    constructor(private authService: AuthService, private modalsService: ModalsService){
+    constructor(private authService: AuthService, public userService: UserService, private modalsService: ModalsService){
       console.log( " constructor of modal ", typeof this.typeOfModal);
     }
 
@@ -39,8 +41,14 @@ export class ModalsComponent {
     }
 
     closeModalEvent(): void {
-      delete this.tempCase
       this.closeModal.emit(this.tempCase);
+      this.cleanModalData();
+    }
+
+    private cleanModalData(){
+      delete this.tempCase;
+      delete this.isShowenErrors;
+      delete this.wasResendCode;      
     }
 
     changeKey( key: string ): void {
@@ -54,6 +62,44 @@ export class ModalsComponent {
       console.log(newKey);
       this.key = newKey;
     }
+
+    confirmCode(){
+      console.log( " confirmCode ", this.key.length, this.isShowenErrors );
+      if( this.key.length == 6 ) {
+        this.isShowenErrors = false;
+        this.authService.confirmCode().subscribe(( data )=>{
+          console.log( data );
+          alert(" no server implantation ");
+        });
+      } else {
+        this.isShowenErrors = true;
+      }
+    }
+
+    resendCode(){
+       console.log( " resendCode " );
+        this.authService.resendCode().subscribe(( data )=>{
+          console.log( data );
+          this.wasResendCode = true;
+          alert(" no server implantation ");
+        });     
+    }
+
+    cancelModal() {
+      if ( this.tempCase == this.typeOfModal.ConfirmSignUp || this.tempCase == this.typeOfModal.Success ) {
+        this.authService.nav(AuthNavType.redirectFromAuth);
+        this.cleanModalData();
+      } else {
+        this.closeModalEvent();
+      }
+    }
+
+    isBackground(){
+      return ( this.tempCase === this.typeOfModal.Confirm || 
+               this.tempCase === this.typeOfModal.ConfirmSignUp ||
+               this.tempCase === this.typeOfModal.Success );
+    }
+
 
 
 }

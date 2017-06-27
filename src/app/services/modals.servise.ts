@@ -7,7 +7,8 @@ import { Subject } from "rxjs/Rx";
 export enum TypeOfModal {
   Profile,
   Confirm,
-  ConfirmSignUp
+  ConfirmSignUp,
+  Success
 }
 
 

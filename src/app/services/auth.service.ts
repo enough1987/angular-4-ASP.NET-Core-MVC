@@ -9,6 +9,7 @@ import 'rxjs/add/operator/delay';
 
 
 import { AuthFbService } from "app/services/auth-fb.service";
+import { UserService } from "app/services/user.service";
 
 
 export enum AuthNavType {
@@ -44,7 +45,7 @@ export class AuthService {
   private redirectToAuth: string = ""; // it uses for redirection to auth
   private redirectFromAuth: string = ""; // it uses for redirection from auth
 
-  constructor( private router: Router, private authFbService: AuthFbService ) {
+  constructor( private router: Router, private authFbService: AuthFbService, private userService: UserService ) {
   }
 
   // it is getter for isLoggedIn
@@ -74,20 +75,36 @@ export class AuthService {
 
   // it logins in user
   signIn(formData: SignIn): Observable<boolean> {
-    console.log("auth signIn ", formData );
+    console.log(" auth signIn ", formData );
     return Observable.of(true).delay(1000).do(val => {
-      //this.loggedIn = true;
+      this.loggedIn = true;
       //this.nav(AuthNavType.redirectFromAuth);
     });
   }
 
    // it signs up user
   signUp(formData: SignUp): Observable<boolean> {
-    console.log("auth signUp ", formData );
+    console.log(" auth signUp ", formData );
     return Observable.of(true).delay(1000).do(val => {
-      //this.loggedIn = true;
+      this.loggedIn = true;
+      this.userService.info = formData;
       //this.nav(AuthNavType.redirectFromAuth);
     });
+  }
+
+  // send code to confirm
+  confirmCode(): Observable<boolean>{
+    console.log(" confirm code " );
+    return Observable.of(true).delay(1000).do(val => {
+      
+    });  
+  }
+
+  resendCode(): Observable<boolean>{
+    console.log(" resend code " );
+    return Observable.of(true).delay(1000).do(val => {
+      
+    });  
   }
 
   // type of sign in ( with Facebook )

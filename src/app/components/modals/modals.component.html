@@ -1,13 +1,22 @@
 <div class="modal-bgc" 
-    *ngIf="tempCase === typeOfModal.Confirm || tempCase === typeOfModal.ConfirmSignUp" 
-    (click)="closeModalEvent()" ></div>
+    *ngIf="tempCase && isBackground()" 
+    (click)="cancelModal()" ></div>
 
 <div class="modal modal__profile modal__target" 
     *ngIf="tempCase === typeOfModal.Profile" >
 
-   <p class="modal__target modal__h" > Alex Gurinenko </p>
+    <p class="container__right" >
+        <img class="link" src="assets/images/Closebutton.svg"
+        (click)="cancelModal()" >
+    </p>
 
-   <p class="modal__target modal__text" > alex@streamtechltd.com </p>
+   <p class="modal__target modal__h" > 
+       {{ userService.info.fullName }}
+    </p>
+
+   <p class="modal__target modal__text" > 
+       {{ userService.info.email }}
+    </p>
 
    <p class="modal__target modal__alarm" 
    (click)="openModalEvent(typeOfModal.Confirm)" > 
@@ -23,49 +32,110 @@
 
 
 <div class="modal modal__confirm modal__target" 
-    *ngIf="tempCase === typeOfModal.Confirm" >
+    *ngIf="tempCase === typeOfModal.Success" >
 
-   <p class="modal__target modal__text pad__tb-small " > 
-       Please enter confirmation code
-        sent to your email below
-   </p>
+    <p class="container__right" >
+        <img class="link" src="assets/images/Closebutton.svg"
+        (click)="cancelModal()" >
+    </p>
 
-  <input class="modal-input-characters pad__tb-small " maxlength='6' value='' 
-  [(ngModel)]="key"
-  (keyup)="changeKey(key)" />
+    <h5 class="text text__middle-small text__dark pad__without-bot" >
+        Success!
+    </h5>
 
-   <p class="modal__target modal__text pad__tb-small " > 
-       Didn’t recieve confirmation email?
-        Check spam folder or press resend button.
-   </p>
-
-
-   <p class="modal__target pad__tb-small"  > 
-       <span class="modal__clickeble" > Resend </span>
-       <span class="modal__clickeble" > Confirm </span>
+    <p class="text text__normal text__center text__dark text__pad-aside" >
+        Password resetting instructions were sent to
+        <br />
+        {{ userService.info.email }}
     </p>
  
+</div>
+
+<div class="modal modal__confirm modal__target" 
+    *ngIf="tempCase === typeOfModal.Confirm" >
+
+    <p class="container__right" >
+        <img class="link" src="assets/images/Closebutton.svg"
+        (click)="cancelModal()" >
+    </p>
+
+    <p class="text text__normal text__center text__dark text__pad-aside" >
+        Please enter confirmation code
+        <br />
+        sent to your email below
+    </p>
+
+    <div class="" >
+        <input class="modal-input-characters pad__tb-small " maxlength='6' value='' 
+        [(ngModel)]="key"
+        (keyup)="changeKey(key)" />
+    </div>
+
+    <p class="text text__normal-smallest text__center text__dark text__pad-aside" 
+    *ngIf="!wasResendCode" >
+        Didn’t recieve confirmation email?
+        <br />
+        Check spam folder or press resend button.
+    </p>
+
+    <p class="text text__normal-smallest text__center text__dark text__pad-aside" 
+    *ngIf="wasResendCode" >
+        Confirmation email sent to
+        <br />
+        {{ userService.info.email }}
+    </p>
+
+    <error-msg 
+        *ngIf=" isShowenErrors "
+        [msg]="'Please enter a valid confirmation code'" >
+    </error-msg>  
+
+   <p class="modal__target pad__tb-small container__right"  > 
+       <span class="modal__clickeble" 
+       *ngIf="!wasResendCode"
+       (click)="resendCode()" > Resend </span>
+       <span class="modal__clickeble" 
+       (click)="confirmCode()" > Confirm </span>
+   </p>
+  
 </div>
 
 
 <div class="modal modal__confirm modal__target" 
     *ngIf="tempCase === typeOfModal.ConfirmSignUp" >
 
-   <p class="modal__target modal__h pad__tb-small " > 
-       Thanks you for signing up! </p>
+    <p class="container__right" >
+        <img class="link" src="assets/images/Closebutton.svg"
+        (click)="cancelModal()" >
+    </p>
 
-   <p class="modal__target modal__text pad__tb-small " > 
-       Please enter confirmation code
+    <h5 class="text text__middle-small text__dark pad__without-bot" >
+        Thanks you for signing up!
+    </h5>
+
+    <p class="text text__normal text__center text__dark text__pad-aside" >
+        Please enter confirmation code
+        <br />
         sent to your email below
-   </p>
+    </p>
 
-  <input class="modal-input-characters pad__tb-small " maxlength='6' value='' 
-  [(ngModel)]="key"
-  (keyup)="changeKey(key)" />
+    <div class="" >
+        <input class="modal-input-characters pad__tb-small " maxlength='6' value='' 
+        [(ngModel)]="key"
+        (keyup)="changeKey(key)" />
+    </div>
 
-   <p class="modal__target pad__tb-small"  > 
-       <span class="modal__clickeble" > Later </span>
-       <span class="modal__clickeble" > Confirm </span>
+    <error-msg 
+        *ngIf=" isShowenErrors "
+        [msg]="'Please enter a valid confirmation code'" >
+    </error-msg>  
+
+
+   <p class="modal__target pad__tb-small container__right"  > 
+       <span class="modal__clickeble" 
+       (click)="cancelModal()" > Later </span>
+       <span class="modal__clickeble" 
+       (click)="confirmCode()" > Confirm </span>
    </p>
  
 </div>

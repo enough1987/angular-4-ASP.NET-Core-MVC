@@ -36,7 +36,7 @@
                 <span 
                 class="modal__target main-header__user-block__el main-header__user-block__name mob-hidden" 
 [class.main-header__user-block__el-second]="secondView || secondViewOfHeader" > 
-                    Alex Gurinenko </span>
+                    {{ userService.info.fullName }} </span>
                 <img 
                 class="modal__target main-header__user-block__el main-header__user-block__toggle mob-hidden" 
 [src]=" secondView || secondViewOfHeader ? 'assets/images/ico-drop-down-blue.svg' : 'assets/images/ico-drop-down.svg' " 

@@ -6,12 +6,20 @@ import { HttpService } from "./http.service";
 import { Observable } from "rxjs/Observable";
 
 
+
+export class UserInfo { 
+  fullName: string; 
+  email: string; 
+  subscribeOnUpdates: boolean;
+}
+
+
 @Injectable()
 export class UserService {
 
     private static instance: UserService; // instance of Singleton 
 
-    public userName: string = "user name";
+    public info: UserInfo = { fullName: "user name", email: "alex@gmail.com", subscribeOnUpdates: true };
 
     constructor(private httpService : HttpService){
         return UserService.instance ? UserService.instance : this;
