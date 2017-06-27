@@ -1,0 +1,3 @@
+Host git-codecommit.*.amazonaws.com
+  User APKAJOSDRNBS3PMT44FQ
+  IdentityFile ~/.ssh/codecommit_rsa

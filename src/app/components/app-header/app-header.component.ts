@@ -1,0 +1,81 @@
+import { Component, ViewChild, HostListener, Input, Output, EventEmitter } from '@angular/core';
+import { ActivatedRoute, Router, NavigationEnd } from "@angular/router";
+
+
+import { AuthNavType, AuthTemplateCase } from "app/index";
+
+
+import { TypeOfModal, ModalsService, AuthService } from "app/index";
+
+
+class Btn { 
+  route: string; 
+  text: string;
+}
+
+@Component({
+  selector: 'app-header',
+  templateUrl: './app-header.component.html',
+  styleUrls: ['./app-header.component.scss']
+})
+export class AppHeaderComponent {
+
+
+  tempCase: AuthTemplateCase; // template case
+  templateCase = AuthTemplateCase; // copy of enum for template 
+  isShowenPass: boolean = false; // used for changing visability of password
+  secondViewOfHeader: boolean = false; // used for showing type of view
+  isUserModalVisible: boolean = false; // used for show / hide user modal
+  typeOfModal = TypeOfModal // copy of enum for modal
+
+
+  @Input() btn: Btn = { route: "/sign-in" , text : "Sign in" };
+
+  @Input() secondView: boolean = true; // if true we have secondView all the time
+
+  @Output() view: EventEmitter<any> = new EventEmitter();
+
+  @ViewChild('header') header; 
+
+  @HostListener('window:scroll', ['$event']) onScrollEvent(e){
+    this.setSecondViewOfHeader();
+  } 
+
+  @HostListener('window:resize', ['$event']) onResize(e) {
+    this.setSecondViewOfHeader();
+  }
+
+  @HostListener('window:click', ['$event']) onClick(e) {
+    let isModalTarget = e.target.classList.contains("modal__target");
+    if(!isModalTarget) this.toggleUserModal(false);
+  }
+
+  constructor( public authService: AuthService, private modalsService: ModalsService ){
+    console.log( " constructor of auth forms " ); 
+  } 
+
+  ngOnInit() {
+  }   
+
+  // change view type
+  private setSecondViewOfHeader = ()=> {
+    if( this.secondView ) return;
+    let pos = this.header.nativeElement.getBoundingClientRect().top <= -320;
+    this.secondViewOfHeader = pos && ( window.innerWidth > 800 ) ;
+    this.view.emit(this.secondViewOfHeader);
+  };
+
+  // show / hide modal 
+  toggleUserModal(isUserModalVisible){
+    this.isUserModalVisible = isUserModalVisible;
+  }
+
+  // used for showing anather modal 
+  openModal(tempCase){
+    this.toggleUserModal(false);
+    this.modalsService.senderOfOpen(tempCase);
+  }
+
+ 
+
+}

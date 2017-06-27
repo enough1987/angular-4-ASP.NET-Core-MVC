@@ -11,13 +11,21 @@ import { HttpModule } from '@angular/http';
 import { FacebookModule } from 'ngx-facebook';
 
 
-import { AuthModule } from "app/auth/auth.module";
-import { SharedModule } from "app/shared/shared.module";
 import { RoutingModule } from "app/routing.module";
-import { MainModule } from "app/main/main.module";
 
 
-import { AppComponent } from 'app/app.component';
+import { SettingService, HelperService, HttpService, 
+  WebSocketService, UserService, ModalsService,
+  AuthService, AuthGuardService, AuthFbService } from "app/index";
+
+
+import { ErrorMsgComponent, InfoComponent, VideoPlayerComponent, 
+  ModalsComponent, WelcomeComponent, VideoComponent,
+  AuthFormsComponent, AppHeaderComponent,
+  MainComponent, AuthComponent, AppFooterComponent  } from "app/index";
+
+
+import { AppComponent } from "app/app.component";
 
 
 @NgModule({
@@ -30,15 +38,33 @@ import { AppComponent } from 'app/app.component';
 
     FacebookModule.forRoot(),
 
-    SharedModule,
-    AuthModule,
-    MainModule,
     RoutingModule
   ],
-  declarations: [
-    AppComponent
+  providers:    [ 
+    SettingService,
+    UserService,
+    HelperService,
+    HttpService,
+    WebSocketService,
+    ModalsService,
+    AuthService,
+    AuthGuardService,
+    AuthFbService
   ],
-  providers: [],
+  declarations: [
+    AppComponent,
+    MainComponent,
+    AuthComponent,
+    AppHeaderComponent,
+    AppFooterComponent,
+    AuthFormsComponent,
+    ErrorMsgComponent,
+    InfoComponent,
+    VideoPlayerComponent,
+    ModalsComponent,
+    WelcomeComponent,
+    VideoComponent
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

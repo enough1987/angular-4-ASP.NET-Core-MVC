@@ -2,23 +2,24 @@ import { NgModule }             from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 
-import { AuthComponent } from "./auth";
-import { MainComponent } from "./main";
-import { InfoComponent } from "app/shared";
+import { AuthComponent, AuthFormsComponent, MainComponent,
+ InfoComponent } from "app/index";
 
 
-import { AuthGuardService } from "./auth/index";
-
+import { AuthGuardService } from "app/index";
 
 
 const AppRoutes: Routes = [
-  { path: 'auth', component: AuthComponent },
-  { path: 'auth/:id', component: AuthComponent },
+  { path: '', component: AuthComponent },
+  { path: 'sign-in', component: AuthFormsComponent },
+  { path: 'sign-up', component: AuthFormsComponent },
+  { path: 'sign-in-forgot', component: AuthFormsComponent },
 
   { path: 'info/:id',  component: InfoComponent },
+
   { path: 'welcome',  component: MainComponent , canActivate: [AuthGuardService] },
   
-  { path: '**', redirectTo: 'auth' }
+  { path: '**', redirectTo: '' }
 ];
 
 @NgModule({

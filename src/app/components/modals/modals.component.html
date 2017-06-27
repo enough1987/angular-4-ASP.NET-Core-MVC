@@ -1,0 +1,71 @@
+<div class="modal-bgc" 
+    *ngIf="tempCase === typeOfModal.Confirm || tempCase === typeOfModal.ConfirmSignUp" 
+    (click)="closeModalEvent()" ></div>
+
+<div class="modal modal__profile modal__target" 
+    *ngIf="tempCase === typeOfModal.Profile" >
+
+   <p class="modal__target modal__h" > Alex Gurinenko </p>
+
+   <p class="modal__target modal__text" > alex@streamtechltd.com </p>
+
+   <p class="modal__target modal__alarm" 
+   (click)="openModalEvent(typeOfModal.Confirm)" > 
+       <img class="modal__target" src="assets/images/ico-alert.svg" />
+       Confirm </p>
+
+   <p class="modal__target modal__nav" 
+   (click)="authService.signOut()" > 
+       <img class="modal__target" src="assets/images/ico-exit.svg" />
+       Sign Out</p>
+ 
+</div>
+
+
+<div class="modal modal__confirm modal__target" 
+    *ngIf="tempCase === typeOfModal.Confirm" >
+
+   <p class="modal__target modal__text pad__tb-small " > 
+       Please enter confirmation code
+        sent to your email below
+   </p>
+
+  <input class="modal-input-characters pad__tb-small " maxlength='6' value='' 
+  [(ngModel)]="key"
+  (keyup)="changeKey(key)" />
+
+   <p class="modal__target modal__text pad__tb-small " > 
+       Didn’t recieve confirmation email?
+        Check spam folder or press resend button.
+   </p>
+
+
+   <p class="modal__target pad__tb-small"  > 
+       <span class="modal__clickeble" > Resend </span>
+       <span class="modal__clickeble" > Confirm </span>
+    </p>
+ 
+</div>
+
+
+<div class="modal modal__confirm modal__target" 
+    *ngIf="tempCase === typeOfModal.ConfirmSignUp" >
+
+   <p class="modal__target modal__h pad__tb-small " > 
+       Thanks you for signing up! </p>
+
+   <p class="modal__target modal__text pad__tb-small " > 
+       Please enter confirmation code
+        sent to your email below
+   </p>
+
+  <input class="modal-input-characters pad__tb-small " maxlength='6' value='' 
+  [(ngModel)]="key"
+  (keyup)="changeKey(key)" />
+
+   <p class="modal__target pad__tb-small"  > 
+       <span class="modal__clickeble" > Later </span>
+       <span class="modal__clickeble" > Confirm </span>
+   </p>
+ 
+</div>
