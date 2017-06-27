@@ -689,10 +689,10 @@ body {
 
 .modal__confirm {
     position: fixed;
+    top: 50%;
     left: 50%;
-    top: 50%; 
-    margin-left: -150px;
-    margin-top: -150px;
+    transform: translate(-50%, -50%);
+    width: 500px;
 }
 
 $char-w: 1ch;
@@ -716,9 +716,14 @@ $in-w: $n-char*($char-w + $gap);
 		color: $main-dark;
 	}
 }
+@media (max-width: 600px) {
+    .modal__confirm {
+         width: 400px;
+    }
+}
 
 @media (max-width: 400px) {
-    .modal {
+    .modal, .modal__confirm {
         width: 250px;
     }
 }
