@@ -27,7 +27,7 @@ export class AppHeaderComponent {
   secondViewOfHeader: boolean = false; // used for showing type of view
   isUserModalVisible: boolean = false; // used for show / hide user modal
   typeOfModal = TypeOfModal // copy of enum for modal
-
+  timerId;
 
   @Input() btn: Btn = { route: "/sign-in" , text : "Sign in" };
 
@@ -60,9 +60,12 @@ export class AppHeaderComponent {
   // change view type
   private setSecondViewOfHeader = ()=> {
     if( this.secondView ) return;
-    let pos = this.header.nativeElement.getBoundingClientRect().top <= -320;
-    this.secondViewOfHeader = pos && ( window.innerWidth > 800 ) ;
-    this.view.emit(this.secondViewOfHeader);
+    if ( this.timerId ) clearTimeout(this.timerId);
+    this.timerId = setTimeout(()=> {
+      let pos = this.header.nativeElement.getBoundingClientRect().top <= -320;
+      this.secondViewOfHeader = pos && ( window.innerWidth > 800 ) ;
+      this.view.emit(this.secondViewOfHeader);
+    }, 50);
   };
 
   // show / hide modal 

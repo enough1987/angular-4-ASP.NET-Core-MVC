@@ -129,6 +129,7 @@ body {
     max-height: 90px;
     display: -webkit-flex;
     display: flex;
+    animation-duration: 0.1s;
 }
 
 
@@ -147,6 +148,7 @@ body {
     z-index: 100;
     background-color: $main-light;
     border-bottom: 1px solid $main-dark;
+    animation-duration: 0.1s;
 }
 
 .main-header__form {

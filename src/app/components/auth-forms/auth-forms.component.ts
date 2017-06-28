@@ -116,11 +116,6 @@ export class AuthFormsComponent {
         subscribeOnUpdates: this.subscribeOnUpdates        
       }).subscribe((data: boolean) => {
         console.log(data);
-        this.userService.info = {
-          fullName: this.formData.get('fullName').value,
-          email: this.formData.get('email').value,
-          subscribeOnUpdates: this.subscribeOnUpdates        
-        };
         this.modalsService.senderOfOpen(TypeOfModal.ConfirmSignUp);
       });
     } else {

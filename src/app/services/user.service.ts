@@ -19,10 +19,21 @@ export class UserService {
 
     private static instance: UserService; // instance of Singleton 
 
-    public info: UserInfo = { fullName: "user name", email: "alex@gmail.com", subscribeOnUpdates: true };
+    public info: UserInfo = { fullName: "none", email: "none", subscribeOnUpdates: false };
 
     constructor(private httpService : HttpService){
+        this.info = this.Info;
         return UserService.instance ? UserService.instance : this;
+    }
+
+    get Info() {
+        return JSON.parse( localStorage.getItem("info") ) || this.info;
+    }
+
+    set Info(info){
+        console.log( " info ", info );
+        localStorage.setItem( "info", JSON.stringify(info) );
+        this.info = info;
     }
 
     // https://stackoverflow.com/questions/40214772/file-upload-in-angular-2

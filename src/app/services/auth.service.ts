@@ -78,6 +78,7 @@ export class AuthService {
     console.log(" auth signIn ", formData );
     return Observable.of(true).delay(1000).do(val => {
       this.loggedIn = true;
+      //this.userService.Info = formData; // ????????     
       //this.nav(AuthNavType.redirectFromAuth);
     });
   }
@@ -87,7 +88,7 @@ export class AuthService {
     console.log(" auth signUp ", formData );
     return Observable.of(true).delay(1000).do(val => {
       this.loggedIn = true;
-      this.userService.info = formData;
+      this.userService.Info = formData;
       //this.nav(AuthNavType.redirectFromAuth);
     });
   }
