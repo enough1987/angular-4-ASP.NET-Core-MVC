@@ -23,6 +23,7 @@ export class ModalsComponent {
     key: string = "";
     isShowenErrors: boolean;
     wasResendCode: boolean;
+    serverErrorMsg: string;
 
 
     constructor(private authService: AuthService, public userService: UserService, private modalsService: ModalsService){
@@ -48,7 +49,8 @@ export class ModalsComponent {
     private cleanModalData(){
       delete this.tempCase;
       delete this.isShowenErrors;
-      delete this.wasResendCode;      
+      delete this.wasResendCode;
+      delete this.serverErrorMsg;     
     }
 
     changeKey( key: string ): void {
@@ -67,21 +69,27 @@ export class ModalsComponent {
       console.log( " confirmCode ", this.key.length, this.isShowenErrors );
       if( this.key.length == 6 ) {
         this.isShowenErrors = false;
-        this.authService.confirmCode().subscribe(( data )=>{
+        this.authService.confirmCode(this.key).subscribe(( data )=>{
           console.log( data );
-          alert(" no server implantation ");
+          this.authService.nav(AuthNavType.redirectFromAuth);
+          this.closeModalEvent();
+        }, (err)=>{
+          console.log( err );
+          this.serverErrorMsg = err;
         });
       } else {
         this.isShowenErrors = true;
       }
     }
 
-    resendCode(){
+    resendConfirmationCode(){
        console.log( " resendCode " );
-        this.authService.resendCode().subscribe(( data )=>{
-          console.log( data );
-          this.wasResendCode = true;
-          alert(" no server implantation ");
+        this.authService.resendConfirmationCode().subscribe(( data )=>{
+            console.log( data );
+            this.wasResendCode = true;
+        }, (err)=>{
+            console.log( err );
+            this.serverErrorMsg = err.message;        
         });     
     }
 

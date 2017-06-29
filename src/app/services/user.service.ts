@@ -32,7 +32,10 @@ export class UserService {
 
     set Info(info){
         console.log( " info ", info );
-        localStorage.setItem( "info", JSON.stringify(info) );
+        if( info.fullName ) this.info.fullName =  info.fullName;
+        if( info.email ) this.info.email =  info.email;
+        if( info.subscribeOnUpdates ) this.info.subscribeOnUpdates =  info.subscribeOnUpdates;        
+        localStorage.setItem( "info", JSON.stringify(this.info) );
         this.info = info;
     }
 

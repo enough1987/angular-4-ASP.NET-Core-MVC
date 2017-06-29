@@ -1,4 +1,6 @@
 
+
+
 export { SettingService } from "app/services/settings.service";
 export { HelperService } from "app/services/helper.service";
 export { HttpService } from "app/services/http.service";
@@ -8,6 +10,7 @@ export { ModalsService } from "app/services/modals.servise";
 export { AuthService } from "app/services/auth.service";
 export { AuthGuardService } from "app/services/auth-guard.service";
 export { AuthFbService } from "app/services/auth-fb.service";
+export { AwsService } from "app/services/aws.service";
 
 
 export { ErrorMsgComponent } from "app/components/error-msg/error-msg.component";

@@ -69,6 +69,11 @@
             </form>      
 
 
+            <error-msg 
+*ngIf=" serverErrorMsg && isShowenErrors "
+                    [msg]="serverErrorMsg" ></error-msg>  
+
+                    
             <div class="pad__tb-middle pad__t-big">
                 <button class="button button-pink-bgc button-big width-middle-plass"
                 (click)=" signIn() " >
@@ -158,7 +163,11 @@
 *ngIf=" formData.controls.password.invalid && ( formData.controls.password.touched || isShowenErrors ) "
                     [msg]="'Please enter combination of 6-35 numbers, letters or punctuation marks.'" ></error-msg>    
   
-            </form>      
+            </form>    
+
+                <error-msg 
+*ngIf=" serverErrorMsg && isShowenErrors "
+                    [msg]="serverErrorMsg" ></error-msg>    
 
             <div class="pad__tb-middle pad__t-big">
                 <button class="button button-pink-bgc button-big width-middle-plass"
@@ -225,7 +234,11 @@
 *ngIf=" formData.controls.email.invalid && ( formData.controls.email.touched || isShowenErrors ) "
                     [msg]="'Please enter a valid email address'" ></error-msg>   
                 
-            </form>      
+            </form>   
+
+            <error-msg 
+*ngIf=" serverErrorMsg && isShowenErrors "
+                    [msg]="serverErrorMsg" ></error-msg>      
 
             <div class="pad__tb-middle pad__t-big">
                 <button class="button button-pink-bgc button-big width-middle-plass"

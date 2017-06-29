@@ -90,10 +90,15 @@
         [msg]="'Please enter a valid confirmation code'" >
     </error-msg>  
 
+    <error-msg 
+        *ngIf=" serverErrorMsg "
+        [msg]=" serverErrorMsg " >
+    </error-msg>
+
    <p class="modal__target pad__tb-small container__right"  > 
        <span class="modal__clickeble" 
        *ngIf="!wasResendCode"
-       (click)="resendCode()" > Resend </span>
+       (click)="resendConfirmationCode()" > Resend </span>
        <span class="modal__clickeble" 
        (click)="confirmCode()" > Confirm </span>
    </p>
@@ -129,6 +134,11 @@
         *ngIf=" isShowenErrors "
         [msg]="'Please enter a valid confirmation code'" >
     </error-msg>  
+
+    <error-msg 
+        *ngIf=" serverErrorMsg "
+        [msg]=" serverErrorMsg " >
+    </error-msg>
 
 
    <p class="modal__target pad__tb-small container__right"  > 

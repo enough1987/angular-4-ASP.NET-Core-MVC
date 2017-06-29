@@ -10,6 +10,7 @@ import 'rxjs/add/operator/delay';
 
 import { AuthFbService } from "app/services/auth-fb.service";
 import { UserService } from "app/services/user.service";
+import { AwsService } from "app/services/aws.service";
 
 
 export enum AuthNavType {
@@ -24,12 +25,12 @@ export enum AuthTemplateCase {
   SignInForgot
 }
 
-class SignIn { 
+export class SignIn { 
   email: string; 
   password: string; 
 }
 
-class SignUp { 
+export class SignUp { 
   fullName: string; 
   email: string; 
   password: string; 
@@ -45,7 +46,8 @@ export class AuthService {
   private redirectToAuth: string = ""; // it uses for redirection to auth
   private redirectFromAuth: string = ""; // it uses for redirection from auth
 
-  constructor( private router: Router, private authFbService: AuthFbService, private userService: UserService ) {
+  constructor( private router: Router, private authFbService: AuthFbService, 
+  private userService: UserService, private awsService: AwsService  ) {
   }
 
   // it is getter for isLoggedIn
@@ -74,31 +76,57 @@ export class AuthService {
   }
 
   // it logins in user
-  signIn(formData: SignIn): Observable<boolean> {
+  signIn(formData: SignIn): Observable<any> {
     console.log(" auth signIn ", formData );
-    return Observable.of(true).delay(1000).do(val => {
-      this.loggedIn = true;
-      //this.userService.Info = formData; // ????????     
-      //this.nav(AuthNavType.redirectFromAuth);
+    let sub = new Observable(observer => {
+      this.awsService.signIn(formData).subscribe((data: boolean) => {
+         this.loggedIn = true;
+         observer.next( data );
+      }, (err)=>{
+         observer.error( err );
+      });
     });
+    return sub;
   }
 
    // it signs up user
-  signUp(formData: SignUp): Observable<boolean> {
+  signUp(formData: SignUp): Observable<any> {
     console.log(" auth signUp ", formData );
-    return Observable.of(true).delay(1000).do(val => {
-      this.loggedIn = true;
-      this.userService.Info = formData;
-      //this.nav(AuthNavType.redirectFromAuth);
+    let sub = new Observable(observer => {
+      this.awsService.signUp(formData).subscribe((data: boolean) => {
+         this.loggedIn = true;
+         this.userService.Info = formData;
+         observer.next( data );
+      }, (err)=>{
+         observer.error( err );
+      });
     });
+    return sub;
   }
 
   // send code to confirm
-  confirmCode(): Observable<boolean>{
+  confirmCode(code): Observable<any>{
     console.log(" confirm code " );
-    return Observable.of(true).delay(1000).do(val => {
-      
-    });  
+    let sub = new Observable(observer => {
+      this.awsService.confirmCode(code).subscribe((data: boolean) => {
+         observer.next( data );
+      }, (err)=>{
+         observer.error( err );
+      });      
+    }); 
+    return sub; 
+  }
+
+  resendConfirmationCode(): Observable<any>{
+    console.log(" confirm code " );
+    let sub = new Observable(observer => {
+      this.awsService.resendConfirmationCode().subscribe((data: boolean) => {
+         observer.next( data );
+      }, (err)=>{
+         observer.error( err );
+      });      
+    }); 
+    return sub; 
   }
 
   resendCode(): Observable<boolean>{

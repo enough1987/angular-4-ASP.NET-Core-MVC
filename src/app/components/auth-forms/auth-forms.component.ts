@@ -20,7 +20,7 @@ export class AuthFormsComponent {
 
   private emailPattern: string = "[a-zA-Z_]+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}"; // it is used as pattern for email
   private namePattern: string = "[a-zA-Z0-9\x20]{3,30}"; // it is used as pattern for fullname
-  private passPattern: string = "^(.{0,7}|[^0-9]*|[^A-Z]*|[^a-z]*|[a-zA-Z0-9]*)$"; // it is used as pattern for password
+  private passPattern: string = "^.*(?=.{8,})(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])[a-zA-Z0-9@#$%^&+=]*$"; // it is used as pattern for password
 
   isShowenErrors: boolean = false; // if it has true we show errors 
   formData: FormGroup; // used for form scope and validation
@@ -28,7 +28,7 @@ export class AuthFormsComponent {
   templateCase = AuthTemplateCase; // copy of enum for template 
   isShowenPass: boolean = false; // used for changing visability of password
   subscribeOnUpdates: boolean = true; // used on sign up in checkbox
-
+  serverErrorMsg: string; // show server errors
 
   constructor( private activatedRoute: ActivatedRoute, private formBuilder: FormBuilder,
     public authService: AuthService, public modalsService: ModalsService, private userService: UserService ){
@@ -75,7 +75,7 @@ export class AuthFormsComponent {
           email: ['', [Validators.required, Validators.minLength(6), 
           Validators.maxLength(100), Validators.pattern(this.emailPattern) ]],
           password: ['', [Validators.required, Validators.minLength(6), 
-          Validators.maxLength(35), Validators.pattern(this.passPattern) ]]
+          Validators.maxLength(35) ]]
         });      
         break;
       case this.templateCase.SignInForgot:
@@ -98,6 +98,10 @@ export class AuthFormsComponent {
       }).subscribe((data: boolean) => {
         console.log(data);
         this.authService.nav(AuthNavType.redirectFromAuth);
+      }, (err)=>{
+         console.log( " MSG ", err.message );
+         this.isShowenErrors = true; 
+         this.serverErrorMsg = err.message;
       });
     } else {
       this.isShowenErrors = true;      
@@ -108,6 +112,7 @@ export class AuthFormsComponent {
   signUp( ) : void {
     console.log( "signUp" );
     if ( this.formData.valid ) {
+      delete this.serverErrorMsg;
       this.isShowenErrors = false; 
       this.authService.signUp({
         fullName: this.formData.get('fullName').value,
@@ -117,6 +122,10 @@ export class AuthFormsComponent {
       }).subscribe((data: boolean) => {
         console.log(data);
         this.modalsService.senderOfOpen(TypeOfModal.ConfirmSignUp);
+      }, (err)=>{
+         console.log( err.message );
+         this.isShowenErrors = true; 
+         this.serverErrorMsg = err.message;
       });
     } else {
       this.isShowenErrors = true;      
