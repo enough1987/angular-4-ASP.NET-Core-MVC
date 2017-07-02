@@ -1,4 +1,4 @@
-import { NgModule, APP_INITIALIZER } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 //If you use commons elements (ngSwitch, ngIf, ngFor, ...) of Angular2 you must import CommonModule in your app
 import { CommonModule } from '@angular/common'
@@ -48,12 +48,7 @@ import { AppComponent } from "app/app.component";
     ModalsService,
     AuthService,
     AuthGuardService,
-    AuthFbService,
-    { provide: APP_INITIALIZER, 
-      useFactory: () => () => console.log(" before bootstrap "), 
-      deps: [ ], 
-      multi: true 
-    }
+    AuthFbService
   ],
   declarations: [
     AppComponent,
