@@ -787,6 +787,8 @@ $in-w: $n-char*($char-w + $gap);
 
 .hidden {
     display: none;
+    opacity: 0;
+    transition: all 2s linear;
 }
 
 /* ********************************  */ 

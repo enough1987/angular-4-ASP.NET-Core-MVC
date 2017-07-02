@@ -51,7 +51,7 @@ export class AppHeaderComponent {
   }
 
   constructor( public authService: AuthService, private modalsService: ModalsService ){
-    console.log( " constructor of auth forms " ); 
+    console.log( " constructor of AppHeaderComponent " ); 
   } 
 
   ngOnInit() {

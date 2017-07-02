@@ -19,6 +19,7 @@
     </p>
 
    <p class="modal__target modal__alarm" 
+   *ngIf="!authService.userInfo.email_verified"
    (click)="openModalEvent(typeOfModal.Confirm)" > 
        <img class="modal__target" src="assets/images/ico-alert.svg" />
        Confirm </p>

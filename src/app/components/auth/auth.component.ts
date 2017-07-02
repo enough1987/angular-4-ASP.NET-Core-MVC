@@ -21,7 +21,7 @@ export class AuthComponent {
 
 
   constructor( public authService: AuthService ){
-    console.log( " constructor of auth " ); 
+    console.log(" constructor AuthComponent ");
   }
 
   ngOnInit(){

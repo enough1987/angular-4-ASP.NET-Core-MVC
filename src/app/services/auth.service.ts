@@ -46,15 +46,15 @@ export class SignUp {
 class UserInfo {
   registered: boolean;
   username: string;
-  password: string; 
+  password: string;
   email: string;
   email_verified: boolean;
-  constructor(registered: boolean, username: string, password: string, email: string, email_verified?: boolean){
+  constructor(registered: boolean, username: string, password: string, email: string, email_verified?: boolean) {
     this.registered = registered;
     this.username = username;
     this.password = password;
     this.email = email;
-    if( email_verified ) this.email_verified = email_verified;
+    if (email_verified) this.email_verified = email_verified;
   }
 }
 
@@ -83,12 +83,12 @@ export class AuthService {
 
   // AWS ends
 
-  userInfo: UserInfo = new UserInfo(false, "",  "", "", false );
+  userInfo: UserInfo = new UserInfo(false, "", "", "", false);
 
 
   constructor(private router: Router, private authFbService: AuthFbService, private httpService: HttpService) {
-    AWS.config.region = this.region; 
-    AWS.config.update({accessKeyId: 'mock', secretAccessKey: 'mock'});
+    AWS.config.region = this.region;
+    AWS.config.update({ accessKeyId: 'mock', secretAccessKey: 'mock' });
     this.setUserPool();
 
     return AuthService.instance ? AuthService.instance : this;
@@ -99,17 +99,13 @@ export class AuthService {
     return !!this.userInfo.username;
   }
 
-  getUserInfo() {
-    return JSON.parse(localStorage.getItem("userInfo"));
-  }
-
   setUserInfo(userInfo: UserInfo) {
     this.userInfo = userInfo;
     localStorage.setItem("userInfo", JSON.stringify(this.userInfo));
   }
 
-  resetUserInfo(){
-    this.userInfo = new UserInfo(false, "",  "", "", false );
+  resetUserInfo() {
+    this.userInfo = new UserInfo(false, "", "", "", false);
     localStorage.removeItem("userInfo");
   }
 
@@ -121,46 +117,53 @@ export class AuthService {
   }
 
   private setUserPool() {
-    if( this.userPool ) return;
+    if (this.userPool) return;
     let poolData = {
       UserPoolId: this.userPoolId, // Your user pool id here
       ClientId: this.clientId // Your client id here
     };
     this.userPool = new CognitoUserPool(poolData);
-    console.log( " USERPOOL => ", this.userPool );
+    console.log(" USERPOOL => ", this.userPool);
   }
 
-  retrieveCurrentUser(): void {
+  retrieveCurrentUser(observer?, result?): void {
 
-    this.cognitoUser = this.userPool.getCurrentUser();
+    console.log(" RETRIVE CURRENT  USER ");
 
-    console.log(" this.setCognitoUser ", this.cognitoUser);
+    if (!this.cognitoUser) this.cognitoUser = this.userPool.getCurrentUser();
+
 
     console.log(" cognitoUser ", this.cognitoUser);
+
     if (this.cognitoUser != null) {
-      this.cognitoUser.getSession((err, session)=> {
+      this.cognitoUser.getSession((err, session) => {
         if (err) {
           console.error(err);
+          if (observer) observer.next(result);
           return;
         }
         console.log('session validity: ' + session.isValid());
 
         // NOTE: getSession must be called to authenticate user before calling getUserAttributes
-        this.cognitoUser.getUserAttributes( ( err, attributes )=> {
+        this.cognitoUser.getUserAttributes((err, attributes) => {
           if (err) {
-            // Handle error
+            console.log(" ERR ", err);
+            if (observer) observer.next(result);
           } else {
             // Do something with attributes
-            console.log(" attributes ", attributes );
-            let obj:any = {};
-            for(let i = 0; i < attributes.length; i++ ){
+            console.log(" attributes ", attributes);
+            let obj: any = {};
+            for (let i = 0; i < attributes.length; i++) {
               obj[attributes[i].getName()] = attributes[i].getValue();
             }
-            this.setUserInfo( new UserInfo(true, this.cognitoUser.getUsername(), "", obj.email, obj.email_verified) );
+            this.setUserInfo(new UserInfo(true, this.cognitoUser.getUsername(), "", obj.email, obj.email_verified));
+
           }
+          console.log(" userInfo ", this.userInfo);
+          if (observer) observer.next();
         });
 
-        let options:any = {};
+        let options: any = {};
         options['IdentityPoolId'] = this.identitypoolid;
         options['Logins'] = {};
         options['Logins'][this.identityProvider] = session.getIdToken().getJwtToken();
@@ -172,10 +175,16 @@ export class AuthService {
 
   // it logins in user
   signIn(formData: SignIn): Observable<any> {
-    console.log(" auth signIn ", formData);
+    console.log(" SIGN IN ", formData);
     let sub = new Observable(observer => {
 
-      this.cognitoUser = this.userPool.getCurrentUser();
+      var userData = {
+        Username: formData.email,
+        Pool: this.userPool
+      };
+      this.cognitoUser = new CognitoUser(userData);
+
+      console.log(this.cognitoUser, formData);
 
       let authenticationData = {
         Username: formData.email,
@@ -187,20 +196,21 @@ export class AuthService {
         onSuccess: (result) => {
           console.log('access token + ' + result.getAccessToken().getJwtToken());
 
-          let options:any = {};
+          let options: any = {};
           options['IdentityPoolId'] = this.identitypoolid;
           options['Logins'] = {};
           options['Logins'][this.identityProvider] = result.getIdToken().getJwtToken();
 
-          console.log( " options ", options );
+          console.log(" options ", options);
 
           //POTENTIAL: Region needs to be set if not already set previously elsewhere.
           AWS.config.region = this.region; //'<region>';
           AWS.config.credentials = new AWS.CognitoIdentityCredentials(options);
 
           console.log(" this.cognitoUser info ", this.cognitoUser);
-          this.setUserInfo( new UserInfo(true, this.cognitoUser.getUsername(), formData.password, formData.email) );
-          observer.next(result);
+          this.setUserInfo(new UserInfo(true, this.cognitoUser.getUsername(), formData.password, formData.email));
+
+          this.retrieveCurrentUser(observer, result);
         },
         onFailure: (err) => {
           return observer.error(err);
@@ -213,7 +223,7 @@ export class AuthService {
 
   // it signs up user
   signUp(formData: SignUp): Observable<any> {
-    console.log(" auth signUp ", formData);
+    console.log(" SIGN UP ", formData);
     let sub = new Observable(observer => {
 
       let attributeList = [];
@@ -231,8 +241,9 @@ export class AuthService {
         }
         this.cognitoUser = result.user;
         console.log(" this.cognitoUser info ", this.cognitoUser.getUsername(), this.cognitoUser);
-        this.setUserInfo(new UserInfo(true, this.cognitoUser.getUsername(), formData.password, formData.email) );
-        observer.next(result.user);
+        this.setUserInfo(new UserInfo(true, this.cognitoUser.getUsername(), formData.password, formData.email));
+
+        observer.next(result);
       });
     });
     return sub;
@@ -240,18 +251,19 @@ export class AuthService {
 
   // send code to confirm
   confirmCode(code): Observable<any> {
-    console.log(" confirm code ");
+    console.log(" CONFIRM CODE ");
     let sub = new Observable(observer => {
 
-      this.cognitoUser = this.userPool.getCurrentUser();
+      if (!this.cognitoUser) this.cognitoUser = this.userPool.getCurrentUser();
 
       this.cognitoUser.confirmRegistration(code, true, (err, result) => {
         if (err) {
           return observer.error(err);
         }
         console.log('call result: ' + result);
-        this.signIn({ email: this.userInfo.email, password: this.userInfo.password });
-        observer.next(result);
+        this.signIn({ email: this.userInfo.email, password: this.userInfo.password }).subscribe(() => {
+          observer.next(result);
+        });
       });
     });
     return sub;

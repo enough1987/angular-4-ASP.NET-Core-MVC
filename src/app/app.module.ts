@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, APP_INITIALIZER } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 //If you use commons elements (ngSwitch, ngIf, ngFor, ...) of Angular2 you must import CommonModule in your app
 import { CommonModule } from '@angular/common'
@@ -6,7 +6,6 @@ import { CommonModule } from '@angular/common'
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 // The module that includes http's providers
 import { HttpModule } from '@angular/http';
-
 
 import { FacebookModule } from 'ngx-facebook';
 
@@ -22,10 +21,11 @@ import { SettingService, HelperService, HttpService,
 import { ErrorMsgComponent, InfoComponent, VideoPlayerComponent, 
   ModalsComponent, WelcomeComponent, VideoComponent,
   AuthFormsComponent, AppHeaderComponent,
-  MainComponent, AuthComponent, AppFooterComponent  } from "app/index";
+  MainComponent, AuthComponent, AppFooterComponent } from "app/index";
 
 
 import { AppComponent } from "app/app.component";
+
 
 
 @NgModule({
@@ -48,7 +48,12 @@ import { AppComponent } from "app/app.component";
     ModalsService,
     AuthService,
     AuthGuardService,
-    AuthFbService
+    AuthFbService,
+    { provide: APP_INITIALIZER, 
+      useFactory: () => () => console.log(" before bootstrap "), 
+      deps: [ ], 
+      multi: true 
+    }
   ],
   declarations: [
     AppComponent,

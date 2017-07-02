@@ -119,8 +119,8 @@ export class AuthFormsComponent {
         email: this.formData.get('email').value,
         password: this.formData.get('password').value,
         subscribeOnUpdates: this.subscribeOnUpdates        
-      }).subscribe((data: boolean) => {
-        console.log(data);
+      }).subscribe((data) => {
+        console.log(" DATA ", data);
         this.modalsService.senderOfOpen(TypeOfModal.ConfirmSignUp);
       }, (err)=>{
          console.log( err.message );
