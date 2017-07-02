@@ -791,6 +791,10 @@ $in-w: $n-char*($char-w + $gap);
     transition: all 2s linear;
 }
 
+.overflow-hidden {
+    overflow: hidden;
+}
+
 /* ********************************  */ 
 
 

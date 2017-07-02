@@ -273,7 +273,7 @@ export class AuthService {
     console.log(" confirm code ");
     let sub = new Observable(observer => {
 
-      this.cognitoUser = this.userPool.getCurrentUser();
+      if( ! this.cognitoUser )this.cognitoUser = this.userPool.getCurrentUser();
 
       this.cognitoUser.resendConfirmationCode((err, result) => {
         if (err) {
