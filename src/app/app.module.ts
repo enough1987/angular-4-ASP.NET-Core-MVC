@@ -15,9 +15,8 @@ import { RoutingModule } from "app/routing.module";
 
 
 import { SettingService, HelperService, HttpService, 
-  WebSocketService, UserService, ModalsService,
-  AuthService, AuthGuardService, AuthFbService,
-  AwsService } from "app/index";
+  WebSocketService, ModalsService,
+  AuthService, AuthGuardService, AuthFbService } from "app/index";
 
 
 import { ErrorMsgComponent, InfoComponent, VideoPlayerComponent, 
@@ -43,15 +42,13 @@ import { AppComponent } from "app/app.component";
   ],
   providers:    [ 
     SettingService,
-    UserService,
     HelperService,
     HttpService,
     WebSocketService,
     ModalsService,
     AuthService,
     AuthGuardService,
-    AuthFbService,
-    AwsService
+    AuthFbService
   ],
   declarations: [
     AppComponent,

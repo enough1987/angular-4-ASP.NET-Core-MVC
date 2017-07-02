@@ -14,7 +14,7 @@
             />
 
             <div class="main-header__user-block" 
-            *ngIf="!authService.loggedIn" >
+            *ngIf="!authService.userInfo.username" >
 
                 <button class="button" 
                 [class.button-pink]="secondView || secondViewOfHeader"
@@ -24,7 +24,7 @@
             </div>
 
             <div class="main-header__user-block" 
-                *ngIf="authService.loggedIn"  
+                *ngIf="authService.userInfo.username"  
                  >
 
                 <div class="modal__target"
@@ -37,7 +37,7 @@
                 <span 
                 class="modal__target main-header__user-block__el main-header__user-block__name mob-hidden" 
 [class.main-header__user-block__el-second]="secondView || secondViewOfHeader" > 
-                    {{ userService.info.fullName }} </span>
+                    {{ authService.userInfo.username }} </span>
                 <img 
                 class="modal__target main-header__user-block__el main-header__user-block__toggle mob-hidden" 
 [src]=" secondView || secondViewOfHeader ? 'assets/images/ico-drop-down-blue.svg' : 'assets/images/ico-drop-down.svg' " 

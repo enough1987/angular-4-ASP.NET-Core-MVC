@@ -2,7 +2,7 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
 
 
 import { TypeOfModal, AuthNavType } from "app/index";
-import { ModalsService, AuthService, UserService } from "app/index";
+import { ModalsService, AuthService } from "app/index";
 
 
 
@@ -26,7 +26,7 @@ export class ModalsComponent {
     serverErrorMsg: string;
 
 
-    constructor(private authService: AuthService, public userService: UserService, private modalsService: ModalsService){
+    constructor(private authService: AuthService, private modalsService: ModalsService){
       console.log( " constructor of modal ", typeof this.typeOfModal);
     }
 

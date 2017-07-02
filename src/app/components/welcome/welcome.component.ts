@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 
 
-import { UserService } from "app/index";
+import { AuthService } from "app/index";
 
 
 
@@ -13,13 +13,13 @@ import { UserService } from "app/index";
 export class WelcomeComponent {
 
 
-  constructor(private userService: UserService) { 
+  constructor( private authService: AuthService ) { 
     console.log(" constructor of welcome " );
   }
 
   // https://stackoverflow.com/questions/40214772/file-upload-in-angular-2
   changeFoto(event) {
-    this.userService.changeFoto(event).subscribe(
+    this.authService.changeFoto(event).subscribe(
       data => console.log('success'),
       error => console.log(error)
     );

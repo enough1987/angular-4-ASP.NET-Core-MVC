@@ -11,11 +11,11 @@
     </p>
 
    <p class="modal__target modal__h" > 
-       {{ userService.info.fullName }}
+       {{ authService.userInfo.username }}
     </p>
 
    <p class="modal__target modal__text" > 
-       {{ userService.info.email }}
+       {{ authService.userInfo.email }}
     </p>
 
    <p class="modal__target modal__alarm" 
@@ -46,7 +46,7 @@
     <p class="text text__normal text__center text__dark text__pad-aside" >
         Password resetting instructions were sent to
         <br />
-        {{ userService.info.email }}
+        {{ authService.userInfo.email }}
     </p>
  
 </div>
@@ -82,7 +82,7 @@
     *ngIf="wasResendCode" >
         Confirmation email sent to
         <br />
-        {{ userService.info.email }}
+        {{ authService.userInfo.email }}
     </p>
 
     <error-msg 

@@ -8,9 +8,15 @@ import 'rxjs/add/operator/do';
 import 'rxjs/add/operator/delay';
 
 
+import {
+  CognitoUserPool, CognitoUserAttribute, CognitoUser,
+  AuthenticationDetails
+} from 'amazon-cognito-identity-js';
+import * as AWS from "aws-sdk";
+
+
 import { AuthFbService } from "app/services/auth-fb.service";
-import { UserService } from "app/services/user.service";
-import { AwsService } from "app/services/aws.service";
+import { HttpService } from "app/services/http.service";
 
 
 export enum AuthNavType {
@@ -25,16 +31,31 @@ export enum AuthTemplateCase {
   SignInForgot
 }
 
-export class SignIn { 
-  email: string; 
-  password: string; 
+export class SignIn {
+  email: string;
+  password: string;
 }
 
-export class SignUp { 
-  fullName: string; 
-  email: string; 
-  password: string; 
+export class SignUp {
+  fullName: string;
+  email: string;
+  password: string;
   subscribeOnUpdates: boolean;
+}
+
+class UserInfo {
+  registered: boolean;
+  username: string;
+  password: string; 
+  email: string;
+  email_verified: boolean;
+  constructor(registered: boolean, username: string, password: string, email: string, email_verified?: boolean){
+    this.registered = registered;
+    this.username = username;
+    this.password = password;
+    this.email = email;
+    if( email_verified ) this.email_verified = email_verified;
+  }
 }
 
 
@@ -42,108 +63,248 @@ export class SignUp {
 export class AuthService {
 
 
-  private isLoggedIn: boolean = false; // this field says if user logged in
+  cognitoUser: CognitoUser;
+  userPool: CognitoUserPool;
+
+
+  private static instance: AuthService; // instance of Singleton 
+
   private redirectToAuth: string = ""; // it uses for redirection to auth
   private redirectFromAuth: string = ""; // it uses for redirection from auth
 
-  constructor( private router: Router, private authFbService: AuthFbService, 
-  private userService: UserService, private awsService: AwsService  ) {
+  // AWS starts
+
+  region: string = "eu-central-1";
+  userPoolId: string = "eu-central-1_0VWSoKhex";
+  clientId: string = "7cjjqbsn3gfcr2bv732kkqovge";
+  identitypoolid: string = "eu-central-1:ab39fcdf-e476-45d0-89fd-3c974a48e36a";
+  identityProvider: string = "cognito-idp." + this.region + ".amazonaws.com/" + this.userPoolId;
+
+
+  // AWS ends
+
+  userInfo: UserInfo = new UserInfo(false, "",  "", "", false );
+
+
+  constructor(private router: Router, private authFbService: AuthFbService, private httpService: HttpService) {
+    AWS.config.region = this.region; 
+    AWS.config.update({accessKeyId: 'mock', secretAccessKey: 'mock'});
+    this.setUserPool();
+
+    return AuthService.instance ? AuthService.instance : this;
   }
 
   // it is getter for isLoggedIn
   get loggedIn(): boolean {
-    this.isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
-    return this.isLoggedIn;
+    return !!this.userInfo.username;
   }
 
-  // it is setter for isLoggedIn
-  set loggedIn(state: boolean) {
-    this.isLoggedIn = state;
-    localStorage.setItem("isLoggedIn", this.isLoggedIn.toString());
+  getUserInfo() {
+    return JSON.parse(localStorage.getItem("userInfo"));
+  }
+
+  setUserInfo(userInfo: UserInfo) {
+    this.userInfo = userInfo;
+    localStorage.setItem("userInfo", JSON.stringify(this.userInfo));
+  }
+
+  resetUserInfo(){
+    this.userInfo = new UserInfo(false, "",  "", "", false );
+    localStorage.removeItem("userInfo");
   }
 
   // navigation to/from auth page group
-  nav( authNavType: AuthNavType ): void {
-    console.log( " nav ", authNavType );
-    if ( authNavType === AuthNavType.redirectToAuth ) this.router.navigate([this.redirectToAuth]);
-    if ( authNavType === AuthNavType.redirectFromAuth ) this.router.navigate([this.redirectFromAuth]);  
+  nav(authNavType: AuthNavType): void {
+    console.log(" nav ", authNavType);
+    if (authNavType === AuthNavType.redirectToAuth) this.router.navigate([this.redirectToAuth]);
+    if (authNavType === AuthNavType.redirectFromAuth) this.router.navigate([this.redirectFromAuth]);
   }
 
-  // it logins out user
-  signOut(): void {
-    this.loggedIn = false;
-    this.nav(AuthNavType.redirectToAuth);
+  private setUserPool() {
+    if( this.userPool ) return;
+    let poolData = {
+      UserPoolId: this.userPoolId, // Your user pool id here
+      ClientId: this.clientId // Your client id here
+    };
+    this.userPool = new CognitoUserPool(poolData);
+    console.log( " USERPOOL => ", this.userPool );
+  }
+
+  retrieveCurrentUser(): void {
+
+    this.cognitoUser = this.userPool.getCurrentUser();
+
+    console.log(" this.setCognitoUser ", this.cognitoUser);
+
+    console.log(" cognitoUser ", this.cognitoUser);
+    if (this.cognitoUser != null) {
+      this.cognitoUser.getSession((err, session)=> {
+        if (err) {
+          console.error(err);
+          return;
+        }
+        console.log('session validity: ' + session.isValid());
+
+        // NOTE: getSession must be called to authenticate user before calling getUserAttributes
+        this.cognitoUser.getUserAttributes( ( err, attributes )=> {
+          if (err) {
+            // Handle error
+          } else {
+            // Do something with attributes
+            console.log(" attributes ", attributes );
+            let obj:any = {};
+            for(let i = 0; i < attributes.length; i++ ){
+              obj[attributes[i].getName()] = attributes[i].getValue();
+            }
+            this.setUserInfo( new UserInfo(true, this.cognitoUser.getUsername(), "", obj.email, obj.email_verified) );
+          }
+        });
+
+        let options:any = {};
+        options['IdentityPoolId'] = this.identitypoolid;
+        options['Logins'] = {};
+        options['Logins'][this.identityProvider] = session.getIdToken().getJwtToken();
+
+        AWS.config.credentials = new AWS.CognitoIdentityCredentials(options);
+      });
+    }
   }
 
   // it logins in user
   signIn(formData: SignIn): Observable<any> {
-    console.log(" auth signIn ", formData );
+    console.log(" auth signIn ", formData);
     let sub = new Observable(observer => {
-      this.awsService.signIn(formData).subscribe((data: boolean) => {
-         this.loggedIn = true;
-         observer.next( data );
-      }, (err)=>{
-         observer.error( err );
+
+      this.cognitoUser = this.userPool.getCurrentUser();
+
+      let authenticationData = {
+        Username: formData.email,
+        Password: formData.password
+      };
+      let authenticationDetails = new AuthenticationDetails(authenticationData);
+
+      this.cognitoUser.authenticateUser(authenticationDetails, {
+        onSuccess: (result) => {
+          console.log('access token + ' + result.getAccessToken().getJwtToken());
+
+          let options:any = {};
+          options['IdentityPoolId'] = this.identitypoolid;
+          options['Logins'] = {};
+          options['Logins'][this.identityProvider] = result.getIdToken().getJwtToken();
+
+          console.log( " options ", options );
+
+          //POTENTIAL: Region needs to be set if not already set previously elsewhere.
+          AWS.config.region = this.region; //'<region>';
+          AWS.config.credentials = new AWS.CognitoIdentityCredentials(options);
+
+          console.log(" this.cognitoUser info ", this.cognitoUser);
+          this.setUserInfo( new UserInfo(true, this.cognitoUser.getUsername(), formData.password, formData.email) );
+          observer.next(result);
+        },
+        onFailure: (err) => {
+          return observer.error(err);
+        },
+
       });
     });
     return sub;
   }
 
-   // it signs up user
+  // it signs up user
   signUp(formData: SignUp): Observable<any> {
-    console.log(" auth signUp ", formData );
+    console.log(" auth signUp ", formData);
     let sub = new Observable(observer => {
-      this.awsService.signUp(formData).subscribe((data: boolean) => {
-         this.loggedIn = true;
-         this.userService.Info = formData;
-         observer.next( data );
-      }, (err)=>{
-         observer.error( err );
+
+      let attributeList = [];
+
+      let email = new CognitoUserAttribute({
+        Name: 'email',
+        Value: formData.email
+      });
+
+      attributeList.push(email);
+
+      this.userPool.signUp(formData.fullName, formData.password, attributeList, null, (err, result) => {
+        if (err) {
+          return observer.error(err);
+        }
+        this.cognitoUser = result.user;
+        console.log(" this.cognitoUser info ", this.cognitoUser.getUsername(), this.cognitoUser);
+        this.setUserInfo(new UserInfo(true, this.cognitoUser.getUsername(), formData.password, formData.email) );
+        observer.next(result.user);
       });
     });
     return sub;
   }
 
   // send code to confirm
-  confirmCode(code): Observable<any>{
-    console.log(" confirm code " );
+  confirmCode(code): Observable<any> {
+    console.log(" confirm code ");
     let sub = new Observable(observer => {
-      this.awsService.confirmCode(code).subscribe((data: boolean) => {
-         observer.next( data );
-      }, (err)=>{
-         observer.error( err );
-      });      
-    }); 
-    return sub; 
+
+      this.cognitoUser = this.userPool.getCurrentUser();
+
+      this.cognitoUser.confirmRegistration(code, true, (err, result) => {
+        if (err) {
+          return observer.error(err);
+        }
+        console.log('call result: ' + result);
+        this.signIn({ email: this.userInfo.email, password: this.userInfo.password });
+        observer.next(result);
+      });
+    });
+    return sub;
   }
 
-  resendConfirmationCode(): Observable<any>{
-    console.log(" confirm code " );
+  resendConfirmationCode(): Observable<any> {
+    console.log(" confirm code ");
     let sub = new Observable(observer => {
-      this.awsService.resendConfirmationCode().subscribe((data: boolean) => {
-         observer.next( data );
-      }, (err)=>{
-         observer.error( err );
-      });      
-    }); 
-    return sub; 
+
+      this.cognitoUser = this.userPool.getCurrentUser();
+
+      this.cognitoUser.resendConfirmationCode((err, result) => {
+        if (err) {
+          return observer.error(err);
+        }
+        console.log('call result: ' + result);
+        observer.next(result);
+      });
+    });
+    return sub;
   }
 
-  resendCode(): Observable<boolean>{
-    console.log(" resend code " );
-    return Observable.of(true).delay(1000).do(val => {
-      
-    });  
+  // it logins out user
+  signOut(): void {
+    this.cognitoUser = this.userPool.getCurrentUser();
+    this.cognitoUser.signOut();
+    this.resetUserInfo();
+    this.nav(AuthNavType.redirectToAuth);
   }
+
 
   // type of sign in ( with Facebook )
-  signInWithFb():void {
+  signInWithFb(): void {
     this.authFbService.signIn();
   }
 
   // type of sign up ( with Facebook )
-  signUpWithFb():void {
+  signUpWithFb(): void {
     this.authFbService.signUp();
+  }
+
+  // https://stackoverflow.com/questions/40214772/file-upload-in-angular-2
+  changeFoto(event) {
+    let fileList: FileList = event.target.files;
+    if (fileList.length > 0) {
+      let file: File = fileList[0];
+      let formData: FormData = new FormData();
+      formData.append('uploadFile', file, file.name);
+      let headers = new Headers();
+      headers.append('Content-Type', 'multipart/form-data');
+      headers.append('Accept', 'application/json');
+      return this.httpService.post("assets/test.json", formData, headers);
+    }
   }
 
 }

@@ -1,5 +1,9 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 
+
+import { AuthService } from "app/index";
+
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -9,8 +13,10 @@ import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 export class AppComponent {
 
 
-  constructor() { 
+  constructor(private authService: AuthService ) { 
     console.log(" constructor of app ");
+    this.authService.retrieveCurrentUser();
+
   }
 
 }

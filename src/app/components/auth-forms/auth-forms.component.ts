@@ -7,7 +7,7 @@ import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { AuthNavType, AuthTemplateCase } from "app/index";
 
 
-import { TypeOfModal, ModalsService, AuthService, UserService } from "app/index";
+import { TypeOfModal, ModalsService, AuthService } from "app/index";
 
 
 @Component({
@@ -31,7 +31,7 @@ export class AuthFormsComponent {
   serverErrorMsg: string; // show server errors
 
   constructor( private activatedRoute: ActivatedRoute, private formBuilder: FormBuilder,
-    public authService: AuthService, public modalsService: ModalsService, private userService: UserService ){
+    public authService: AuthService, public modalsService: ModalsService ){
     console.log( " constructor of auth forms " ); 
   } 
 
@@ -65,7 +65,7 @@ export class AuthFormsComponent {
           email: ['', [Validators.required, Validators.minLength(6), 
           Validators.maxLength(100), Validators.pattern(this.emailPattern) ]],
           password: ['', [Validators.required, Validators.minLength(6), 
-          Validators.maxLength(35), Validators.pattern(this.passPattern) ]]
+          Validators.maxLength(35) ]]
         });        
         break;
       case this.templateCase.SignUp:
