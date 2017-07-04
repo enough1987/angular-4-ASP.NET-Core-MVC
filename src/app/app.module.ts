@@ -7,15 +7,13 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 // The module that includes http's providers
 import { HttpModule } from '@angular/http';
 
-import { FacebookModule } from 'ngx-facebook';
-
 
 import { RoutingModule } from "app/routing.module";
 
 
 import { SettingService, HelperService, HttpService, 
   WebSocketService, ModalsService,
-  AuthService, AuthGuardService, AuthFbService } from "app/index";
+  AuthService, AuthGuardService } from "app/index";
 
 
 import { ErrorMsgComponent, InfoComponent, VideoPlayerComponent, 
@@ -35,9 +33,6 @@ import { AppComponent } from "app/app.component";
     HttpModule,
     ReactiveFormsModule,
     FormsModule,
-
-    FacebookModule.forRoot(),
-
     RoutingModule
   ],
   providers:    [ 
@@ -47,8 +42,7 @@ import { AppComponent } from "app/app.component";
     WebSocketService,
     ModalsService,
     AuthService,
-    AuthGuardService,
-    AuthFbService
+    AuthGuardService
   ],
   declarations: [
     AppComponent,

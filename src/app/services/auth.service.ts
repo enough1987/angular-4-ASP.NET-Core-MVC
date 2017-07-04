@@ -15,7 +15,6 @@ import {
 import * as AWS from "aws-sdk";
 
 
-import { AuthFbService } from "app/services/auth-fb.service";
 import { HttpService } from "app/services/http.service";
 
 
@@ -43,7 +42,7 @@ export class SignUp {
   subscribeOnUpdates: boolean;
 }
 
-class UserInfo {
+export class UserInfo {
   registered: boolean;
   username: string;
   password: string;
@@ -62,17 +61,13 @@ class UserInfo {
 @Injectable()
 export class AuthService {
 
-
-  cognitoUser: CognitoUser;
-  userPool: CognitoUserPool;
-
-
-  private static instance: AuthService; // instance of Singleton 
+  private cognitoUser: CognitoUser;
+  private userPool: CognitoUserPool;
 
   private redirectToAuth: string = ""; // it uses for redirection to auth
   private redirectFromAuth: string = ""; // it uses for redirection from auth
 
-  // AWS starts
+  // AWS variebles starts
 
   region: string = "eu-central-1";
   userPoolId: string = "eu-central-1_0VWSoKhex";
@@ -80,18 +75,23 @@ export class AuthService {
   identitypoolid: string = "eu-central-1:ab39fcdf-e476-45d0-89fd-3c974a48e36a";
   identityProvider: string = "cognito-idp." + this.region + ".amazonaws.com/" + this.userPoolId;
 
-
-  // AWS ends
+  // AWS variebles ends
 
   userInfo: UserInfo = new UserInfo(false, "", "", "", false);
 
 
-  constructor(private router: Router, private authFbService: AuthFbService, private httpService: HttpService) {
+  constructor(private router: Router, private httpService: HttpService) {
+    this.onInit()
+  }
+
+  private onInit(){
     AWS.config.region = this.region;
     AWS.config.update({ accessKeyId: 'mock', secretAccessKey: 'mock' });
-    this.setUserPool();
-
-    return AuthService.instance ? AuthService.instance : this;
+    this.userPool = new CognitoUserPool({
+      UserPoolId: this.userPoolId, // Your user pool id here
+      ClientId: this.clientId // Your client id here
+    });
+    console.log(" USERPOOL => ", this.userPool);
   }
 
   // it is getter for isLoggedIn
@@ -101,7 +101,6 @@ export class AuthService {
 
   setUserInfo(userInfo: UserInfo) {
     this.userInfo = userInfo;
-    localStorage.setItem("userInfo", JSON.stringify(this.userInfo));
   }
 
   resetUserInfo() {
@@ -116,25 +115,19 @@ export class AuthService {
     if (authNavType === AuthNavType.redirectFromAuth) this.router.navigate([this.redirectFromAuth]);
   }
 
-  private setUserPool() {
-    if (this.userPool) return;
-    let poolData = {
-      UserPoolId: this.userPoolId, // Your user pool id here
-      ClientId: this.clientId // Your client id here
-    };
-    this.userPool = new CognitoUserPool(poolData);
-    console.log(" USERPOOL => ", this.userPool);
+  private getOptionsForCognitoIdentityCredentials(res){
+        let options: any = {};
+        options['IdentityPoolId'] = this.identitypoolid;
+        options['Logins'] = {};
+        options['Logins'][this.identityProvider] = res.getIdToken().getJwtToken();
+        return options;
   }
 
+  // it uses for start session
   retrieveCurrentUser(observer?, result?): void {
-
     console.log(" RETRIVE CURRENT  USER ");
-
     if (!this.cognitoUser) this.cognitoUser = this.userPool.getCurrentUser();
-
-
     console.log(" cognitoUser ", this.cognitoUser);
-
     if (this.cognitoUser != null) {
       this.cognitoUser.getSession((err, session) => {
         if (err) {
@@ -143,31 +136,23 @@ export class AuthService {
           return;
         }
         console.log('session validity: ' + session.isValid());
-
         // NOTE: getSession must be called to authenticate user before calling getUserAttributes
         this.cognitoUser.getUserAttributes((err, attributes) => {
           if (err) {
             console.log(" ERR ", err);
             if (observer) observer.next(result);
           } else {
-            // Do something with attributes
             console.log(" attributes ", attributes);
             let obj: any = {};
             for (let i = 0; i < attributes.length; i++) {
               obj[attributes[i].getName()] = attributes[i].getValue();
             }
             this.setUserInfo(new UserInfo(true, this.cognitoUser.getUsername(), "", obj.email, obj.email_verified));
-
           }
           console.log(" userInfo ", this.userInfo);
           if (observer) observer.next();
         });
-
-        let options: any = {};
-        options['IdentityPoolId'] = this.identitypoolid;
-        options['Logins'] = {};
-        options['Logins'][this.identityProvider] = session.getIdToken().getJwtToken();
-
+        let options = this.getOptionsForCognitoIdentityCredentials(session);
         AWS.config.credentials = new AWS.CognitoIdentityCredentials(options);
       });
     }
@@ -177,39 +162,21 @@ export class AuthService {
   signIn(formData: SignIn): Observable<any> {
     console.log(" SIGN IN ", formData);
     let sub = new Observable(observer => {
-
-      var userData = {
+      this.cognitoUser = new CognitoUser({
         Username: formData.email,
         Pool: this.userPool
-      };
-      this.cognitoUser = new CognitoUser(userData);
-
-      console.log(this.cognitoUser, formData);
-
-      let authenticationData = {
+      });
+      console.log(" cognitoUser : ", this.cognitoUser );
+      let authenticationDetails = new AuthenticationDetails({
         Username: formData.email,
         Password: formData.password
-      };
-      let authenticationDetails = new AuthenticationDetails(authenticationData);
-
+      });
       this.cognitoUser.authenticateUser(authenticationDetails, {
         onSuccess: (result) => {
           console.log('access token + ' + result.getAccessToken().getJwtToken());
-
-          let options: any = {};
-          options['IdentityPoolId'] = this.identitypoolid;
-          options['Logins'] = {};
-          options['Logins'][this.identityProvider] = result.getIdToken().getJwtToken();
-
-          console.log(" options ", options);
-
-          //POTENTIAL: Region needs to be set if not already set previously elsewhere.
-          AWS.config.region = this.region; //'<region>';
+          let options = this.getOptionsForCognitoIdentityCredentials(result);
           AWS.config.credentials = new AWS.CognitoIdentityCredentials(options);
-
-          console.log(" this.cognitoUser info ", this.cognitoUser);
           this.setUserInfo(new UserInfo(true, this.cognitoUser.getUsername(), formData.password, formData.email));
-
           this.retrieveCurrentUser(observer, result);
         },
         onFailure: (err) => {
@@ -225,24 +192,18 @@ export class AuthService {
   signUp(formData: SignUp): Observable<any> {
     console.log(" SIGN UP ", formData);
     let sub = new Observable(observer => {
-
       let attributeList = [];
-
       let email = new CognitoUserAttribute({
         Name: 'email',
         Value: formData.email
       });
-
       attributeList.push(email);
-
-      this.userPool.signUp(formData.fullName, formData.password, attributeList, null, (err, result) => {
-        if (err) {
-          return observer.error(err);
-        }
+      // formData.fullName
+      this.userPool.signUp(formData.fullName.replace(/ /g,''), formData.password, attributeList, null, (err, result) => {
+        if (err) return observer.error(err);
         this.cognitoUser = result.user;
-        console.log(" this.cognitoUser info ", this.cognitoUser.getUsername(), this.cognitoUser);
-        this.setUserInfo(new UserInfo(true, this.cognitoUser.getUsername(), formData.password, formData.email));
-
+        console.log(" this.cognitoUser : ",  this.cognitoUser);
+        this.setUserInfo(new UserInfo(true, this.cognitoUser.getUsername(), formData.password, formData.email, false));
         observer.next(result);
       });
     });
@@ -253,14 +214,10 @@ export class AuthService {
   confirmCode(code): Observable<any> {
     console.log(" CONFIRM CODE ");
     let sub = new Observable(observer => {
-
       if (!this.cognitoUser) this.cognitoUser = this.userPool.getCurrentUser();
-
       this.cognitoUser.confirmRegistration(code, true, (err, result) => {
-        if (err) {
-          return observer.error(err);
-        }
-        console.log('call result: ' + result);
+        if (err) return observer.error(err);
+        console.log('cognitoUser.confirmRegistration result: ' , result);
         this.signIn({ email: this.userInfo.email, password: this.userInfo.password }).subscribe(() => {
           observer.next(result);
         });
@@ -270,16 +227,12 @@ export class AuthService {
   }
 
   resendConfirmationCode(): Observable<any> {
-    console.log(" confirm code ");
+    console.log(" RESEND CONFIRM CODE ");
     let sub = new Observable(observer => {
-
-      if( ! this.cognitoUser )this.cognitoUser = this.userPool.getCurrentUser();
-
+      if( ! this.cognitoUser ) this.cognitoUser = this.userPool.getCurrentUser();
       this.cognitoUser.resendConfirmationCode((err, result) => {
-        if (err) {
-          return observer.error(err);
-        }
-        console.log('call result: ' + result);
+        if (err) return observer.error(err);
+        console.log('cognitoUser.resendConfirmationCode result: ' , result);
         observer.next(result);
       });
     });
@@ -297,12 +250,12 @@ export class AuthService {
 
   // type of sign in ( with Facebook )
   signInWithFb(): void {
-    this.authFbService.signIn();
+
   }
 
   // type of sign up ( with Facebook )
   signUpWithFb(): void {
-    this.authFbService.signUp();
+
   }
 
   // https://stackoverflow.com/questions/40214772/file-upload-in-angular-2

@@ -17,7 +17,7 @@ const AppRoutes: Routes = [
 
   { path: 'info/:id',  component: InfoComponent },
 
-  { path: 'welcome',  component: MainComponent , canActivate: [AuthGuardService] },
+  { path: 'welcome',  component: MainComponent }, // , canActivate: [AuthGuardService]
   
   { path: '**', redirectTo: '' }
 ];
