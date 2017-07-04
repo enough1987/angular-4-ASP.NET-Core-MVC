@@ -199,7 +199,9 @@ export class AuthService {
       });
       attributeList.push(email);
       // formData.fullName
-      this.userPool.signUp(formData.fullName.replace(/ /g,''), formData.password, attributeList, null, (err, result) => {
+      let username: string = formData.fullName.replace(/\s/g, "");
+      console.log( " username ", username );
+      this.userPool.signUp(username, formData.password, attributeList, null, (err, result) => {
         if (err) return observer.error(err);
         this.cognitoUser = result.user;
         console.log(" this.cognitoUser : ",  this.cognitoUser);

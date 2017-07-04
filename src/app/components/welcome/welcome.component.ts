@@ -16,7 +16,7 @@ export class WelcomeComponent {
   constructor( private authService: AuthService ) { 
     console.log(" constructor of welcome " );
   }
-
+ 
   // https://stackoverflow.com/questions/40214772/file-upload-in-angular-2
   changeFoto(event) {
     this.authService.changeFoto(event).subscribe(

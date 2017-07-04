@@ -23,7 +23,7 @@ export class MainComponent {
 
   stripeCreate(){
     this.httpService.get( "http://localhost:3000/api/stripe/create" ).subscribe((data:any) => {
-      console.log( data );
+      console.log( " create ", data );
       this.stripeId = data.id;
     }, (err) => {
       console.log( err );
@@ -33,7 +33,7 @@ export class MainComponent {
   process(){
     console.log( " stripeId  ", this.stripeId );
     this.httpService.get( "http://localhost:3000/api/stripe/process?"+ "id="+this.stripeId ).subscribe((data:any) => {
-      console.log( data );
+      console.log( " process ", data );
       this.stripeId = data.id;
     }, (err) => {
       console.log( err );
