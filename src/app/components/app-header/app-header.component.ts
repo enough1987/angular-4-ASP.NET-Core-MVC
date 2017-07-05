@@ -50,7 +50,7 @@ export class AppHeaderComponent {
     if(!isModalTarget) this.toggleUserModal(false);
   }
 
-  constructor( public authService: AuthService, private modalsService: ModalsService ){
+  constructor( public authService: AuthService, public modalsService: ModalsService ){
     console.log( " constructor of AppHeaderComponent " ); 
   } 
 

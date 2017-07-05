@@ -46,7 +46,7 @@ $pad-small : 10px ;
 $pad-middle-light : 15px ;
 $pad-middle : 20px ;
 $pad-big : 30px ;
-$pad-big-very : 50px ;
+$pad-big-very : 60px ;
 
 /* ********************** */
 
@@ -73,7 +73,7 @@ body {
 /* ******** */ 
 
 .block {
-    @extend .pad__tb-big; 
+    @extend .pad__tb-big-very; 
     background-color: $main-light; 
     position: relative;  
 }
@@ -87,6 +87,9 @@ body {
 }
 
 .block__footer {
+    @extend .pad__tb-big; 
+    background-color: $main-light; 
+    position: relative;
     border: 1px solid $main-border-color-light;
 }
 
@@ -211,7 +214,7 @@ body {
     margin: auto;
     padding: 10px 60px;
     border: 0px solid $main-light;
-    box-shadow: 0 0 10px rgba(0,0,0,0.3);
+    box-shadow: 0 5px 10px rgba(155, 4, 54, 0.5);
 }
 
 .button-big {
@@ -223,7 +226,7 @@ body {
 .button__placeholder {
     color: #88a5b0;
     position: absolute;
-    top: 17px;
+    top: 35px;
     left: 0px;
     z-index: -1;
     animation-duration: 1s;
@@ -254,7 +257,7 @@ body {
 
 .input-link {
     position: absolute;
-    top: 1.7em;
+    top: 3.1em;
     right: 1em;
     font-size: 0.8em;
 }
@@ -299,7 +302,7 @@ body {
 /* ******** */ 
 
 .auth-header {
-    padding-bottom:  $main-padding;
+    padding-bottom:  $pad-big-very;
     background-image: url("/assets/images/imgHeader.png");
     background-position: center top;
     background-size: cover; 
@@ -320,7 +323,11 @@ body {
     @extend .pad__tb-middle;
     text-align: center;
     width: 170px;
+    font-family: $main-font-family-bold;
     cursor: pointer;
+  }
+  .a:focus {
+    outline: 0;
   }
   
 }
@@ -341,6 +348,11 @@ body {
         margin-left: 2.5em;
         margin-left: 2.5em;                
     }
+}
+
+.cntr__flex-center {
+    display: flex;
+    align-items: center;
 }
 
 @media (max-width: 600px) {
@@ -436,7 +448,7 @@ body {
 }
 
 .text__middle {
-    font-size: 1.8em;
+    font-size: 1.6em;
     padding: $main-padding-min 0 $main-padding-min 0;
     text-align: center;
     color: $main-light;
@@ -445,7 +457,7 @@ body {
 }
 
 .text__middle-small {
-    font-size: 1.4em;
+    font-size: 1.3em;
     padding: $main-padding-min 0 $main-padding-min 0;
     text-align: center;
     color: $main-light;
@@ -559,6 +571,9 @@ body {
     padding-top: 10%;
 }
 
+.pad__auth-form {
+    padding-top: 100px;
+}
 
 /* ******** */ 
 
@@ -628,6 +643,7 @@ body {
     margin-right: auto;
     width: 86px;
     height: 107px;
+    padding: $main-padding 0 0 0;
 }
 
 .img__big-overflow {
@@ -777,6 +793,10 @@ $in-w: $n-char*($char-w + $gap);
     color: $main-dark;
     cursor: pointer;
     text-decoration: none;
+}
+
+.link:focus {
+    outline: 0;
 }
 
 .link-light {

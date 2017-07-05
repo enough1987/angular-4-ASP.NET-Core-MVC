@@ -65,7 +65,7 @@ export class AuthService {
   private userPool: CognitoUserPool;
 
   private redirectToAuth: string = ""; // it uses for redirection to auth
-  private redirectFromAuth: string = ""; // it uses for redirection from auth
+  private redirectFromAuth: string = "/welcome"; // it uses for redirection from auth
 
   // AWS variebles starts
 
@@ -84,7 +84,7 @@ export class AuthService {
     this.onInit()
   }
 
-  private onInit(){
+  private onInit() {
     AWS.config.region = this.region;
     AWS.config.update({ accessKeyId: 'mock', secretAccessKey: 'mock' });
     this.userPool = new CognitoUserPool({
@@ -115,12 +115,12 @@ export class AuthService {
     if (authNavType === AuthNavType.redirectFromAuth) this.router.navigate([this.redirectFromAuth]);
   }
 
-  private getOptionsForCognitoIdentityCredentials(res){
-        let options: any = {};
-        options['IdentityPoolId'] = this.identitypoolid;
-        options['Logins'] = {};
-        options['Logins'][this.identityProvider] = res.getIdToken().getJwtToken();
-        return options;
+  private getOptionsForCognitoIdentityCredentials(res) {
+    let options: any = {};
+    options['IdentityPoolId'] = this.identitypoolid;
+    options['Logins'] = {};
+    options['Logins'][this.identityProvider] = res.getIdToken().getJwtToken();
+    return options;
   }
 
   // it uses for start session
@@ -166,7 +166,7 @@ export class AuthService {
         Username: formData.email,
         Pool: this.userPool
       });
-      console.log(" cognitoUser : ", this.cognitoUser );
+      console.log(" cognitoUser : ", this.cognitoUser);
       let authenticationDetails = new AuthenticationDetails({
         Username: formData.email,
         Password: formData.password
@@ -200,11 +200,11 @@ export class AuthService {
       attributeList.push(email);
       // formData.fullName
       let username: string = formData.fullName.replace(/\s/g, "");
-      console.log( " username ", username );
+      console.log(" username ", username);
       this.userPool.signUp(username, formData.password, attributeList, null, (err, result) => {
         if (err) return observer.error(err);
         this.cognitoUser = result.user;
-        console.log(" this.cognitoUser : ",  this.cognitoUser);
+        console.log(" this.cognitoUser : ", this.cognitoUser);
         this.setUserInfo(new UserInfo(true, this.cognitoUser.getUsername(), formData.password, formData.email, false));
         observer.next(result);
       });
@@ -219,7 +219,7 @@ export class AuthService {
       if (!this.cognitoUser) this.cognitoUser = this.userPool.getCurrentUser();
       this.cognitoUser.confirmRegistration(code, true, (err, result) => {
         if (err) return observer.error(err);
-        console.log('cognitoUser.confirmRegistration result: ' , result);
+        console.log('cognitoUser.confirmRegistration result: ', result);
         this.signIn({ email: this.userInfo.email, password: this.userInfo.password }).subscribe(() => {
           observer.next(result);
         });
@@ -231,11 +231,35 @@ export class AuthService {
   resendConfirmationCode(): Observable<any> {
     console.log(" RESEND CONFIRM CODE ");
     let sub = new Observable(observer => {
-      if( ! this.cognitoUser ) this.cognitoUser = this.userPool.getCurrentUser();
+      if (!this.cognitoUser) this.cognitoUser = this.userPool.getCurrentUser();
       this.cognitoUser.resendConfirmationCode((err, result) => {
         if (err) return observer.error(err);
-        console.log('cognitoUser.resendConfirmationCode result: ' , result);
+        console.log('cognitoUser.resendConfirmationCode result: ', result);
         observer.next(result);
+      });
+    });
+    return sub;
+  }
+
+  forgotPassword(): Observable<any> {
+    console.log(" FORGOT PASSWORD ");
+    let sub = new Observable(observer => {
+      if (!this.cognitoUser) this.cognitoUser = this.userPool.getCurrentUser();
+      let cognitoUser: any = this.cognitoUser;
+      if( cognitoUser ) cognitoUser.forgotPassword({
+        onSuccess: function (result) {
+          console.log('call result: ' + result);
+          observer.next(result);
+        },
+        onFailure: function (err) {
+          console.error(err);
+          observer.error(err);
+        },
+        inputVerificationCode() {
+          var verificationCode = prompt('Please input verification code ', '');
+          var newPassword = prompt('Enter new password ', '');
+          cognitoUser.confirmPassword(verificationCode, newPassword, this);
+        }
       });
     });
     return sub;

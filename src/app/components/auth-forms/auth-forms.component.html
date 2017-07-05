@@ -23,11 +23,13 @@
 
                 <div class="btn-container input-contaner " 
 [class.input-contaner-error]="formData.controls.email.invalid && ( formData.controls.email.touched || isShowenErrors )" >
-                    <label class="button__placeholder" 
-                    [class.button__placeholder-dirty]="formData.get('email').value"
+                    <label class="button__placeholder button__placeholder-dirty" 
+                    *ngIf="formData.get('email').value"
                     > Email </label>
-                    <input class="input" type="text" required 
-                    [class.input-dirty]="formData.get('email').value"
+                    <label class="button__placeholder" 
+                    *ngIf="!formData.get('email').value"
+                    > Email </label>
+                    <input class="input input-dirty" type="text" required 
                     formControlName="email" />
                     <img class="input-img-second" 
                     [class.hidden]="!formData.get('email').value"
@@ -40,12 +42,14 @@
 
                 <div class="btn-container input-contaner " 
 [class.input-contaner-error]="formData.controls.password.invalid && ( formData.controls.password.touched || isShowenErrors ) "  >
-                    <label class="button__placeholder" 
-                    [class.button__placeholder-dirty]="formData.get('password').value"
+                    <label class="button__placeholder button__placeholder-dirty" 
+                    *ngIf="formData.get('password').value"
                     > Password </label>
-                    <input class="input" required
+                   <label class="button__placeholder" 
+                    *ngIf="!formData.get('password').value"
+                    > Password </label>
+                    <input class="input input-dirty" required
                     autocomplete="new-password"
-                    [class.input-dirty]="formData.get('password').value"
                     [type]=" isShowenPass ? 'text' : 'password' "
                     formControlName="password" />
                     <img class="input-img" 
@@ -108,11 +112,13 @@
 
                 <div class="btn-container input-contaner " 
 [class.input-contaner-error]=" formData.controls.fullName.invalid && ( formData.controls.fullName.touched || isShowenErrors ) " >
-                    <label class="button__placeholder" 
-                    [class.button__placeholder-dirty]="formData.get('fullName').value"
+                    <label class="button__placeholder button__placeholder-dirty" 
+                    *ngIf="formData.get('fullName').value"
                     > Full Name </label>
-                    <input class="input" type="text" required 
-                    [class.input-dirty]="formData.get('fullName').value"
+                    <label class="button__placeholder" 
+                    *ngIf="!formData.get('fullName').value"
+                    > Full Name </label>
+                    <input class="input input-dirty" type="text" required 
                     formControlName="fullName" />
                     <img class="input-img-second" 
                     [class.hidden]="!formData.get('fullName').value"
@@ -125,11 +131,13 @@
 
                 <div class="btn-container input-contaner " 
 [class.input-contaner-error]="formData.controls.email.invalid && ( formData.controls.email.touched || isShowenErrors ) " >
-                    <label class="button__placeholder" 
-                    [class.button__placeholder-dirty]="formData.get('email').value"
+                    <label class="button__placeholder button__placeholder-dirty" 
+                    *ngIf="formData.get('email').value"
                     > Email </label>
-                    <input class="input" type="text" required 
-                    [class.input-dirty]="formData.get('email').value"
+                    <label class="button__placeholder" 
+                    *ngIf="!formData.get('email').value"
+                    > Email </label>
+                    <input class="input input-dirty" type="text" required 
                     formControlName="email" />
                     <img class="input-img-second" 
                     [class.hidden]="!formData.get('email').value"
@@ -142,12 +150,14 @@
 
                 <div class="btn-container input-contaner " 
 [class.input-contaner-error]="formData.controls.password.invalid && ( formData.controls.password.touched || isShowenErrors )" >
-                    <label class="button__placeholder" 
-                    [class.button__placeholder-dirty]="formData.get('password').value"
+                    <label class="button__placeholder button__placeholder-dirty" 
+                    *ngIf="formData.get('password').value"
                     > Password </label>
-                    <input class="input" required
+                    <label class="button__placeholder" 
+                    *ngIf="!formData.get('password').value"
+                    > Password </label>
+                    <input class="input input-dirty" required
                     autocomplete="new-password"
-                    [class.input-dirty]="formData.get('password').value"
                     [type]=" isShowenPass ? 'text' : 'password' " 
                     formControlName="password" />
                     <img class="input-img" 
@@ -219,11 +229,13 @@
 
                 <div class="btn-container input-contaner " 
 [class.input-contaner-error]="formData.controls.email.invalid && ( formData.controls.email.touched || isShowenErrors ) " >
-                    <label class="button__placeholder" 
-                    [class.button__placeholder-dirty]="formData.get('email').value"
+                    <label class="button__placeholder button__placeholder-dirty" 
+                    *ngIf="formData.get('email').value"
                     > Email </label>
-                    <input class="input" type="text" required 
-                    [class.input-dirty]="formData.get('email').value"
+                    <label class="button__placeholder" 
+                    *ngIf="!formData.get('email').value"
+                    > Email </label>
+                    <input class="input input-dirty" type="text" required 
                     formControlName="email" />
                     <img class="input-img-second" 
                     [class.hidden]="!formData.get('email').value"

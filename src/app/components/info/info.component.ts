@@ -39,8 +39,10 @@ export class InfoComponent {
        console.log( " id ", id );
        if ( id === "company" ) {
             this.templCase = InfoTemplateCase.Company;
-       } else {
+       } else if ( id === "terms" ) {
             this.templCase = InfoTemplateCase.Terms;
+       } else if ( id === "policy" ) {
+            this.templCase = InfoTemplateCase.Policy;
        }
        console.log( id , this.templCase );
     }

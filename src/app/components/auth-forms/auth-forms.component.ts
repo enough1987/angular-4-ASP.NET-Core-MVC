@@ -136,8 +136,12 @@ export class AuthFormsComponent {
   resetPassword() {
     console.log(" reset password ");
     if (this.formData.valid) {
-      this.isShowenErrors = false; 
-      this.modalsService.senderOfOpen(TypeOfModal.Success);
+      //this.authService.forgotPassword().subscribe(()=>{
+        this.isShowenErrors = false; 
+        this.modalsService.senderOfOpen(TypeOfModal.Success);
+      //}, ()=>{
+      //  this.isShowenErrors = true;
+      //});
     } else {
       this.isShowenErrors = true;
     }

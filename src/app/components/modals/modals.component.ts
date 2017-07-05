@@ -26,7 +26,7 @@ export class ModalsComponent {
     serverErrorMsg: string;
 
 
-    constructor(private authService: AuthService, private modalsService: ModalsService){
+    constructor(public authService: AuthService, public modalsService: ModalsService){
       console.log( " constructor of modal ", typeof this.typeOfModal);
     }
 
