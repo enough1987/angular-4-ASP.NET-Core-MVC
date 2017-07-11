@@ -10,14 +10,14 @@ import { AuthGuardService } from "app/index";
 
 
 const AppRoutes: Routes = [
-  { path: '', component: AuthComponent },
-  { path: 'sign-in', component: AuthFormsComponent },
-  { path: 'sign-up', component: AuthFormsComponent },
-  { path: 'sign-in-forgot', component: AuthFormsComponent },
+  { path: '', component: AuthComponent, data: { title: 'Fabulave' } },
+  { path: 'sign-in', component: AuthFormsComponent, data: { title: 'Sign In' } },
+  { path: 'sign-up', component: AuthFormsComponent, data: { title: 'Sign Up' } },
+  { path: 'sign-in-forgot', component: AuthFormsComponent, data: { title: 'Forgot Password' } },
 
-  { path: 'info/:id',  component: InfoComponent },
+  { path: 'info/:id',  component: InfoComponent, data: { title: 'Info' } },
 
-  { path: 'welcome',  component: MainComponent }, // , canActivate: [AuthGuardService]
+  { path: 'welcome',  component: MainComponent, data: { title: 'Welcome' } }, // , canActivate: [AuthGuardService]
   
   { path: '**', redirectTo: '' }
 ];

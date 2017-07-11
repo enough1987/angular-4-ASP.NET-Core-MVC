@@ -13,7 +13,7 @@ import { RoutingModule } from "app/routing.module";
 
 import { SettingService, HelperService, HttpService, 
   WebSocketService, ModalsService,
-  AuthService, AuthGuardService } from "app/index";
+  AuthService, AuthGuardService, TitleService } from "app/index";
 
 
 import { ErrorMsgComponent, InfoComponent, VideoPlayerComponent, 
@@ -42,7 +42,8 @@ import { AppComponent } from "app/app.component";
     WebSocketService,
     ModalsService,
     AuthService,
-    AuthGuardService
+    AuthGuardService,
+    TitleService
   ],
   declarations: [
     AppComponent,

@@ -138,6 +138,7 @@ export class AuthFormsComponent {
     if (this.formData.valid) {
       //this.authService.forgotPassword().subscribe(()=>{
         this.isShowenErrors = false; 
+        this.authService.userInfo.email = this.formData.get('email').value;
         this.modalsService.senderOfOpen(TypeOfModal.Success);
       //}, ()=>{
       //  this.isShowenErrors = true;

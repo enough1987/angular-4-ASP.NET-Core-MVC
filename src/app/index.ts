@@ -9,7 +9,7 @@ export { WebSocketService } from "app/services/ws.service";
 export { ModalsService } from "app/services/modals.servise";
 export { AuthService } from "app/services/auth.service";
 export { AuthGuardService } from "app/services/auth-guard.service";
-
+export { TitleService } from "app/services/title.service";
 
 
 export { ErrorMsgComponent } from "app/components/error-msg/error-msg.component";

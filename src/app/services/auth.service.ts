@@ -43,6 +43,10 @@ export class SignUp {
 }
 
 export class UserInfo {
+
+  stripeId: string;
+  stripeToken: string;
+  
   registered: boolean;
   username: string;
   password: string;

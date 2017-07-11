@@ -19,9 +19,9 @@
 
 $main-light: white;
 $main-light-second: #f8fbfd;
-$main-dark: #003354;
+$main-dark: #1F3654;
 $main-gray: #d0dade;
-$main-border-color: #88a6b0;
+$main-border-color: #ECEFF1;
 $placeholder: #88a5b0;
 $main-border-color-light: #eceff1;
 $main-border-active-color: #7caee2;
@@ -30,12 +30,12 @@ $main-with:  70%;
 $main-with__middle: 85%;
 $main-with__small: 90%;
 $cornflower-blue: #1976d2;
-$pink: #ed517e;
+$pink: #FF3E7D;;
 $pink-second: #ff3e7d;
 $error: #ff3a3a;
 
 $main-padding: 40px;
-$main-padding-min: 20px;
+$main-padding-min: 16px;
 
 $main-font-family: 'Open Sans', sans-serif;
 $main-font-family-bold: "OpenSans-Semibold", 'Open Sans', sans-serif;
@@ -144,13 +144,17 @@ body {
     cursor: pointer;
 }
 
+.main-header__img:focus {
+    outline: 0;
+}
+
 .main-header__second {
     position: fixed;
     top: 0px;
     left: 0px;
     z-index: 100;
     background-color: $main-light;
-    border-bottom: 1px solid $main-dark;
+    border-bottom: 1px solid $main-border-color;
     animation-duration: 0.1s;
 }
 
@@ -224,7 +228,7 @@ body {
 }
 
 .button__placeholder {
-    color: #88a5b0;
+    color: $placeholder;
     position: absolute;
     top: 35px;
     left: 0px;
@@ -271,13 +275,13 @@ body {
     width: 1em;
     height: 1em;
     position: absolute;
-    top: 2.5em;
+    top: 35.5px;
     right: 2.5em;
 }
 
 .input-img-second {
     right: 0.5em;
-    top: 2.6em;
+    top: 37px;//2.6em;
     height: 0.8em;
 }
 

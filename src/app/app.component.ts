@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 
 
-import { AuthService } from "app/index";
+import { AuthService, TitleService } from "app/index";
 
 
 @Component({
@@ -13,10 +13,11 @@ import { AuthService } from "app/index";
 export class AppComponent {
 
 
-  constructor(private authService: AuthService ) { 
+  constructor( private authService: AuthService , private titleService: TitleService) { 
     console.log(" constructor of app ");
     this.authService.retrieveCurrentUser();
-
+    this.titleService.init();
   }
+
 
 }
