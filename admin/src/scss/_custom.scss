@@ -1,0 +1,161 @@
+header.navbar > .img-avatar {
+    height: 36px;
+    margin: -3px 10px 0 10px;
+}
+
+nav.sidebar-nav {
+    .form-control {
+        border: 0;
+        background: darken($sidebar-bg,10%);
+        color: #fff;
+
+        &::-webkit-input-placeholder { color: rgba(255,255,255,.7); }
+        &:-moz-placeholder { color: rgba(255,255,255,.7); }
+        &::-moz-placeholder { color: rgba(255,255,255,.7); }
+        &:-ms-input-placeholder { color: rgba(255,255,255,.7); }
+    }
+}
+
+.card, .social-box {
+    border-top-width: 0;
+    border-bottom-width: 2 * $card-border-width;
+}
+
+[class*="card-outline-"] {
+    border-top-width: 1px !important;
+}
+
+[class*="card-accent-"] {
+    border-top-width: 2px !important;
+}
+
+.aside-menu {
+    .nav-tabs .nav-link,
+    .callout {
+        border-radius: 0;
+    }
+}
+
+.flex {
+    display: -webkit-flex;
+    display: flex;
+}
+
+.flex-justify {
+    justify-content: space-between;
+}
+
+.flex-start {
+    justify-content: flex-start;  
+}
+
+.pad__top-middle {
+    padding-top: 20px;
+}
+
+.pad__right-small {
+    padding-right: 5px;
+}
+
+.console {
+    position: relative;
+}
+
+.pointer {
+    cursor: pointer;
+}
+
+.vh90 {
+    height: 90vh;    
+}
+ 
+.vh82 {
+    height: 82vh;
+}
+ 
+.vh76 {
+    height: 76vh;
+}
+
+
+.scroll {
+    overflow: scroll;
+}
+
+.session-is-active {
+    font-weight: bold;
+    background: #eceff3;
+}
+
+.session {
+    padding: 5px;
+
+    &__active {
+        color: green;
+    }
+    &__closed {
+        color: black;
+    }
+    &__error {
+        color: red;
+    }
+
+}
+
+.console__tab-header {
+    border-bottom: 1px solid #eceff3 ;
+}
+
+.console__tab-item {
+    padding: 7px 20px;
+    border: 1px solid #eceff3 ;
+    min-width: 80px;
+
+    &__is-active {
+        font-weight: bold;
+        -webkit-box-shadow:inset 1px 1px 10px 1px #eceff3;
+        box-shadow:inset 1px 1px 10px 1px #eceff3;
+    }
+}
+
+.console-list {
+    position: relative;
+    background: white;
+    padding: 5px;
+    width: 30%;
+    min-width: 300px;
+    border: 1px solid #eceff3 ;
+    -webkit-box-shadow:inset 1px 1px 10px 1px #eceff3;
+    box-shadow:inset 1px 1px 10px 1px #eceff3;
+
+    .console-list__search {
+        width: 100%;
+    }
+
+    .console-list__item {
+        width: 100%;
+        padding-top: 5px;
+    }
+
+    &__session {
+       width: 40%; 
+    }
+
+    &__table {
+        width: 50%;
+        min-width: 300px;
+    }
+
+    &__add {
+        width: 10%;
+        min-width: 100px;
+    }
+
+}
+
+
+.pad__left-small {
+    padding-left: 10px;
+}
+
+

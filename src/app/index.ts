@@ -23,6 +23,7 @@ export { AppHeaderComponent } from "app/components/app-header/app-header.compone
 export { AppFooterComponent } from "app/components/app-footer/app-footer.component";
 export { AuthComponent } from "app/components/auth/auth.component";
 export { MainComponent } from "app/components/main/main.component";
+export { HomeComponent } from "app/components/home/home.component";
 
 
 export { VideoOptions } from "app/components/video-player/video-player.component";

@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
 
 
-import { HttpService, AuthService } from "app/index";
+import { HttpService } from "app/services/http.service";
+import { AuthService } from "app/services/auth.service";
 
 
 @Component({
@@ -14,19 +15,20 @@ export class MainComponent {
   stripeId: string = "";
   private stripeServer: string = "http://ec2-52-59-169-152.eu-central-1.compute.amazonaws.com:3000";
   private stripeServerLocal: string = "http://localhost:3000";
-  private card;
-  private stripe;
-  private amount;
+  private card: any;
+  private stripe: any;
+  private amount: any;
+  msg: any;
 
-  constructor(private httpService: HttpService, private authService: AuthService) {
+  constructor(public httpService: HttpService, public authService: AuthService) {
     console.log(" constructor of main ");
   }
 
   ngOnInit() {
 
+    //this.stripe = (<any>window).Stripe('pk_test_HRr0GJHQNM2hxAAT7kYtGWWR');
+    this.stripe = (<any>window).Stripe('pk_live_8lalIH22Uy2EuumE8x6aQfsW');
 
-    this.stripe = (<any>window).Stripe('pk_test_HRr0GJHQNM2hxAAT7kYtGWWR');
-    //this.stripe = (<any>window).Stripe('pk_live_8lalIH22Uy2EuumE8x6aQfsW');
     let elements = this.stripe.elements();
 
     this.card = elements.create('card', {
@@ -52,10 +54,9 @@ export class MainComponent {
       this.setOutcome(event);
     });
 
-
   }
 
-  private paypalGet() {
+  paypalGet = () => {
 
     this.httpService.post(
       this.stripeServerLocal + "/api/paypal/payout", {
@@ -65,55 +66,66 @@ export class MainComponent {
       }).subscribe((data: any) => {
         console.log(" PAYPAL : ", data);
       });
+
   }
 
   private setOutcome = (result) => {
-    let successElement = document.querySelector('.success');
+
+    console.log( " RESULT : ", result );
+
     let errorElement = document.querySelector('.error');
-    successElement.classList.remove('visible');
+
     errorElement.classList.remove('visible');
 
     if (result.token) {
-      successElement.querySelector('.token').textContent = result.token.id;
-      successElement.classList.add('visible');
+
       this.authService.userInfo.stripeToken = result.token.id;
+      this.authService.userInfo.stripeCountry = result.token.card.country;
+      this.authService.userInfo.stripeCurrency = result.token.card.currency;
       console.log(" --- --- ", this.authService.userInfo.stripeToken);
-      this.payout();
+      this.payout() // this.charge(); //this.payout();
     } else if (result.error) {
       errorElement.textContent = result.error.message;
       errorElement.classList.add('visible');
     }
   };
 
-  createToken(amount) {
+  createToken = (amount, callback ) => {
     console.log(" createToken ", amount);
     this.amount = amount;
 
     let extraDetails = {
-      currency: "usd"
+      currency: "gbp" // "usd"
     };
 
-    this.stripe.createToken(this.card, extraDetails).then(this.setOutcome);
+    this.stripe.createToken(this.card, extraDetails).then( this.setOutcome );
   }
 
-  private payout() {
+  private payout = () => {
+
     console.log(" stripeId  ", this.stripeId);
     this.httpService.get(
-      this.stripeServerLocal + "/api/stripe/payout" +
+      this.stripeServerLocal + "/api/stripe/transfer" +
       "?token=" + this.authService.userInfo.stripeToken +
-      "&amount=" + this.amount
+      "&country=" + this.authService.userInfo.stripeCountry +
+      "&currency=" + this.authService.userInfo.stripeCurrency +
+      "&amount=" + this.amount 
     ).subscribe((data: any) => {
       console.log(" PAYOUT ", data);
+      this.msg = data.message;
     }, (err) => {
       console.log(err);
     });
   }
 
-  private charge() {
+  charge = () => {
     console.log(" stripeId  ", this.stripeId);
     this.httpService.get(
       this.stripeServerLocal + "/api/stripe/charge" +
-      "?token=" + this.authService.userInfo.stripeToken
+      "?token=" + this.authService.userInfo.stripeToken +
+      "&country=" + this.authService.userInfo.stripeCountry +
+      "&currency=" + this.authService.userInfo.stripeCurrency +
+      "&amount=" + this.amount 
     ).subscribe((data: any) => {
       console.log(" CHARGE ", data);
     }, (err) => {
@@ -121,7 +133,7 @@ export class MainComponent {
     });
   }
 
-  payout2() {
+  payout2 = () => {
     this.stripe.createToken(this.card).then((result) => {
       if (result.token) {
         this.authService.userInfo.stripeToken = result.token.id;
@@ -139,7 +151,7 @@ export class MainComponent {
 
   }
 
-  list() {
+  list = () => {
     this.httpService.get(
       this.stripeServerLocal + "/api/stripe/list").subscribe((data: any) => {
         console.log(" CHARGE ", data);

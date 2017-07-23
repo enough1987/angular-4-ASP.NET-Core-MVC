@@ -26,7 +26,7 @@ export class VideoComponent {
     this.video1 = { path:"assets/video", width: 640, height: 340, autoplay: true  };
     this.video2 = { path:"assets/video", width: 440, height: 240  };
     this.httpService.get("assets/test.json").subscribe(res=>{
-      console.log( " res ", res );
+      //console.log( " res ", res );
     });
   }
 

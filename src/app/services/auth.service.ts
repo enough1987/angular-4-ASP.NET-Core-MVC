@@ -26,7 +26,7 @@ export enum AuthNavType {
 export enum AuthTemplateCase {
   Base,
   SignUp,
-  SignIn,
+  SignIn,  
   SignInForgot
 }
 
@@ -46,6 +46,8 @@ export class UserInfo {
 
   stripeId: string;
   stripeToken: string;
+  stripeCountry: string;
+  stripeCurrency: string;
   
   registered: boolean;
   username: string;

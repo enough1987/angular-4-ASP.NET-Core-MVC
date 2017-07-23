@@ -38,8 +38,8 @@
 
   <div class="outcome">
     <div class="error" role="alert"></div>
-    <div class="success">
-      Success! Your Stripe token is <span class="token"></span>
+    <div class="error visible" *ngIf="msg"  >
+      {{ msg }}
     </div>
   </div>
 
@@ -55,9 +55,9 @@
 <br>
 
 <button (click)="payout()" > payout </button>
-
+-->
 <br>
 
-<button (click)="charge()" > charge </button>
--->
+<button type="click" (click)=" createToken( 55 ) " > charge </button>
+
 

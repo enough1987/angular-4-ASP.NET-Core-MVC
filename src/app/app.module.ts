@@ -18,8 +18,8 @@ import { SettingService, HelperService, HttpService,
 
 import { ErrorMsgComponent, InfoComponent, VideoPlayerComponent, 
   ModalsComponent, WelcomeComponent, VideoComponent,
-  AuthFormsComponent, AppHeaderComponent,
-  MainComponent, AuthComponent, AppFooterComponent } from "app/index";
+  AuthFormsComponent, AppHeaderComponent, MainComponent, 
+  AuthComponent, AppFooterComponent, HomeComponent } from "app/index";
 
 
 import { AppComponent } from "app/app.component";
@@ -57,7 +57,8 @@ import { AppComponent } from "app/app.component";
     VideoPlayerComponent,
     ModalsComponent,
     WelcomeComponent,
-    VideoComponent
+    VideoComponent,
+    HomeComponent
   ],
   bootstrap: [AppComponent]
 })
