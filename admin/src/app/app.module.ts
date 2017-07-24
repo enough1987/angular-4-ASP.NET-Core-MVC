@@ -28,10 +28,12 @@ import { DashboardModule } from "app/dashboard/dashboard.module";
 
 import { MobileConsoleComponent } from "app/dashboard/mobile-console.component";
 import { DashboardComponent } from "app/dashboard/dashboard.component";
-
+import { AuthService } from "app/shared/auth.service";
+import { LoginComponent } from "app/dashboard/login.component";
 
 
 import { SafePipe } from "./shared/save.pipe";
+
 
 @NgModule({
   imports: [
@@ -53,11 +55,12 @@ import { SafePipe } from "./shared/save.pipe";
 
     MobileConsoleComponent,
     DashboardComponent ,
+    LoginComponent,
 
     SafePipe
   ],
   providers: [
-
+    AuthService,
     {
     provide: LocationStrategy,
     useClass: HashLocationStrategy

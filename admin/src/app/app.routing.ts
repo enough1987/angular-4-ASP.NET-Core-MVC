@@ -7,9 +7,14 @@ import { FullLayoutComponent } from './layouts/full-layout.component';
 
 import { DashboardComponent } from "app/dashboard/dashboard.component";
 import { MobileConsoleComponent } from "app/dashboard/mobile-console.component";
+import { LoginComponent } from "app/dashboard/login.component";
+
+
+import { AuthService } from "app/shared/auth.service";
 
 
 export const routes: Routes = [
+
   {
     path: '',
     redirectTo: 'dashboard',
@@ -18,6 +23,7 @@ export const routes: Routes = [
   {
     path: '',
     component: FullLayoutComponent,
+    canActivate: [AuthService],
     //data: {
     //  title: 'Home'
     //},
@@ -38,11 +44,18 @@ export const routes: Routes = [
         data: { title : 'Mobile Console' }
       }
     ]
-  }
+  },
+  {
+    path: 'login',
+    component: LoginComponent,
+    data: { title : 'Login' }    
+  } ,
+  { path: '**', redirectTo: 'login' }
+
 ];
 
 @NgModule({
-  imports: [ RouterModule.forRoot(routes) ],
+  imports: [ RouterModule.forRoot(routes, { useHash: false }) ],
   exports: [ RouterModule ]
 })
 export class AppRoutingModule {}

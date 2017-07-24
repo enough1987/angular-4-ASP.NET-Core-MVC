@@ -26,7 +26,9 @@ export class MobileConsoleComponent {
   // init websocket connection 
   private connectConsole(): void {
 
-    this.socket = (<any>window).io(this.consoleServerLocal);
+    this.socket = (<any>window).io(this.consoleServerLocal, {
+      path: '/api/mobile-console'
+    });
 
     this.socket.on('update', (msg) => {
       console.log(' update: ', msg, this.activeSession);
@@ -60,7 +62,8 @@ export class MobileConsoleComponent {
 
     this.socket.on('sessions', (msg) => {
       console.log('sessions : ', msg);
-      if ( !msg || !Array.isArray(msg.sessions) ) return;
+      if (!msg || !Array.isArray(msg.sessions)) return;
+      this.removeOldFromList(this.sessions, msg.date);
       this.sessions.length = 0;
       this.sessions.unshift(...msg.sessions);
     });
@@ -77,6 +80,14 @@ export class MobileConsoleComponent {
 
   }
 
+  // 
+  private removeOldFromList(list, date ):void {
+    for (let i = list.length - 1; 0 < i; i--) {
+      //if( list[i].timeStamp + 1000*10 < + new Date() ) list.splice(i, 1);
+      if (list[i].timeStamp + 1000*60*60*20 < date ) list.splice(i, 1);
+    }
+  };
+
   // add new items to active session logs, states ...
   private addToActiveSession(msg, propName: string): void {
     if (!this.activeSession || !msg || !Array.isArray(msg[propName])) return;
@@ -88,14 +99,14 @@ export class MobileConsoleComponent {
 
   // add items to array
   private addToList(list: Array<any>, items: Array<any>): void {
-    console.log( items );
+    console.log(items);
     list.unshift(...items);
   }
 
   // filter lists before showing
   filter(arr: Array<any>, targ: string, search: string): Array<any> {
-    if ( !search || !Array.isArray(arr) ) return arr || [];
-    let newArr = arr.filter((item) => { 
+    if (!search || !Array.isArray(arr)) return arr || [];
+    let newArr = arr.filter((item) => {
       return item[targ] && item[targ].toLowerCase().indexOf(search.toLowerCase()) != -1;
     });
     return newArr;
