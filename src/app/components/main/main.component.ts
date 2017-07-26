@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { Headers, URLSearchParams } from '@angular/http';
+import { ActivatedRoute, Params } from "@angular/router";
 
 
 import { HttpService } from "app/services/http.service";
@@ -12,152 +14,96 @@ import { AuthService } from "app/services/auth.service";
 })
 export class MainComponent {
 
-  stripeId: string = "";
-  private stripeServer: string = "http://ec2-52-59-169-152.eu-central-1.compute.amazonaws.com:3000";
-  private stripeServerLocal: string = "http://localhost:3000";
-  private card: any;
-  private stripe: any;
-  private amount: any;
-  msg: any;
+  access_token: string;
+  paypalAccout: string = "tilgaaleksandr-facilitator-3@gmail.com";
+  amount: any;
 
-  constructor(public httpService: HttpService, public authService: AuthService) {
+
+  constructor( private activatedRoute: ActivatedRoute, public httpService: HttpService, public authService: AuthService) {
     console.log(" constructor of main ");
   }
 
   ngOnInit() {
 
-    //this.stripe = (<any>window).Stripe('pk_test_HRr0GJHQNM2hxAAT7kYtGWWR');
-    this.stripe = (<any>window).Stripe('pk_live_8lalIH22Uy2EuumE8x6aQfsW');
+      let code =  this.activatedRoute.snapshot.queryParams["code"];;
+      console.log( " CODE : ", code );
+      if ( code ) this.paypalToken(code);
 
-    let elements = this.stripe.elements();
+    
+    /*
+    
+        let CLIENTID = 'AZmRj4HcRTwTtduwY6szT6ObAftuSeRjNzkXffGyXk8TsZvB5dwbT59swGUaaQMd6rbmPcOO_Obu8ufp';
+        //CLIENTID = 'tom.vidolov-1_api1.gmail.com';  
+    
+        let SECRET = 'EHorRh9gHPc6HdpfjEr3XIzsFLOkWgTdd83o3_80Qo3HfZ_vei42bLy84-tsE9cWWbwP5UXozG1cN5uw';
+        //SECRET = 'AF29Q7VMUG336NN2';
+    
+        var basicAuthString = btoa( CLIENTID+':'+SECRET );
+        console.log( basicAuthString );
+    
+        let headers = new Headers();
+        headers.append( 'Accept' , 'application/json' );
+        headers.append( 'Content-Type' , 'application/x-www-form-urlencoded' );
+        headers.append( 'Accept-Language' ,  'en_US' );
+        headers.append( 'Authorization' , 'Basic ' + basicAuthString ); 
+    
+        let data = new URLSearchParams();
+        data.append('grant_type', 'client_credentials');
+    
+        console.log( ' DATA : ', data );
+    
+        this.httpService.post( 'https://api.sandbox.paypal.com/v1/oauth2/token' , 
+          data, { headers : headers } ).subscribe((data: any) => {
+          console.log(" TOKEN : ", data);
+          this.access_token = data.access_token
+        });
+      
+    */
 
-    this.card = elements.create('card', {
-      hidePostalCode: true,
-      style: {
-        base: {
-          iconColor: '#F99A52',
-          color: '#32315E',
-          lineHeight: '48px',
-          fontWeight: 400,
-          fontFamily: '"Helvetica Neue", "Helvetica", sans-serif',
-          fontSize: '15px',
+  }
 
-          '::placeholder': {
-            color: '#CFD7DF',
-          }
-        },
-      }
-    });
-    this.card.mount('#card-element');
+  paypalToken = (code) => {
+    this.httpService.post(
+      "http://localhost:3000/api/paypal/tokeninfo", {
+        code: code
+      }).subscribe((data: any) => {
+        console.log(" TOKENINFO : ", data );
+        if ( data.tokeninfo.id_token ) this.paypalUser(data.tokeninfo.id_token);
+      });
+  }
 
-    this.card.on('change', (event) => {
-      this.setOutcome(event);
-    });
+  paypalUser = (token) => {
+    this.httpService.post(
+      "http://localhost:3000/api/paypal/user", {
+        token: token
+      }).subscribe((data: any) => {
+        console.log(" USER : ", data );
 
+      });
+  }
+
+  paypalLogin = () => {
+    window.location.href = "https://www.sandbox.paypal.com/signin/authorize?client_id=AZmRj4HcRTwTtduwY6szT6ObAftuSeRjNzkXffGyXk8TsZvB5dwbT59swGUaaQMd6rbmPcOO_Obu8ufp&response_type=code&scope=openid&redirect_uri=http://localhost:4200/welcome" ;
   }
 
   paypalGet = () => {
 
+    console.log(' paypalAccout ', this.paypalAccout);
+
     this.httpService.post(
-      this.stripeServerLocal + "/api/paypal/payout", {
+      "http://localhost:3000/api/paypal/payout", {
         amount: 1,
         currency: "USD",
-        description: " pay now "
+        email: this.paypalAccout,
+        description: "payout",
+        access_token: this.access_token
       }).subscribe((data: any) => {
         console.log(" PAYPAL : ", data);
+        if (data.links && data.links[0]) {
+          //window.location.href = data.links[0].href;
+        }
       });
 
-  }
-
-  private setOutcome = (result) => {
-
-    console.log( " RESULT : ", result );
-
-    let errorElement = document.querySelector('.error');
-
-    errorElement.classList.remove('visible');
-
-    if (result.token) {
-
-      this.authService.userInfo.stripeToken = result.token.id;
-      this.authService.userInfo.stripeCountry = result.token.card.country;
-      this.authService.userInfo.stripeCurrency = result.token.card.currency;
-      console.log(" --- --- ", this.authService.userInfo.stripeToken);
-      this.payout() // this.charge(); //this.payout();
-    } else if (result.error) {
-      errorElement.textContent = result.error.message;
-      errorElement.classList.add('visible');
-    }
-  };
-
-  createToken = (amount, callback ) => {
-    console.log(" createToken ", amount);
-    this.amount = amount;
-
-    let extraDetails = {
-      currency: "gbp" // "usd"
-    };
-
-    this.stripe.createToken(this.card, extraDetails).then( this.setOutcome );
-  }
-
-  private payout = () => {
-
-    console.log(" stripeId  ", this.stripeId);
-    this.httpService.get(
-      this.stripeServerLocal + "/api/stripe/transfer" +
-      "?token=" + this.authService.userInfo.stripeToken +
-      "&country=" + this.authService.userInfo.stripeCountry +
-      "&currency=" + this.authService.userInfo.stripeCurrency +
-      "&amount=" + this.amount 
-    ).subscribe((data: any) => {
-      console.log(" PAYOUT ", data);
-      this.msg = data.message;
-    }, (err) => {
-      console.log(err);
-    });
-  }
-
-  charge = () => {
-    console.log(" stripeId  ", this.stripeId);
-    this.httpService.get(
-      this.stripeServerLocal + "/api/stripe/charge" +
-      "?token=" + this.authService.userInfo.stripeToken +
-      "&country=" + this.authService.userInfo.stripeCountry +
-      "&currency=" + this.authService.userInfo.stripeCurrency +
-      "&amount=" + this.amount 
-    ).subscribe((data: any) => {
-      console.log(" CHARGE ", data);
-    }, (err) => {
-      console.log(err);
-    });
-  }
-
-  payout2 = () => {
-    this.stripe.createToken(this.card).then((result) => {
-      if (result.token) {
-        this.authService.userInfo.stripeToken = result.token.id;
-        console.log("?token=" + this.authService.userInfo.stripeToken);
-        this.httpService.get(
-          this.stripeServerLocal + "/api/stripe/payout2" +
-          "?token=" + this.authService.userInfo.stripeToken
-        ).subscribe((data: any) => {
-          console.log(" payout2 ", data);
-        }, (err) => {
-          console.log(err);
-        });
-      }
-    });
-
-  }
-
-  list = () => {
-    this.httpService.get(
-      this.stripeServerLocal + "/api/stripe/list").subscribe((data: any) => {
-        console.log(" CHARGE ", data);
-      }, (err) => {
-        console.log(err);
-      });
   }
 
 

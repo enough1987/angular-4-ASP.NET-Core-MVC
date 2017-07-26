@@ -6,58 +6,21 @@
 
 <div class="main-container-in main-container-in-small pad__auth-form" >
 
-<!--
-  <welcome></welcome>
--->
 <div>
-<button (click)="paypalGet()" > PAYPAL </button>  
+  <input type="email" class="field field2"
+  [(ngModel)]="paypalAccout" >
+</div>
+<div>
+  <button (click)="paypalGet()" > PAYPAL </button>  
 </div>
 
-  <br />
-  <br />
-  <br />
 
-<form>
-
-
-  <label>
-    <span>currency</span>
-    <input name="cardholder-currency" class="field" placeholder="usd" />
-  </label>
-  <label>
-    <span>Card</span>
-    <div id="card-element" class="field"></div>
-  </label>
-  
-  <button type="click" (click)="createToken(55)" >Pay 0.5</button>
-  
-  <button type="click" (click)="createToken(100)" >Pay 1</button>
-   
-  <button type="click" (click)="createToken(200)" >Pay 2</button> 
-
-
-  <div class="outcome">
-    <div class="error" role="alert"></div>
-    <div class="error visible" *ngIf="msg"  >
-      {{ msg }}
-    </div>
-  </div>
-
-</form>
-
-  <button type="click" (click)="list()" > list in console </button> 
-
-  <button type="click" (click)="payout2()" > payout 2 </button> 
+<button (click)="paypalLogin()"  > </button>
 
 
 
-<!--
-<br>
 
-<button (click)="payout()" > payout </button>
--->
-<br>
+</div>
 
-<button type="click" (click)=" createToken( 55 ) " > charge </button>
-
+ 
 

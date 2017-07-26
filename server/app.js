@@ -4,24 +4,26 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
-const cors = require('cors'); // for cors any
-
-var index = require('./routes/index');
 
 var app = express();
 
-console.log(" = EXPRESS = ");
+///////////////////////////////////////
+// FOR CORS
+const cors = require('cors'); // for cors any
+app.use(cors()); // for cors any
+app.options('*', cors()); // for cors any
+///////////////////////////////////////
 
-/////////////////////////////
-
+///////////////////////////////////////
 /*
 process.on('uncaughtException', function (err) {
   console.error(err);
   console.log("Node has Error ...");
 })
 */
+///////////////////////////////////////
 
-/////////////////////////////
+
 
 
 // view engine setup
@@ -36,18 +38,13 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-// Enable CORS
-app.use((req, res, next) => {
-  res.header('Access-Control-Allow-Origin', '*');
-  res.header('Access-Control-Allow-Methods', 'GET,POST,DELETE');
-  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested With, Content-Type, Accept');
-  next();
-});
-
-app.use(cors()); // for cors any
-app.options('*', cors()); // for cors any
-
+///////////////////////////////////////
+// paymant api
+let index = require('./routes/index');
 app.use('/', index);
+// websocket api for mobile console
+require("./routes/mobile-console")(app);
+///////////////////////////////////////
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
