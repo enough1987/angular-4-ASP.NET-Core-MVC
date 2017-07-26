@@ -2,6 +2,7 @@
 
 
 
+
 export { SettingService } from "app/services/settings.service";
 export { HelperService } from "app/services/helper.service";
 export { HttpService } from "app/services/http.service";
@@ -24,6 +25,7 @@ export { AppFooterComponent } from "app/components/app-footer/app-footer.compone
 export { AuthComponent } from "app/components/auth/auth.component";
 export { MainComponent } from "app/components/main/main.component";
 export { HomeComponent } from "app/components/home/home.component";
+export { AaaComponent } from "app/components/aaa/aaa.component";
 
 
 export { VideoOptions } from "app/components/video-player/video-player.component";

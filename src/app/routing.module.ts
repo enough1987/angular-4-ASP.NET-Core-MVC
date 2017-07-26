@@ -3,7 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 
 
 import { AuthComponent, AuthFormsComponent, MainComponent,
- InfoComponent, HomeComponent } from "app/index";
+ InfoComponent, HomeComponent, AaaComponent } from "app/index";
 
 
 import { AuthGuardService } from "app/index";
@@ -20,6 +20,8 @@ const AppRoutes: Routes = [
   { path: 'home',  component: HomeComponent, data: { title: 'Home' } },
 
   { path: 'welcome',  component: MainComponent, data: { title: 'Welcome' } }, // , canActivate: [AuthGuardService]
+
+  { path: 'aaa',  component: AaaComponent, data: { title: 'aaa' } },  
   
   { path: '**', redirectTo: '' }
 ];
