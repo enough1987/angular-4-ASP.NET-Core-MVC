@@ -14,6 +14,7 @@ import { AuthService } from "app/services/auth.service";
 })
 export class MainComponent {
 
+  authorizeCode: any;
   access_token: string;
   paypalAccout: string = "tilgaaleksandr-facilitator-3@gmail.com";
   amount: any;
@@ -26,8 +27,11 @@ export class MainComponent {
   ngOnInit() {
 
       let code =  this.activatedRoute.snapshot.queryParams["code"];;
-      console.log( " CODE : ", code );
-      if ( code ) this.paypalToken(code);
+      console.log( "%c authorizeCode : " + code , 'background: #222; color: #bada55' );
+      if ( code ) {
+        this.authorizeCode = code;
+        this.paypalToken(code);
+      }
 
     
     /*
@@ -70,7 +74,7 @@ export class MainComponent {
         console.log(" TOKENINFO : ", data );
         if ( data.tokeninfo.id_token ) this.paypalUser(data.tokeninfo.id_token);
       });
-  }
+  };
 
   paypalUser = (token) => {
     this.httpService.post(

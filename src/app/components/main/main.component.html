@@ -1,26 +1,29 @@
-
-
-<app-header >
+<app-header>
 </app-header>
 
 
-<div class="main-container-in main-container-in-small pad__auth-form" >
+<div class="main-container-in main-container-in-small pad__auth-form">
 
-<div>
-  <input type="email" class="field field2"
-  [(ngModel)]="paypalAccout" >
+  <div *ngIf="authorizeCode" >
+    <div>
+      <input type="email" class="field field2" 
+      [(ngModel)]="paypalAccout">
+    </div>
+    <div>
+      <button 
+      (click)="paypalGet()"> 
+        PAYPAL 
+      </button>
+    </div>
+  </div>
+
+
+  <div *ngIf="!authorizeCode" >
+    <button (click)="paypalLogin()"> first login paypal</button>
+  </div>
+
+
+
+
+
 </div>
-<div>
-  <button (click)="paypalGet()" > PAYPAL </button>  
-</div>
-
-
-<button (click)="paypalLogin()"  > </button>
-
-
-
-
-</div>
-
- 
-
