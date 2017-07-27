@@ -6,8 +6,28 @@
 <div class="main-container-in main-container-in-small pad__auth-form"
     *ngIf=" id == 'login' " >
 
-    <button (click)="login()"
-    > login </button>
+    <p class="balance" > balance : 1000 </p>
+
+    <p>
+        <span> 100 </span>
+        <input name="amount" type="radio" value="100" [(ngModel)]="amount"
+        (click)="login(+amount)" >
+    </p>
+    <p>
+        <span> 200 </span>
+        <input name="amount" type="radio" value="200" [(ngModel)]="amount" 
+        (click)="login(+amount)" >
+    </p>
+    <p>
+        <span> 300 </span>
+        <input name="amount" type="radio" value="300" [(ngModel)]="amount" 
+        (click)="login(+amount)" >
+    </p>
+    <p>
+        <span> 400 </span>
+        <input name="amount" type="radio" value="400" [(ngModel)]="amount" 
+        (click)="login(+amount)" >
+    </p>
 
 </div>
 
