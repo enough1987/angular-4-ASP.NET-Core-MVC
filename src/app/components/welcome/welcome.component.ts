@@ -6,7 +6,7 @@ import { AuthService } from "app/index";
 
 
 @Component({
-  selector: 'welcome',
+  selector: 'app-welcome',
   templateUrl: './welcome.component.html',
   styleUrls: ['./welcome.component.scss']
 })

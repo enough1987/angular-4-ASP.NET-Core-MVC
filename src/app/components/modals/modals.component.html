@@ -86,15 +86,15 @@
         {{ authService.userInfo.email }}
     </p>
 
-    <error-msg 
+    <app-error-msg 
         *ngIf=" isShowenErrors "
         [msg]="'Please enter a valid confirmation code'" >
-    </error-msg>  
+    </app-error-msg>  
 
-    <error-msg 
+    <app-error-msg 
         *ngIf=" serverErrorMsg "
         [msg]=" serverErrorMsg " >
-    </error-msg>
+    </app-error-msg>
 
    <p class="modal__target pad__tb-small container__right"  > 
        <span class="modal__clickeble" 
@@ -131,15 +131,15 @@
         (keyup)="changeKey(key)" />
     </div>
 
-    <error-msg 
+    <app-error-msg 
         *ngIf=" isShowenErrors "
         [msg]="'Please enter a valid confirmation code'" >
-    </error-msg>  
+    </app-error-msg>  
 
-    <error-msg 
+    <app-error-msg 
         *ngIf=" serverErrorMsg "
         [msg]=" serverErrorMsg " >
-    </error-msg>
+    </app-error-msg>
 
 
    <p class="modal__target pad__tb-small container__right"  > 

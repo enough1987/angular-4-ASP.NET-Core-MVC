@@ -36,9 +36,9 @@
                     src="assets/images/ico-clear-sm.svg"  
                     (click)=" formData.controls.email.reset() " />  
                 </div>
-                <error-msg 
+                <app-error-msg 
 *ngIf=" formData.controls.email.invalid && ( formData.controls.email.touched || isShowenErrors ) "
-                    [msg]="'Please enter a valid email address'" ></error-msg>    
+                    [msg]="'Please enter a valid email address'" ></app-error-msg>    
 
                 <div class="btn-container input-contaner " 
 [class.input-contaner-error]="formData.controls.password.invalid && ( formData.controls.password.touched || isShowenErrors ) "  >
@@ -66,16 +66,16 @@
                         FORGOT?
                     </span>            
                 </div>
-                <error-msg 
+                <app-error-msg 
 *ngIf=" formData.controls.password.invalid && ( formData.controls.password.touched || isShowenErrors ) "
-                    [msg]="'Please enter combination of 6-35 numbers, letters or punctuation marks.'" ></error-msg>    
+                    [msg]="'Please enter combination of 6-35 numbers, letters or punctuation marks.'" ></app-error-msg>    
                 
             </form>      
 
 
-            <error-msg 
+            <app-error-msg 
 *ngIf=" serverErrorMsg && isShowenErrors "
-                    [msg]="serverErrorMsg" ></error-msg>  
+                    [msg]="serverErrorMsg" ></app-error-msg>  
 
                     
             <div class="pad__tb-middle pad__t-big">
@@ -125,9 +125,9 @@
                     src="assets/images/ico-clear-sm.svg"  
                     (click)=" formData.controls.fullName.reset() " />  
                 </div>
-                <error-msg 
+                <app-error-msg 
 *ngIf=" formData.controls.fullName.invalid && ( formData.controls.fullName.touched || isShowenErrors ) "
-                    [msg]="'Please enter combination of 3-30 numbers, letters.'" ></error-msg>  
+                    [msg]="'Please enter combination of 3-30 numbers, letters.'" ></app-error-msg>  
 
                 <div class="btn-container input-contaner " 
 [class.input-contaner-error]="formData.controls.email.invalid && ( formData.controls.email.touched || isShowenErrors ) " >
@@ -144,9 +144,9 @@
                     src="assets/images/ico-clear-sm.svg"  
                     (click)=" formData.controls.email.reset() " />  
                 </div>
-                <error-msg 
+                <app-error-msg 
 *ngIf=" formData.controls.email.invalid && ( formData.controls.email.touched || isShowenErrors ) "
-                    [msg]="'Please enter a valid email address'" ></error-msg>  
+                    [msg]="'Please enter a valid email address'" ></app-error-msg>  
 
                 <div class="btn-container input-contaner " 
 [class.input-contaner-error]="formData.controls.password.invalid && ( formData.controls.password.touched || isShowenErrors )" >
@@ -169,15 +169,15 @@
                     src="assets/images/ico-clear-sm.svg"  
                     (click)=" formData.controls.password.reset() " />                
                 </div>
-                <error-msg 
+                <app-error-msg 
 *ngIf=" formData.controls.password.invalid && ( formData.controls.password.touched || isShowenErrors ) "
-                    [msg]="'Please enter combination of 6-35 numbers, letters or punctuation marks.'" ></error-msg>    
+                    [msg]="'Please enter combination of 6-35 numbers, letters or punctuation marks.'" ></app-error-msg>    
   
             </form>    
 
-                <error-msg 
+                <app-error-msg 
 *ngIf=" serverErrorMsg && isShowenErrors "
-                    [msg]="serverErrorMsg" ></error-msg>    
+                    [msg]="serverErrorMsg" ></app-error-msg>    
 
             <div class="pad__tb-middle pad__t-big">
                 <button class="button button-pink-bgc button-big width-middle-plass"
@@ -242,15 +242,15 @@
                     src="assets/images/ico-clear-sm.svg"  
                     (click)=" formData.controls.email.reset() " />  
                 </div>
-                <error-msg 
+                <app-error-msg 
 *ngIf=" formData.controls.email.invalid && ( formData.controls.email.touched || isShowenErrors ) "
-                    [msg]="'Please enter a valid email address'" ></error-msg>   
+                    [msg]="'Please enter a valid email address'" ></app-error-msg>   
                 
             </form>   
 
-            <error-msg 
+            <app-error-msg 
 *ngIf=" serverErrorMsg && isShowenErrors "
-                    [msg]="serverErrorMsg" ></error-msg>      
+                    [msg]="serverErrorMsg" ></app-error-msg>      
 
             <div class="pad__tb-middle pad__t-big">
                 <button class="button button-pink-bgc button-big width-middle-plass"

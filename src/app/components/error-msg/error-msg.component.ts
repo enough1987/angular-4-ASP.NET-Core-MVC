@@ -3,7 +3,7 @@ import { FormControl } from "@angular/forms";
 
 
 @Component({
-  selector: 'error-msg',
+  selector: 'app-error-msg',
   templateUrl: './error-msg.component.html',
   styleUrls: ['./error-msg.component.scss']
 })

@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
-import { ActivatedRoute } from "@angular/router";
+import { ActivatedRoute, Router } from "@angular/router";
 
 import { PaypalService } from "app/index";
 
 
 @Component({
-  selector: 'payout',
+  selector: 'app-payout',
   templateUrl: './payout.component.html',
   styleUrls: ['./payout.component.scss']
 })
@@ -13,7 +13,7 @@ export class PayoutComponent {
 
   id: string = ''; 
 
-  constructor( private activatedRoute: ActivatedRoute, public paypalService: PaypalService ) { 
+  constructor( private activatedRoute: ActivatedRoute, private router: Router, public paypalService: PaypalService ) { 
   } 
 
   ngOnInit(){
@@ -22,12 +22,36 @@ export class PayoutComponent {
        console.log( 'ID : ' , this.id );
        if ( this.id == 'login' ) {
          this.paypalService.getAuthorizeUrl().subscribe((data)=>{});
-       } else if( this.id == 'payout' ) {
+       } 
+       if( this.id == 'payout' ) {
          this.paypalService.authorizeCode = this.activatedRoute.snapshot.queryParams["code"];
-         this.paypalService.getUserInfo();
+         if ( !this.paypalService.authorizeCode ) {
+           alert( " test - no authorizeCode " );
+           this.router.navigate(['/paypal/login']);
+         }
+         this.paypalService.getUserInfo().subscribe((data)=>{
+           if ( !this.paypalService.userinfo ) {
+             alert( " test - no userinfo " );
+             this.router.navigate(['/paypal/login']);
+           }
+         });;
        }
     });
   }
+
+  login(){
+    this.paypalService.login();
+  }
+
+  payout(amount: number) {
+    console.log( amount , ' || ' , this.paypalService.userinfo );
+    if( !amount || !this.paypalService.userinfo ) return;
+    this.paypalService.payout(amount).subscribe( (data) => {
+      console.log( data );
+    });
+  }
+
+
 
 
 }

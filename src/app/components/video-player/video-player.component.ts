@@ -9,7 +9,7 @@ export class VideoOptions {
 }
 
 @Component({
-    selector: 'video-player',
+    selector: 'app-video-player',
     templateUrl: './video-player.component.html',
     styleUrls: ['./video-player.component.scss']
 })

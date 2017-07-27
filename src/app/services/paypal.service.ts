@@ -10,7 +10,7 @@ export class PaypalService {
 
     private origin = "http://localhost:3000";
     authorizeCode: string;
-    userInfo:any = {};
+    userinfo:any = {};
 
 
     constructor( public httpService: HttpService) {
@@ -35,13 +35,13 @@ export class PaypalService {
 
     getUserInfo = () => {
         console.log( " code ", this.authorizeCode );
-        this.httpService.post(
+        return this.httpService.post(
             this.origin + "/api/paypal/tokeninfoCreate", {
                 code: this.authorizeCode
             }).map((data: any) => {
                 console.log( data );
                 if (data.userinfo) {
-                    this.userInfo = data.userInfo;
+                    this.userinfo = data.userinfo;
                 }
                 return data;
             });
@@ -53,7 +53,7 @@ export class PaypalService {
             this.origin + "/api/paypal/payout", {
                 amount: amount,
                 currency: "USD",
-                email: this.userInfo.email,
+                email: this.userinfo.email,
                 description: "payout",
             });
     };

@@ -11,7 +11,7 @@ enum InfoTemplateCase {
 
 
 @Component({
-  selector: 'info',
+  selector: 'app-info',
   templateUrl: './info.component.html',
   styleUrls: ['./info.component.scss']
 })

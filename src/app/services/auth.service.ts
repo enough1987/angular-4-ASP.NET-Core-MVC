@@ -71,7 +71,7 @@ export class AuthService {
   private userPool: CognitoUserPool;
 
   private redirectToAuth: string = ""; // it uses for redirection to auth
-  private redirectFromAuth: string = "/welcome"; // it uses for redirection from auth
+  private redirectFromAuth: string = ""; // it uses for redirection from auth
 
   // AWS variebles starts
 

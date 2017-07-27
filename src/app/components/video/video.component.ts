@@ -8,7 +8,7 @@ import { VideoOptions } from "app/index";
 
 
 @Component({
-  selector: 'video',
+  selector: 'app-video',
   templateUrl: './video.component.html',
   styleUrls: ['./video.component.scss']
 })

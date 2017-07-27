@@ -7,7 +7,7 @@ import { ModalsService, AuthService } from "app/index";
 
 
 @Component({
-  selector: 'modals',
+  selector: 'app-modals',
   templateUrl: './modals.component.html',
   styleUrls: ['./modals.component.scss']
 })

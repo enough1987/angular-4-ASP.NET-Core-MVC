@@ -11,7 +11,7 @@ import { TypeOfModal, ModalsService, AuthService } from "app/index";
 
 
 @Component({
-  selector: 'auth-forms',
+  selector: 'app-auth-forms',
   templateUrl: './auth-forms.component.html',
   styleUrls: ['./auth-forms.component.scss']
 })
