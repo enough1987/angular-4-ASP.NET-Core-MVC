@@ -14,7 +14,7 @@ const PAYPAl_Client_SECRET = "EMZYaqV4VfiPfrBCVPZOsZAi17KJsLqIiQHRMiIRwd6MNEQnoC
 //const PAYPAl_Client_SECRET = "EMZYaqV4VfiPfrBCVPZOsZAi17KJsLqIiQHRMiIRwd6MNEQnoCOlPItkfXEwk4ihxVMxdX3xC8TgYBts"; // sandbox
 //const PAYPAl_Client_SECRET = "EKzPguIcTMP6d4DaMmyoSiFAhVG_S2Bt4W_Y9kMl1QM1zbf5ysviXIpxPkRYit4Osj33-LClnpWzYT_d"; // live 
 
-const paypalMode = "sandbox";
+const paypalMode = "sandbox"; 
 
 const paypal = require('paypal-rest-sdk');
 

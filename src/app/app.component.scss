@@ -1,12 +1,20 @@
 
 @font-face {
-    font-family: 'Open Sans'; 
+    font-family: 'Open Sans';
+    font-weight: 400; 
     src: url('/assets/Open_Sans/OpenSans-Light.ttf'); 
 }
 
 @font-face {
-    font-family: 'OpenSans-Semibold'; 
+    font-family: 'OpenSans-Semibold';
+    font-weight: 600; 
     src: url('/assets/Open_Sans/OpenSans-SemiBold.ttf'); 
+}
+
+@font-face {
+    font-family: 'OpenSans-Bold';
+    font-weight: 700;
+    src: url('/assets/Open_Sans/OpenSans-Bold.ttf'); 
 }
 
 @font-face {
@@ -16,6 +24,24 @@
 
 
 /* ******** */
+
+$font-size-small: 14px;
+
+$pale-grey: #eceff1;
+$pale-grey-two: #edf0f2;
+$barbie-pink: #ff5798;
+$light-navy-blue: #325b91;
+$slate: #4a5d76;
+$sand: #e7b48f;
+$dark-blue-grey-10: rgba(31, 54, 84, 0.1);
+$warm-pink: #ff3e7d;
+$almost-white: #d8d8d8;
+$cloudy-blue: #cedadf;
+$black: #000000;
+$bluegrey: #88a6b0;
+
+$bg-color: transparentize($pale-grey, 0.7);
+$link-color: $light-navy-blue;
 
 $main-light: white;
 $main-light-second: #f8fbfd;
