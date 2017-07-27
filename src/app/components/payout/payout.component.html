@@ -1,0 +1,27 @@
+
+<app-header>
+</app-header>
+
+
+<div class="main-container-in main-container-in-small pad__auth-form"
+    *ngIf=" id == 'login' " >
+
+    <button (click)="paypalService.login()"
+    > login </button>
+
+</div>
+
+<div class="main-container-in main-container-in-small pad__auth-form"
+    *ngIf=" id == 'payout' " >
+
+    <p class="balance" > balance </p>
+
+    <input name="amount" type="radio" value="100" [(ngModel)]="amount" >
+    <input name="amount" type="radio" value="200" [(ngModel)]="amount" >
+    <input name="amount" type="radio" value="300" [(ngModel)]="amount" >
+    <input name="amount" type="radio" value="400" [(ngModel)]="amount" >
+
+    <button (click)="paypalService.payout(+amount)"
+    > payout </button>
+
+</div>

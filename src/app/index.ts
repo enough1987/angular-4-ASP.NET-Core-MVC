@@ -3,6 +3,7 @@
 
 
 
+
 export { SettingService } from "app/services/settings.service";
 export { HelperService } from "app/services/helper.service";
 export { HttpService } from "app/services/http.service";
@@ -11,7 +12,7 @@ export { ModalsService } from "app/services/modals.servise";
 export { AuthService } from "app/services/auth.service";
 export { AuthGuardService } from "app/services/auth-guard.service";
 export { TitleService } from "app/services/title.service";
-
+export { PaypalService } from "app/services/paypal.service";
 
 export { ErrorMsgComponent } from "app/components/error-msg/error-msg.component";
 export { InfoComponent } from "app/components/info/info.component";
@@ -25,6 +26,7 @@ export { AppFooterComponent } from "app/components/app-footer/app-footer.compone
 export { AuthComponent } from "app/components/auth/auth.component";
 export { MainComponent } from "app/components/main/main.component";
 export { HomeComponent } from "app/components/home/home.component";
+export { PayoutComponent } from "app/components/payout/payout.component";
 export { AaaComponent } from "app/components/aaa/aaa.component";
 
 

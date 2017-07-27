@@ -13,14 +13,15 @@ import { RoutingModule } from "app/routing.module";
 
 import { SettingService, HelperService, HttpService, 
   WebSocketService, ModalsService,
-  AuthService, AuthGuardService, TitleService } from "app/index";
+  AuthService, AuthGuardService, TitleService,
+  PaypalService } from "app/index";
 
 
 import { ErrorMsgComponent, InfoComponent, VideoPlayerComponent, 
   ModalsComponent, WelcomeComponent, VideoComponent,
   AuthFormsComponent, AppHeaderComponent, MainComponent, 
   AuthComponent, AppFooterComponent, HomeComponent,
-AaaComponent } from "app/index";
+PayoutComponent, AaaComponent } from "app/index";
 
 
 import { AppComponent } from "app/app.component";
@@ -44,7 +45,8 @@ import { AppComponent } from "app/app.component";
     ModalsService,
     AuthService,
     AuthGuardService,
-    TitleService
+    TitleService,
+    PaypalService
   ],
   declarations: [
     AppComponent,
@@ -60,6 +62,7 @@ import { AppComponent } from "app/app.component";
     WelcomeComponent,
     VideoComponent,
     HomeComponent,
+    PayoutComponent,
     AaaComponent
   ],
   bootstrap: [AppComponent]
